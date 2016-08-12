@@ -5,12 +5,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class PagesController {
+	
+	@RequestMapping("/login")
+    public String login() {
+		//model.addAttribute("submenuModulosClasses", "");
+		return "login";
+    }
 
 	@RequestMapping("/")
     public String home() {
-		System.out.println("AAAAAAA");
 		//model.addAttribute("submenuModulosClasses", "");
 		return "home";
+    }
+	
+	/** INCLUDES **/
+	
+	@RequestMapping("/head.html")
+    public String head() {
+		return "include/head";
+    }
+	
+	@RequestMapping("/footer.html")
+    public String footer() {
+		return "include/footer";
     }
 	
 }
