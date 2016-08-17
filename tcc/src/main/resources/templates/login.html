@@ -1,13 +1,40 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" ng-app="App">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <object th:include="include/head"></object>
 </head>
-<body>
-	Index
+<body ng-controller="loginCtrl">
+	<div class="login-screen" style="margin: 50px;">
+		<form>
+			<div class="login-icon">
+				<h4>Welcome to <small>Mail App</small></h4>
+			</div>
 	
+			<div class="login-form">
+				<div class="form-group">
+					<input type="text" class="form-control login-field" value="" placeholder="Enter your name" id="login-name"> 
+					<label class="login-field-icon fui-user" for="login-name"></label>
+				</div>
+	
+				<div class="form-group">
+					<input type="password" class="form-control login-field" value="" placeholder="Password" id="login-pass"> 
+					<label class="login-field-icon fui-lock" for="login-pass"></label>
+				</div>
+	
+				<a class="btn btn-primary btn-lg btn-block" href="#">Log in</a> 
+				<a class="login-link" href="#">Lost your password?</a>
+				
+				<div class="clearfix">&nbsp;</div>
+				<a class="btn btn-primary btn-lg btn-block" href="#" ng-click="googleLogin()">Log in com Google</a> 
+				<a class="btn btn-primary btn-lg btn-block" href="#" ng-click="facebookLogin()">Log in com Facebook</a> 
+				<a class="btn btn-primary btn-lg btn-block" href="#" ng-click="linkedinLogin()">Log in com LinkedIn</a> 
+			</div>
+		</form>
+	</div>
+
 	<object th:include="include/footer"></object>
+	<script type="text/javascript" src="/js/controller/loginController.js"></script>
 </body>
 </html>
