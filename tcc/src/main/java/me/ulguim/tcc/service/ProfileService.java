@@ -1,5 +1,5 @@
 package me.ulguim.tcc.service;
 
-public class PerfilService {
+public class ProfileService {
 
 }

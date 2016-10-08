@@ -14,16 +14,16 @@
 	
 			<div class="login-form">
 				<div class="form-group">
-					<input type="text" class="form-control login-field" value="" placeholder="Enter your name" id="login-name"> 
+					<input type="text" class="form-control login-field" id="login-name" ng-model="view.login"> 
 					<label class="login-field-icon fui-user" for="login-name"></label>
 				</div>
 	
 				<div class="form-group">
-					<input type="password" class="form-control login-field" value="" placeholder="Password" id="login-pass"> 
+					<input type="password" class="form-control login-field" id="login-pass" ng-model="view.password"> 
 					<label class="login-field-icon fui-lock" for="login-pass"></label>
 				</div>
 	
-				<a class="btn btn-primary btn-lg btn-block" href="#">Log in</a> 
+				<a class="btn btn-primary btn-lg btn-block" href="#" ng-click="login()" ng-disabled="!view.login || !view.password">Log in</a> 
 				<a class="login-link" href="#">Lost your password?</a>
 				
 				<div class="clearfix">&nbsp;</div>
@@ -35,6 +35,7 @@
 	</div>
 
 	<object th:include="include/footer"></object>
+	<script type="text/javascript" src="/js/service/loginService.js"></script>
 	<script type="text/javascript" src="/js/controller/loginController.js"></script>
 </body>
 </html>

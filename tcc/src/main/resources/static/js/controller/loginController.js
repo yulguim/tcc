@@ -1,7 +1,12 @@
-app.controller("loginCtrl", ["$scope", "sessionService", "ajaxService", function ($scope, sessionService, ajaxService) {
-
-	var iniciarTela = function() {
-		console.log("Entrou!");
+app.controller("loginCtrl", ["$scope", "loginService", function ($scope, loginService) {
+	
+	$scope.view = {};
+	
+	$scope.login = function() {
+		var view = $scope.view;
+		loginService.doLogin(view).success(function() {
+			console.log("Deu bom!");
+		});
 	};
 	
 	$scope.googleLogin = function() {
@@ -16,5 +21,4 @@ app.controller("loginCtrl", ["$scope", "sessionService", "ajaxService", function
 		console.log("LinkedIn!");
 	};
      
-	iniciarTela();
 }]);
