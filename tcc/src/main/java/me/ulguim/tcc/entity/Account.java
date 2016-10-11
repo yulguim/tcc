@@ -16,12 +16,26 @@ public class Account extends BaseEntity implements Serializable {
 	@Id
 	private Long id;
 	
+	private String avatar;
+	
+	private String username;
+	
+	private String name;
+
 	private String email;
 	
 	private String password;
 	
 	public Account() {
 		
+	}
+	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 	public Account(String email, String password) {
@@ -51,6 +65,22 @@ public class Account extends BaseEntity implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

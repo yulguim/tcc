@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import in.k2s.sdk.web.profile.Profile;
 import in.k2s.sdk.web.validation.ValidationException;
+import me.ulguim.tcc.entity.Account;
 import me.ulguim.tcc.manager.LoginManager;
 import me.ulguim.tcc.view.LoginView;
 import me.ulguim.tcc.view.ProfileView;
@@ -26,8 +27,12 @@ public class LoginController {
 		Profile profile = loginManager.login(view);
 		//response.addCookie(createCookie(profile));
 		
+		Account account = profile.getUsuario();
 		ProfileView profileView = new ProfileView();
-		//profileView.setUsuario(((UsuarioImagikView) profile.getUsuario()).getName());
+		profileView.setAvatar(account.getAvatar());
+		profileView.setUsername(account.getUsername());
+		profileView.setName(account.getName());
+
 		return profileView;
 	}
 
