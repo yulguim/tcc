@@ -13,9 +13,9 @@ public class PagesController {
     }
 
 	@RequestMapping("/")
-    public String home() {
+    public String app() {
 		//model.addAttribute("submenuModulosClasses", "");
-		return "home";
+		return "app";
     }
 	
 	/** INCLUDES **/
