@@ -1,13 +1,34 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<object th:include="include/head"></object>
-</head>
-<body>
-	Index
-	
-	<object th:include="include/footer"></object>
-</body>
-</html>
+<section class="main-section partial-com-menu">
+	<div class="panel panel-section">
+		<div class="panel-heading">
+			<h3>Trocar Senha</h3>
+		</div>
+		<div class="panel-body">
+			<form class="form-horizontal" name="form">
+
+			  <div class="form-group">
+			    <label for="senha" class="col-md-2 control-label">Nova Senha</label>
+			    <div class="col-md-6">
+			      <input type="password" class="form-control" data-ng-model="conta.senha" data-ng-required="true" name="senha">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="confirmaSenha" class="col-md-2 control-label">Senha</label>
+			    <div class="col-md-6">
+			      <input type="password" class="form-control" data-ng-model="conta.confirmaSenha" data-ng-required="true" name="confirmaSenha">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <div class="col-md-offset-2 col-md-10">
+			    
+						<button data-ng-disabled="!form.$valid ||  conta.senha != conta.confirmaSenha" type="button" class="btn btn-default" data-ng-click="changePassword(conta)">Gravar</button>
+					    <span data-ng-if="conta.senha != conta.confirmaSenha && form.confirmaSenha.$dirty" id="helpBlock2" class="help-block">As senhas devem ser iguais</span> 
+				
+				
+					    
+			    </div>
+			  </div>
+			</form>
+		</div>
+	</div>
+</section>
