@@ -85,13 +85,13 @@
 		<dependency>
 			<groupId>in.k2s</groupId>
 			<artifactId>k2-sdk</artifactId>
-			<version>1.5.12</version>
+			<version>1.6.4</version>
 		</dependency>
 
 		<dependency>
 			<groupId>in.k2s.sdk</groupId>
 			<artifactId>spring-boot</artifactId>
-			<version>4.0.1</version>
+			<version>4.0.3</version>
 		</dependency>
 	</dependencies>
 

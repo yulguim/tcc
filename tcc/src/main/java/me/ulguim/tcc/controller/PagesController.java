@@ -18,8 +18,8 @@ public class PagesController {
 
 	@RequestMapping("/")
     public String app(Model model) {
-		model.addAttribute("cssList", ResourceList.getCSS());
-		model.addAttribute("jsList", ResourceList.getJS());
+		model.addAttribute("cssList", ResourceList.getCSS(null, "node_modules"));
+		model.addAttribute("jsList", ResourceList.getJS(null, "node_modules"));
 		return "app";
     }
 	

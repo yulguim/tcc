@@ -1,16 +1,11 @@
-var app = angular.module("App", ["ngSanitize", "ngRoute", "ui.bootstrap", 'ui.select'])
-
-.config(function(uiSelectConfig) {
-	  uiSelectConfig.theme = 'bootstrap';
-	  uiSelectConfig.appendToBody = true;
-});
+var app = angular.module("App", ["ngSanitize", "ngRoute"])
 
 app.run(function($rootScope, $http, $timeout, $route, $location) {
 	
 });
 
-app.controller("appCtrl", ["$scope", "sessionService", "ajaxService", function ($scope, sessionService, ajaxService) {
+app.controller("appCtrl", ["$scope", function ($scope) {
 
-	
+	console.log("aqui eh o app controller");
     
 }]);
