@@ -7,17 +7,7 @@
 <object th:each="css : ${cssList}" th:utext="${css}"></object>
 </head>
 <body ng-controller="appCtrl">
-	<div class="navbar-fixed">
-		<nav>
-			<div class="nav-wrapper">
-				<a href="#!" class="brand-logo">Logo</a>
-				<ul class="right hide-on-med-and-down">
-					<li><a href="#">Sass</a></li>
-					<li><a href="#">Components</a></li>
-				</ul>
-			</div>
-		</nav>
-	</div>
+	<object th:include="include/nav"></object>
 	<div ng-view=""></div>
 	<object th:include="include/footer"></object>
 	<object th:each="js : ${jsList}" th:utext="${js}"></object>

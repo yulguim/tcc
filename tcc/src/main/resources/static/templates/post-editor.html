@@ -1,0 +1,15 @@
+<div class="row">
+	<form class="col s12">
+		<div class="row">
+			<button class="btn-floating waves-effect waves-light red" ng-click="showEditor = !showEditor">
+				<i class="material-icons">{{!showEditor ? 'add' : 'remove'}}</i>
+			</button>
+		</div>
+		<div class="row" ng-show="showEditor">
+			<div class="input-field col s12">
+				<textarea id="textarea1" class="materialize-textarea"></textarea>
+				<label for="textarea1">Conteúdo</label>
+			</div>
+		</div>
+	</form>
+</div>

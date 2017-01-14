@@ -35,11 +35,26 @@ public class PagesController {
 		return "include/footer";
     }
 	
+	@RequestMapping("/nav.html")
+    public String nav() {
+		return "include/nav";
+    }
+	
 	/** PARTIALS **/
 	
 	@RequestMapping("/home.html")
 	public String home() throws ValidationException {
 		return "partials/home";
+	}
+	
+	@RequestMapping("/contatos.html")
+	public String contatos() throws ValidationException {
+		return "partials/contatos";
+	}
+	
+	@RequestMapping("/mensagens.html")
+	public String mensagens() throws ValidationException {
+		return "partials/mensagens";
 	}
 	
 }

@@ -1,0 +1,35 @@
+<div class="container">
+	<div class="row">
+		<div class="col s12" style="margin-top: 5px;">
+			<div class="col s6">
+				<h3>Meus contatos</h3>
+			</div>
+			<div class="col s6">
+				<div class="input-field col s12" style="float:right;">
+					<input id="search" type="text" ng-model="search.$"> 
+					<label for="search">Pesquisar</label>
+				</div>
+			</div>
+			<div class="clearfix">&nbsp;</div>
+			<!-- CONTATOS -->
+			<div class="row">
+				<div class="col s4" ng-repeat="c in contatos | filter:search">
+					<div class="card small">
+						<div class="card-image">
+							<img ng-src="{{c.avatar}}"> 
+							<span class="card-title">{{c.label}}</span>
+						</div>
+						<div class="card-content">
+							<p>{{c.ocupacao}}</p>
+							<p>{{c.localizacao}}</p>
+						</div>
+						<div class="card-action">
+							<a href="#">Mensagem</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- FIM CONTATOS -->
+		</div>
+	</div>
+</div>
