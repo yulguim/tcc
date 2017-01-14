@@ -12,7 +12,6 @@ public class PagesController {
 	
 	@RequestMapping("/login")
     public String login() {
-		//model.addAttribute("submenuModulosClasses", "");
 		return "login";
     }
 
@@ -50,6 +49,11 @@ public class PagesController {
 	@RequestMapping("/contatos.html")
 	public String contatos() throws ValidationException {
 		return "partials/contatos";
+	}
+	
+	@RequestMapping("/profile.html")
+	public String profile() throws ValidationException {
+		return "partials/profile";
 	}
 	
 	@RequestMapping("/mensagens.html")
