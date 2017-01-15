@@ -1,7 +1,8 @@
-app.controller("profileCtrl", ["$scope", "profileService", function ($scope, profileService) {
+app.controller("profileCtrl", ["$scope", '$routeParams', "profileService", function ($scope, $routeParams, profileService) {
 	
 	var iniciarTela = function() {
-		//routeParams
+		var key = $routeParams.key;
+		console.log(key);
 	};
      
 	iniciarTela();

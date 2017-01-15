@@ -6,7 +6,7 @@ app.directive('timeline', function() {
     },
     templateUrl: '/templates/timeline.html',
     link: function (scope) {
-    	console.log(scope.posts);
+
     }
   };
 });

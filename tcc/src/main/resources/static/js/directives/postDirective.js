@@ -6,7 +6,7 @@ app.directive('postEditor', function() {
     },
     templateUrl: '/templates/post-editor.html',
     link: function (scope) {
-    	console.log(scope.post);
+
     }
   };
 });
