@@ -9,11 +9,6 @@ import in.k2s.sdk.web.validation.ValidationException;
 
 @Controller
 public class PagesController {
-	
-	@RequestMapping("/login")
-    public String login() {
-		return "login";
-    }
 
 	@RequestMapping("/")
     public String app(Model model) {
