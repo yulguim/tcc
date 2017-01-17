@@ -1,9 +1,15 @@
 package me.ulguim.tcc.controller;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import in.k2s.sdk.springboot.controller.annotation.ControllerSecurity;
+import in.k2s.sdk.springboot.singleton.ProfileSingleton;
+import me.ulguim.tcc.controller.base.TCCBaseController;
+import me.ulguim.tcc.view.AccountView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,9 +27,17 @@ import me.ulguim.tcc.view.ProfileView;
 
 @Controller
 @ControllerSecurity(ControllerSecurity.Security.PUBLIC)
-public class LoginController {
+public class LoginController extends TCCBaseController {
+
+	@Value(value="${cookie.name}")
+	private String cookieName;
+	@Value(value="${cookie.domain}")
+	private String cookieDomain;
 	
-	@Autowired LoginManager loginManager;
+	@Autowired
+	LoginManager loginManager;
+	@Autowired
+	ProfileSingleton profileSingleton;
 
 	@RequestMapping("/login")
 	public String login() {
@@ -33,7 +47,7 @@ public class LoginController {
 	@RequestMapping(value="/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public @ResponseBody ProfileView login(@RequestBody LoginView view, HttpServletResponse response) throws ValidationException {		
 		Profile profile = loginManager.login(view);
-		//response.addCookie(createCookie(profile));
+		response.addCookie(createCookie(profile));
 		
 		Account account = profile.getUsuario();
 		ProfileView profileView = new ProfileView();
@@ -45,10 +59,43 @@ public class LoginController {
 	}
 
 	@RequestMapping(value="/logoff", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public @ResponseBody ProfileView logoff(@RequestBody LoginView view, HttpServletResponse response) throws ValidationException {
+	public String logoff(@RequestBody LoginView view, HttpServletRequest request, HttpServletResponse response) throws ValidationException {
+		Cookie[] cookies = request.getCookies();
+		if(cookies != null) {
+			for(Cookie cookie : cookies) {
+				if(cookieName.equals(cookie.getName()) && profileSingleton.get(cookie.getValue()) != null) profileSingleton.remove(cookie.getValue());
+			}
+		}
+		Cookie cookie = new Cookie(cookieName, "INVALID");
+		cookie.setMaxAge(0);
+		cookie.setDomain(cookieDomain);
+		cookie.setPath("/");
+		response.addCookie(cookie);
 
+		return "redirect:login";
+	}
+
+	/**
+	 * REGISTRAR CONTA
+	 */
+
+	@RequestMapping(value="/signin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public @ResponseBody ProfileView signin(@RequestBody AccountView view, HttpServletResponse response) throws ValidationException {
 		ProfileView profileView = new ProfileView();
 		return profileView;
+	}
+
+	/**
+	 * PRIVATE
+	 */
+
+	private Cookie createCookie(Profile profile) {
+		Cookie cookie = new Cookie(cookieName, (String) profile.getParam("cookie"));
+		cookie.setMaxAge(60 * 60 * 24); //Um dia
+		cookie.setDomain(cookieDomain);
+		cookie.setPath("/");
+
+		return cookie;
 	}
 
 }

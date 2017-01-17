@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$USER_HOME$/git/k2-sdk/k2-sdk/k2-sdk.iml" filepath="$USER_HOME$/git/k2-sdk/k2-sdk/k2-sdk.iml" />
+      <module fileurl="file://$USER_HOME$/git/k2-sdk-spring-boot/k2-sdk-spring-boot/spring-boot.iml" filepath="$USER_HOME$/git/k2-sdk-spring-boot/k2-sdk-spring-boot/spring-boot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tcc/tcc.iml" filepath="$PROJECT_DIR$/tcc/tcc.iml" />
+    </modules>
+  </component>
+</project>

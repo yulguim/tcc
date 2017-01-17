@@ -29,6 +29,11 @@ public class Account extends BaseEntity implements Serializable {
 	public Account() {
 		
 	}
+
+	public Account(String email, String password) {
+		this.email = email;
+		this.password = password;
+	}
 	
 	public String getUsername() {
 		return username;
@@ -36,11 +41,6 @@ public class Account extends BaseEntity implements Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-	
-	public Account(String email, String password) {
-		this.email = email;
-		this.password = password;
 	}
 
 	public Long getId() {
