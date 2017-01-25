@@ -37,4 +37,9 @@ public class ContatosController extends TCCBaseController {
 		return contatosManager.load(getProfile(), view);
 	}
 
+	@RequestMapping(value="/{view.key}", method = RequestMethod.DELETE)
+	public ContatoView delete(ContatoView view) throws ValidationException {
+		return contatosManager.load(getProfile(), view);
+	}
+
 }
