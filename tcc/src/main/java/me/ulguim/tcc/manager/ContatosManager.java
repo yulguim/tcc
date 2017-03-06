@@ -12,12 +12,17 @@ import me.ulguim.tcc.view.LoginView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.lang.ref.SoftReference;
 import java.util.List;
 
 @Component
 public class ContatosManager {
 
 	public List<ContatoView> list(Profile profile) {
+		StringBuilder hello = new StringBuilder().append("hello");
+		SoftReference<StringBuilder> soft = new SoftReference<StringBuilder>(hello);
+
+		hello = null;
 		return null;
 	}
 
