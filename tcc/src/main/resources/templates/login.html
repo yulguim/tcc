@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
-<body ng-controller="loginCtrl" class="body-login-page">
+<body ng-controller="loginCtrl as vm" class="body-login-page">
 	<div class="navbar-fixed">
 		<nav>
 			<div class="nav-wrapper">
@@ -27,40 +27,51 @@
 			<div class="col s2">&nbsp;</div>
 			<div class="col s8 login-container">
 				<form class="col s12">
-					<!-- 					<div class="row"> -->
-					<!-- 						<div class="input-field col s6"> -->
-					<!-- 							<input placeholder="Placeholder" id="first_name" type="text" class="validate">  -->
-					<!-- 							<label for="first_name">First Name</label> -->
-					<!-- 						</div> -->
-					<!-- 						<div class="input-field col s6"> -->
-					<!-- 							<input id="last_name" type="text" class="validate">  -->
-					<!-- 							<label for="last_name">Last Name</label> -->
-					<!-- 						</div> -->
-					<!-- 					</div> -->
+					<div ng-show="showCadastro">
+						<div class="row">
+							<div class="input-field col s6">
+								<input id="first_name" type="text" class="validate" ng-model="vm.view.nome">
+								<label for="first_name">Nome</label>
+							</div>
+							<div class="input-field col s6">
+								<input id="last_name" type="text" class="validate" ng-model="vm.view.sobrenome">
+								<label for="last_name">Sobrenome</label>
+							</div>
+						</div>
+					</div>
 					<div class="row">
 						<div class="input-field col s12">
-							<input id="email" type="email" class="validate"> 
+							<input id="email" type="email" class="validate" ng-model="vm.view.email">
 							<label for="email">Email</label>
 						</div>
 					</div>
 					<div class="row">
 						<div class="input-field col s12">
-							<input id="password" type="password" class="validate"> 
+							<input id="password" type="password" class="validate" ng-model="vm.view.password">
 							<label for="password">Password</label>
 						</div>
 					</div>
-					<div class="row">
-						<a class="waves-effect waves-light btn-large">Login</a>
-<!-- 						<a class="waves-effect waves-light btn-large"><i class="material-icons left">cloud</i>button</a> -->
-<!-- 						<a class="waves-effect waves-light btn-large"><i class="material-icons right">cloud</i>button</a> -->
+					<div ng-show="!showCadastro">
+						<div class="row">
+							<a class="waves-effect waves-light btn-large" ng-click="vm.doLogin(vm.view)">Login</a>
+						</div>
+						<div class="row">
+							<h4>ou</h4>
+						</div>
+						<div class="row">
+							<a class="waves-effect waves-light btn-large" href="#">Facebook Login</a>
+							<a class="waves-effect waves-light btn-large">LinkedIn Login</a>
+							<a class="waves-effect waves-light btn-large">Google Login</a>
+						</div>
+						<div class="row">
+							<a class="waves-effect waves-light btn-large" ng-click="showCadastro = true">Cadastre-se</a>
+						</div>
 					</div>
-					<div class="row">
-						<h4>ou</h4>
-					</div>
-					<div class="row">
-						<a class="waves-effect waves-light btn-large" href="#" ng-click="login()">Facebook Login</a>
-						<a class="waves-effect waves-light btn-large">LinkedIn Login</a>
-						<a class="waves-effect waves-light btn-large">Google Login</a>
+					<div ng-show="showCadastro">
+						<div class="row">
+							<a class="waves-effect waves-light btn-large" href="#" ng-click="vm.cadastrar(vm.view)">Cadastrar</a>
+							<a class="waves-effect waves-light btn-large" ng-click="showCadastro = false">Cancelar</a>
+						</div>
 					</div>
 				</form>
 			</div>
@@ -76,6 +87,8 @@
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.min.js"></script>
 	
 	<script type="text/javascript" src="/js/app/publicApp@ignore.js"></script>
+	<script type="text/javascript" src="/js/comum/comum.js"></script>
 	<script type="text/javascript" src="/js/controller/loginController@ignore.js"></script>
+	<script type="text/javascript" src="/js/service/loginService.js"></script>
 </body>
 </html>

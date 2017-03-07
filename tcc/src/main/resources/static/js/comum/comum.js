@@ -88,7 +88,7 @@ app.factory('httpInterceptorService', ['$q', 'feedbackService', function($q, fee
         'responseError' : function(rejection) {
         	feedbackService.hideNotify();
             if(rejection.status === 401) {
-            	window.location = '/publico#/';
+            	window.location = '/login/';
             } else if(rejection.status === 402) {
             	//console.log('Pagamento Pendente - 402');
             } else if(rejection.status === 403) {
@@ -104,7 +104,7 @@ app.factory('httpInterceptorService', ['$q', 'feedbackService', function($q, fee
 
 //Usar URLS com barra antes (ex.: /login)
 app.factory("ajaxService", ["$http", function($http) {
-	var _baseUrl = "/admin";
+	var _baseUrl = "";
 
     var _get = function(url) {
         return $http.get(_baseUrl+url);

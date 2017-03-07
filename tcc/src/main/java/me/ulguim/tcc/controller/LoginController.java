@@ -33,11 +33,11 @@ public class LoginController extends TCCBaseController {
 	private String cookieName;
 	@Value(value="${cookie.domain}")
 	private String cookieDomain;
-	
+
 	@Autowired
-	LoginManager loginManager;
+	private LoginManager loginManager;
 	@Autowired
-	ProfileSingleton profileSingleton;
+	private ProfileSingleton profileSingleton;
 
 	@RequestMapping("/login")
 	public String login() {
