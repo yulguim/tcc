@@ -173,3 +173,5 @@ jboss/server/minimal/work/**/*
 hs_err_pid*
 
 # End of https://www.gitignore.io/api/intellij,macos,java,eclipse,jboss
+
+.idea/
