@@ -3,6 +3,8 @@ package me.ulguim.tcc.view;
 import in.k2s.sdk.web.view.BaseView;
 import in.k2s.sdk.web.view.annotation.View;
 
+import javax.validation.constraints.NotNull;
+
 @View
 public class AccountView extends BaseView {
 	private static final long serialVersionUID = 1L;
@@ -10,8 +12,10 @@ public class AccountView extends BaseView {
 	private String login;
 
 	private String email;
-	
+
 	private String password;
+
+	private String key;
 
 	//Cadastro
 	private String nome;
@@ -59,5 +63,13 @@ public class AccountView extends BaseView {
 
 	public void setSobrenome(String sobrenome) {
 		this.sobrenome = sobrenome;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
 	}
 }

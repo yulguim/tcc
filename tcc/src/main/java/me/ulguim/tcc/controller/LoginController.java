@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import in.k2s.sdk.springboot.controller.annotation.ControllerSecurity;
 import in.k2s.sdk.springboot.singleton.ProfileSingleton;
 import me.ulguim.tcc.controller.base.TCCBaseController;
+import me.ulguim.tcc.manager.SigninManager;
 import me.ulguim.tcc.view.AccountView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,6 +37,8 @@ public class LoginController extends TCCBaseController {
 
 	@Autowired
 	private LoginManager loginManager;
+	@Autowired
+	private SigninManager signinManager;
 	@Autowired
 	private ProfileSingleton profileSingleton;
 
@@ -81,6 +84,9 @@ public class LoginController extends TCCBaseController {
 
 	@RequestMapping(value="/signin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public @ResponseBody ProfileView signin(@RequestBody AccountView view, HttpServletResponse response) throws ValidationException {
+		Profile profile = signinManager.signin(view);
+		response.addCookie(createCookie(profile));
+
 		ProfileView profileView = new ProfileView();
 		return profileView;
 	}

@@ -1,8 +1,6 @@
 app.controller("loginCtrl", ['$location', 'loginService', function ($location, loginService) {
 	var vm = this;
 
-	vm.view = {email: "yulle@tcc.io", password: "yulle"};
-
 	//functions
 	vm.doLogin = doLogin;
 	vm.googleLogin = googleLogin;
@@ -12,10 +10,10 @@ app.controller("loginCtrl", ['$location', 'loginService', function ($location, l
 
 	function doLogin(view) {
 		console.log(view);
-//		loginService.doLogin(view).success(function(view) {
-//			console.log("Deu bom!");
-//			console.log(view);
-//		});
+		loginService.doLogin(view).success(function(view) {
+			console.log(view);
+			//Redirect para home
+		});
 	};
 	
 	function googleLogin() {
@@ -33,8 +31,8 @@ app.controller("loginCtrl", ['$location', 'loginService', function ($location, l
 	function cadastrar(view) {
 		console.log(view);
 		loginService.cadastrar(view).success(function(view) {
-			console.log("Deu bom!");
 			console.log(view);
+			//Redirect para home
 		});
 	}
      

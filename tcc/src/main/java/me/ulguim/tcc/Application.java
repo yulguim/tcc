@@ -14,8 +14,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan(basePackages = {"in.k2s.sdk.jpa.entity", "me.yulle.tcc.entity"})
 @ComponentScan(basePackages = {"in.k2s.sdk.springboot"}, basePackageClasses = Application.class)
 @EnableJpaRepositories(basePackages = {"in.k2s.sdk.springboot.service.base", "me.yulle.tcc.service"})
-
-@SpringBootApplication
 public class Application {
 
 	public static void main(String[] args) {
