@@ -46,7 +46,7 @@ public class SigninManager extends TCCBaseManager {
 		view.setPassword(null);
 		view.setKey(entity.getChave());
 		Profile profile = new ProfileBean();
-		profile.setUsuario(view);
+		profile.setUsuario(entity);
 		profile.addParam("cookie", generateCookie(entity));
 		profileSingleton.add(profile);
 

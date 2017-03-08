@@ -9,8 +9,12 @@ import me.ulguim.tcc.entity.Account;
  */
 public abstract class TCCBaseManager extends BaseManager {
 
-	public Account getAccount(Profile profile) {
+	public Account getAccountLogada(Profile profile) {
 		return (Account) profile.getUsuario();
+	}
+
+	public Account getAccountLogadaLoaded(Profile profile) {
+		return super.load(Account.class, getAccountLogada(profile).getId());
 	}
 
 }

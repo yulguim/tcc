@@ -13,6 +13,7 @@ app.controller("loginCtrl", ['$location', 'loginService', function ($location, l
 		loginService.doLogin(view).success(function(view) {
 			console.log(view);
 			//Redirect para home
+			$location.path("/home");
 		});
 	};
 	
@@ -33,6 +34,7 @@ app.controller("loginCtrl", ['$location', 'loginService', function ($location, l
 		loginService.cadastrar(view).success(function(view) {
 			console.log(view);
 			//Redirect para home
+			$location.path("/home");
 		});
 	}
      

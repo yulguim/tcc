@@ -2,12 +2,13 @@ package me.ulguim.tcc.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import in.k2s.sdk.jpa.entity.BaseEntity;
+import me.ulguim.tcc.bean.ExtraParamsBean;
+import me.ulguim.tcc.entity.converter.ExtraParamsConverter;
 
 @Entity
 @Table(name="account")
@@ -29,10 +30,18 @@ public class Account extends BaseEntity implements Serializable {
 	
 	private String password;
 
+	@Column(name = "extra_params")
+	@Convert(converter = ExtraParamsConverter.class)
+	private ExtraParamsBean extraParams;
+
 	private String chave;
+	@Column(name = "insert_time")
 	private Timestamp insertTime;
+	@Column(name = "update_time")
 	private Timestamp updateTime;
+	@Column(name = "insert_by")
 	private Timestamp insertBy;
+	@Column(name = "update_by")
 	private Timestamp updateBy;
 
 	public Account() {
@@ -138,5 +147,13 @@ public class Account extends BaseEntity implements Serializable {
 
 	public void setUpdateBy(Timestamp updateBy) {
 		this.updateBy = updateBy;
+	}
+
+	public ExtraParamsBean getExtraParams() {
+		return extraParams;
+	}
+
+	public void setExtraParams(ExtraParamsBean extraParams) {
+		this.extraParams = extraParams;
 	}
 }

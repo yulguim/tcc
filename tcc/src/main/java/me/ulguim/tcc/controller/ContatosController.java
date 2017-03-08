@@ -20,16 +20,21 @@ import java.util.List;
 
 @RestController
 @ControllerSecurity(ControllerSecurity.Security.PRIVATE)
-@RequestMapping(value="/contatos",
+@RequestMapping(value="/contato",
 		produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 public class ContatosController extends TCCBaseController {
 
 	@Autowired
-	ContatosManager contatosManager;
+	private ContatosManager contatosManager;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public List<ContatoView> list() throws ValidationException {
 		return contatosManager.list(getProfile());
+	}
+
+	@RequestMapping(value="/accept/{view.key}", method = RequestMethod.GET)
+	public ContatoView acceptRequest(ContatoView view) throws ValidationException {
+		return contatosManager.acceptRequest(getProfile(), view);
 	}
 
 	@RequestMapping(value="/{view.key}", method = RequestMethod.GET)
@@ -38,7 +43,7 @@ public class ContatosController extends TCCBaseController {
 	}
 
 	@RequestMapping(value="/{view.key}", method = RequestMethod.DELETE)
-	public ContatoView delete(ContatoView view) throws ValidationException {
+	public ContatoView unfriend(ContatoView view) throws ValidationException {
 		return contatosManager.load(getProfile(), view);
 	}
 

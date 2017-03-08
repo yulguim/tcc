@@ -1,5 +1,11 @@
-app.controller("homeCtrl", ["$scope", "homeService", function ($scope, homeService) {
-	
-	$scope.mensagem = "eitaaa nóis";
-     
+app.controller("homeCtrl", ["homeService", function (homeService) {
+	var vm = this;
+
+	vm.mensagem = "eitaaa nóis";
+
+	function iniciarTela() {
+		console.log(vm.mensagem);
+	}
+
+	iniciarTela();
 }]);
