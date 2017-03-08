@@ -1,5 +1,6 @@
 package me.ulguim.tcc.manager;
 
+import me.ulguim.tcc.util.CookieHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,7 +29,8 @@ public class LoginManager {
 
 		Profile profile = new ProfileBean();
 		profile.setUsuario(entity);
-		
+		profile.addParam("cookie", CookieHelper.generateCookie(String.valueOf(entity.getChave())));
+
 		return profile;
 	}
 

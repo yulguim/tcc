@@ -12,6 +12,7 @@ import in.k2s.sdk.web.validation.ValidationException;
 import me.ulguim.tcc.entity.Account;
 import me.ulguim.tcc.manager.base.TCCBaseManager;
 import me.ulguim.tcc.service.AccountService;
+import me.ulguim.tcc.util.CookieHelper;
 import me.ulguim.tcc.view.AccountView;
 import me.ulguim.tcc.view.ContatoView;
 import org.apache.commons.lang3.StringUtils;
@@ -47,19 +48,11 @@ public class SigninManager extends TCCBaseManager {
 		view.setKey(entity.getChave());
 		Profile profile = new ProfileBean();
 		profile.setUsuario(entity);
-		profile.addParam("cookie", generateCookie(entity));
+		profile.addParam("cookie", CookieHelper.generateCookie(entity.getChave()));
 		profileSingleton.add(profile);
 
 		return profile;
 
-	}
-
-	private String generateCookie(final Account entity) {
-		StringBuilder cookie = new StringBuilder();
-		cookie.append(entity.getChave());
-		cookie.append(entity.getId());
-		cookie.append(DataUtil.format(DataUtil.getTimestamp(), "yyyy-MMM-dd mm:HH:ss:sss"));
-		return HashSHA.SHA512(cookie.toString());
 	}
 
 	private void validate(AccountView view) throws ValidationException {

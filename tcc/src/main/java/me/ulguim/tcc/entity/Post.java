@@ -7,11 +7,11 @@ import java.io.Serializable;
 /**
  * Created by yulle on 17/01/17.
  */
-public class Contato extends BaseEntity implements Serializable {
+public class Post extends BaseEntity implements Serializable {
 
 	private Long id;
 
-	public Contato() {
+	public Post() {
 
 	}
 

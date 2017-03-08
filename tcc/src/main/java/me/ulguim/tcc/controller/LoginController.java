@@ -57,12 +57,11 @@ public class LoginController extends TCCBaseController {
 		profileView.setAvatar(account.getAvatar());
 		profileView.setUsername(account.getUsername());
 		profileView.setName(account.getName());
-
 		return profileView;
 	}
 
-	@RequestMapping(value="/logoff", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public String logoff(@RequestBody LoginView view, HttpServletRequest request, HttpServletResponse response) throws ValidationException {
+	@RequestMapping(value="/logoff", method = RequestMethod.GET)
+	public String logoff(HttpServletRequest request, HttpServletResponse response) throws ValidationException {
 		Cookie[] cookies = request.getCookies();
 		if(cookies != null) {
 			for(Cookie cookie : cookies) {
@@ -87,7 +86,11 @@ public class LoginController extends TCCBaseController {
 		Profile profile = signinManager.signin(view);
 		response.addCookie(createCookie(profile));
 
+		Account account = profile.getUsuario();
 		ProfileView profileView = new ProfileView();
+		profileView.setAvatar(account.getAvatar());
+		profileView.setUsername(account.getUsername());
+		profileView.setName(account.getName());
 		return profileView;
 	}
 
