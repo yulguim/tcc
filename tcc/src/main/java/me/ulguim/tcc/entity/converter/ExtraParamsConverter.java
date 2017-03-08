@@ -23,7 +23,7 @@ public class ExtraParamsConverter implements AttributeConverter<ExtraParamsBean,
 
 	@Override
 	public ExtraParamsBean convertToEntityAttribute(String json) {
-		if(json == null) return null;
+		if(json == null) return new ExtraParamsBean();
 		return gson.fromJson(json, ExtraParamsBean.class);
 	}
 

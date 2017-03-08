@@ -2,6 +2,7 @@ package me.ulguim.tcc.bean;
 
 import in.k2s.sdk.core.bean.BaseBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,13 +10,21 @@ import java.util.List;
  */
 public class ExtraParamsBean extends BaseBean {
 
-	private List<String> requests;
+	private List<Long> requests = new ArrayList<>();
 
-	public List<String> getRequests() {
+	public List<Long> getRequests() {
 		return requests;
 	}
 
-	public void setRequests(List<String> requests) {
+	public void setRequests(List<Long> requests) {
 		this.requests = requests;
+	}
+
+	public void addRequest(Long id) {
+		this.requests.add(id);
+	}
+
+	public void removeRequest(Long id) {
+		this.requests.removeIf(l -> l.equals(id));
 	}
 }

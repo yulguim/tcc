@@ -32,14 +32,19 @@ public class ContatosController extends TCCBaseController {
 		return contatosManager.list(getProfile());
 	}
 
+	@RequestMapping(value="/request/{view.key}", method = RequestMethod.GET)
+	public ContatoView request(ContatoView view) throws ValidationException {
+		return contatosManager.request(getProfile(), view);
+	}
+
 	@RequestMapping(value="/accept/{view.key}", method = RequestMethod.GET)
 	public ContatoView acceptRequest(ContatoView view) throws ValidationException {
 		return contatosManager.acceptRequest(getProfile(), view);
 	}
 
-	@RequestMapping(value="/{view.key}", method = RequestMethod.GET)
-	public ContatoView load(ContatoView view) throws ValidationException {
-		return contatosManager.load(getProfile(), view);
+	@RequestMapping(value="/ignore/{view.key}", method = RequestMethod.GET)
+	public ContatoView ignoreRequest(ContatoView view) throws ValidationException {
+		return contatosManager.ignoreRequest(getProfile(), view);
 	}
 
 	@RequestMapping(value="/{view.key}", method = RequestMethod.DELETE)
