@@ -34,6 +34,9 @@ public class Account extends BaseEntity implements Serializable {
 	@Convert(converter = ExtraParamsConverter.class)
 	private ExtraParamsBean extraParams;
 
+	@OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+	private List<Post> postList;
+
 	private String chave;
 	@Column(name = "insert_time")
 	private Timestamp insertTime;
@@ -155,5 +158,13 @@ public class Account extends BaseEntity implements Serializable {
 
 	public void setExtraParams(ExtraParamsBean extraParams) {
 		this.extraParams = extraParams;
+	}
+
+	public List<Post> getPostList() {
+		return postList;
+	}
+
+	public void setPostList(List<Post> postList) {
+		this.postList = postList;
 	}
 }

@@ -2,6 +2,7 @@ package me.ulguim.tcc.entity;
 
 import in.k2s.sdk.jpa.entity.BaseEntity;
 
+import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
@@ -9,6 +10,7 @@ import java.io.Serializable;
  */
 public class Contato extends BaseEntity implements Serializable {
 
+	@Id
 	private Long id;
 
 	public Contato() {
@@ -17,11 +19,11 @@ public class Contato extends BaseEntity implements Serializable {
 
 	@Override
 	public Long getId() {
-		return null;
+		return id;
 	}
 
 	@Override
 	public void setId(Long id) {
-
+		this.id = id;
 	}
 }
