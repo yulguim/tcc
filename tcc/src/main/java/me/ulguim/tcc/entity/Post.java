@@ -12,6 +12,8 @@ import java.util.List;
 /**
  * Created by yulle on 17/01/17.
  */
+@Entity
+@Table(name = "post")
 public class Post extends BaseEntity implements Serializable {
 
 	@Id

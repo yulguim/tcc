@@ -9,6 +9,7 @@ import javax.persistence.*;
 import in.k2s.sdk.jpa.entity.BaseEntity;
 import me.ulguim.tcc.bean.ExtraParamsBean;
 import me.ulguim.tcc.entity.converter.ExtraParamsConverter;
+import sun.misc.Perf;
 
 @Entity
 @Table(name="account")
@@ -33,6 +34,9 @@ public class Account extends BaseEntity implements Serializable {
 	@Column(name = "extra_params")
 	@Convert(converter = ExtraParamsConverter.class)
 	private ExtraParamsBean extraParams;
+
+	@OneToOne(fetch=FetchType.LAZY)
+	private Perfil profile;
 
 	@OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
 	private List<Post> postList;
@@ -166,5 +170,17 @@ public class Account extends BaseEntity implements Serializable {
 
 	public void setPostList(List<Post> postList) {
 		this.postList = postList;
+	}
+
+	public Perfil getProfile() {
+		return profile;
+	}
+
+	public void setProfile(Perfil profile) {
+		this.profile = profile;
+	}
+
+	public String getLabel() {
+		return this.name + " " + this.lastname;
 	}
 }

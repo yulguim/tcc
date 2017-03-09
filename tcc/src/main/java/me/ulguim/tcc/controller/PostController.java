@@ -4,6 +4,7 @@ import in.k2s.sdk.web.validation.ValidationException;
 import me.ulguim.tcc.controller.base.TCCBaseController;
 import me.ulguim.tcc.manager.ContatosManager;
 import me.ulguim.tcc.manager.PostManager;
+import me.ulguim.tcc.view.ComentarioView;
 import me.ulguim.tcc.view.ContatoView;
 import me.ulguim.tcc.view.PostView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,18 @@ public class PostController extends TCCBaseController {
 	@RequestMapping(value="/{view.key}", method = RequestMethod.DELETE)
 	public PostView delete(PostView view) throws ValidationException {
 		return postManager.delete(getProfile(), view);
+	}
+
+	/* COMENTARIOS */
+
+	@RequestMapping(value="/save-comment", method = RequestMethod.POST)
+	public ComentarioView saveComentario(ComentarioView view) throws ValidationException {
+		return postManager.saveComentario(getProfile(), view);
+	}
+
+	@RequestMapping(value="/delete-comment", method = RequestMethod.POST)
+	public ComentarioView deleteComentario(ComentarioView view) throws ValidationException {
+		return postManager.deleteComentario(getProfile(), view);
 	}
 
 }
