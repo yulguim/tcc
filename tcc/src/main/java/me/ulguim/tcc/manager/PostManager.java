@@ -28,23 +28,19 @@ public class PostManager extends TCCBaseManager {
 	public PostView load(Profile profile, PostView view) throws ValidationException {
 		Post entity = postService.selectByChave(Post.class, view.getKey());
 
+		view = PostParser.parse(entity);
+
 		return view;
 	}
 
 	public PostView save(Profile profile, PostView view) throws ValidationException {
 		validate(view);
-
-		Post entity;
-		if (view.getKey() == null) {
-			entity = PostParser.parse(view);
-			entity = super.save(entity, profile);
-		} else {
-			entity = postService.selectByChave(Post.class, view.getKey());
-			if (!isMyPost(profile, entity)) throw new ValidationException(new Message("error.save", MessageSeverity.ERROR));
-
-			//TODO update
-			entity = super.update(entity, profile);
+		if (view.getKey() != null) {
+			throw new ValidationException(new Message("error.save", MessageSeverity.ERROR));
 		}
+
+		Post entity = PostParser.parse(view);
+		entity = super.save(entity, profile);
 
 		return view;
 	}
@@ -77,7 +73,18 @@ public class PostManager extends TCCBaseManager {
 	}
 
 	public ComentarioView deleteComentario(Profile profile, ComentarioView view) throws ValidationException {
-		return null;
+		Account accountLogada = getAccountLogada(profile);
+
+		Post entity = postService.selectByChave(Post.class, view.getPostKey());
+		ComentarioBean comentarioBean = entity.getComentarioList().get(view.getIndex());
+		if (!comentarioBean.getIdUsuario().equals(accountLogada.getId())) {
+			throw new ValidationException(new Message("error.save", MessageSeverity.ERROR));
+		}
+
+		entity.getComentarioList().remove(comentarioBean);
+		super.update(entity, profile);
+
+		return view;
 	}
 
 	/* PRIVATE */

@@ -11,6 +11,8 @@ public class ComentarioView extends BaseView {
 
 	private String comentario;
 
+	private int index;
+
 	public ComentarioView() {
 		
 	}
@@ -29,5 +31,13 @@ public class ComentarioView extends BaseView {
 
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
+	}
+
+	public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
 	}
 }
