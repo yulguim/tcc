@@ -34,9 +34,9 @@ public class Post extends BaseEntity implements Serializable {
 	@Column(name = "update_time")
 	private Timestamp updateTime;
 	@Column(name = "insert_by")
-	private Timestamp insertBy;
+	private Long insertBy;
 	@Column(name = "update_by")
-	private Timestamp updateBy;
+	private Long updateBy;
 
 	public Post() {
 
@@ -100,19 +100,19 @@ public class Post extends BaseEntity implements Serializable {
 		this.updateTime = updateTime;
 	}
 
-	public Timestamp getInsertBy() {
+	public Long getInsertBy() {
 		return insertBy;
 	}
 
-	public void setInsertBy(Timestamp insertBy) {
+	public void setInsertBy(Long insertBy) {
 		this.insertBy = insertBy;
 	}
 
-	public Timestamp getUpdateBy() {
+	public Long getUpdateBy() {
 		return updateBy;
 	}
 
-	public void setUpdateBy(Timestamp updateBy) {
+	public void setUpdateBy(Long updateBy) {
 		this.updateBy = updateBy;
 	}
 }

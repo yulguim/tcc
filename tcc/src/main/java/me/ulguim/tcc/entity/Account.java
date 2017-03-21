@@ -35,7 +35,7 @@ public class Account extends BaseEntity implements Serializable {
 	@Convert(converter = ExtraParamsConverter.class)
 	private ExtraParamsBean extraParams;
 
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "account", cascade = CascadeType.ALL)
 	private Perfil profile;
 
 	@OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
@@ -47,9 +47,9 @@ public class Account extends BaseEntity implements Serializable {
 	@Column(name = "update_time")
 	private Timestamp updateTime;
 	@Column(name = "insert_by")
-	private Timestamp insertBy;
+	private Long insertBy;
 	@Column(name = "update_by")
-	private Timestamp updateBy;
+	private Long updateBy;
 
 	public Account() {
 		
@@ -140,19 +140,19 @@ public class Account extends BaseEntity implements Serializable {
 		this.updateTime = updateTime;
 	}
 
-	public Timestamp getInsertBy() {
+	public Long getInsertBy() {
 		return insertBy;
 	}
 
-	public void setInsertBy(Timestamp insertBy) {
+	public void setInsertBy(Long insertBy) {
 		this.insertBy = insertBy;
 	}
 
-	public Timestamp getUpdateBy() {
+	public Long getUpdateBy() {
 		return updateBy;
 	}
 
-	public void setUpdateBy(Timestamp updateBy) {
+	public void setUpdateBy(Long updateBy) {
 		this.updateBy = updateBy;
 	}
 

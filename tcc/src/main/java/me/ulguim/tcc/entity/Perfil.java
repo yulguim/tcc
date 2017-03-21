@@ -3,10 +3,7 @@ package me.ulguim.tcc.entity;
 import me.ulguim.tcc.bean.SocialNetwork;
 import me.ulguim.tcc.entity.Account;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -20,6 +17,18 @@ public class Perfil {
 	@Id
 	private Long id;
 
-	private List<SocialNetwork> socialNetworkList;
+	@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn
+	private Account account;
 
+//	private List<SocialNetwork> socialNetworkList;
+
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
 }

@@ -9,7 +9,6 @@ app.controller("loginCtrl", ['$location', 'loginService', function ($location, l
 	vm.cadastrar = cadastrar;
 
 	function doLogin(view) {
-		console.log(view);
 		loginService.doLogin(view).success(function(view) {
 			console.log(view);
 			//Redirect para home
@@ -30,11 +29,10 @@ app.controller("loginCtrl", ['$location', 'loginService', function ($location, l
 	};
 
 	function cadastrar(view) {
-		console.log(view);
 		loginService.cadastrar(view).success(function(view) {
 			console.log(view);
 			//Redirect para home
-			$location.path("/home");
+			$location.path("/profile-edit/");
 		});
 	}
      

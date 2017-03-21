@@ -11,9 +11,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @EnableAutoConfiguration(exclude = { JacksonAutoConfiguration.class })
-@EntityScan(basePackages = {"in.k2s.sdk.jpa.entity", "me.yulle.tcc.entity"})
+@EntityScan(basePackages = {"in.k2s.sdk.jpa.entity", "me.ulguim.tcc.entity"})
 @ComponentScan(basePackages = {"in.k2s.sdk.springboot"}, basePackageClasses = Application.class)
-@EnableJpaRepositories(basePackages = {"in.k2s.sdk.springboot.service.base", "me.yulle.tcc.service"})
+@EnableJpaRepositories(basePackages = {"in.k2s.sdk.springboot.service.base", "me.ulguim.tcc.service"})
 public class Application {
 
 	public static void main(String[] args) {

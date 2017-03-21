@@ -17,14 +17,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import in.k2s.sdk.web.profile.Profile;
 import in.k2s.sdk.web.validation.ValidationException;
 import me.ulguim.tcc.entity.Account;
 import me.ulguim.tcc.manager.LoginManager;
 import me.ulguim.tcc.view.LoginView;
-import me.ulguim.tcc.view.ProfileView;
+import me.ulguim.tcc.view.PerfilView;
 
 @Controller
 @ControllerSecurity(ControllerSecurity.Security.PUBLIC)
@@ -48,16 +47,19 @@ public class LoginController extends TCCBaseController {
 	}
 	
 	@RequestMapping(value="/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public @ResponseBody ProfileView login(@RequestBody LoginView view, HttpServletResponse response) throws ValidationException {		
+	public @ResponseBody
+	PerfilView login(@RequestBody LoginView view, HttpServletResponse response) throws ValidationException {
 		Profile profile = loginManager.login(view);
 		response.addCookie(createCookie(profile));
 		
 		Account account = profile.getUsuario();
-		ProfileView profileView = new ProfileView();
-		profileView.setAvatar(account.getAvatar());
-		profileView.setUsername(account.getUsername());
-		profileView.setName(account.getName());
-		return profileView;
+		PerfilView perfilView = new PerfilView();
+		perfilView.setAvatar(account.getAvatar());
+		perfilView.setUsername(account.getUsername());
+		perfilView.setName(account.getName());
+
+		profileSingleton.add(profile);
+		return perfilView;
 	}
 
 	@RequestMapping(value="/logoff", method = RequestMethod.GET)
@@ -82,16 +84,19 @@ public class LoginController extends TCCBaseController {
 	 */
 
 	@RequestMapping(value="/signin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public @ResponseBody ProfileView signin(@RequestBody AccountView view, HttpServletResponse response) throws ValidationException {
+	public @ResponseBody
+	PerfilView signin(@RequestBody AccountView view, HttpServletResponse response) throws ValidationException {
 		Profile profile = signinManager.signin(view);
 		response.addCookie(createCookie(profile));
 
 		Account account = profile.getUsuario();
-		ProfileView profileView = new ProfileView();
-		profileView.setAvatar(account.getAvatar());
-		profileView.setUsername(account.getUsername());
-		profileView.setName(account.getName());
-		return profileView;
+		PerfilView perfilView = new PerfilView();
+		perfilView.setAvatar(account.getAvatar());
+		perfilView.setUsername(account.getUsername());
+		perfilView.setName(account.getName());
+
+		profileSingleton.add(profile);
+		return perfilView;
 	}
 
 	/**

@@ -2,10 +2,8 @@ package me.ulguim.tcc.controller;
 
 import in.k2s.sdk.web.validation.ValidationException;
 import me.ulguim.tcc.controller.base.TCCBaseController;
-import me.ulguim.tcc.entity.Contato;
 import me.ulguim.tcc.manager.ContatosManager;
 import me.ulguim.tcc.view.ContatoView;
-import me.ulguim.tcc.view.ProfileView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

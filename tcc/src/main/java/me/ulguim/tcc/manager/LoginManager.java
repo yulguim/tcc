@@ -18,11 +18,11 @@ public class LoginManager {
 	@Autowired LoginService loginService;
 	
 	public Profile login(LoginView view) throws ValidationException {
-		if (view == null || view.getLogin() == null || view.getPassword() == null) {
+		if (view == null || view.getEmail() == null || view.getPassword() == null) {
 			throw new ValidationException(new Message("message.warn.auth"));
 		}
 		
-		Account entity = loginService.selectByEmailAndPassword(view.getLogin(), view.getPassword());
+		Account entity = loginService.selectByEmailAndPassword(view.getEmail(), view.getPassword());
 		if (entity == null) {
 			throw new ValidationException(new Message("message.warn.auth"));
 		}

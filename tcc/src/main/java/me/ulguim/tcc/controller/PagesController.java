@@ -50,6 +50,11 @@ public class PagesController {
 	public String profile() throws ValidationException {
 		return "partials/profile";
 	}
+
+	@RequestMapping("/profile-edit.html")
+	public String profileEdit() throws ValidationException {
+		return "partials/profile-edit";
+	}
 	
 	@RequestMapping("/mensagens.html")
 	public String mensagens() throws ValidationException {

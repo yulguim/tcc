@@ -4,16 +4,22 @@ import in.k2s.sdk.web.view.BaseView;
 import in.k2s.sdk.web.view.annotation.View;
 
 @View
-public class ProfileView extends BaseView {
+public class PerfilView extends BaseView {
 	private static final long serialVersionUID = 1L;
 
 	private String username;
 
 	private String name;
 
+	private String lastname;
+
 	private String avatar;
 
-	public ProfileView() {
+	//Extras
+
+	private Boolean hasNoProfile;
+
+	public PerfilView() {
 
 	}
 
@@ -41,4 +47,19 @@ public class ProfileView extends BaseView {
 		this.avatar = avatar;
 	}
 
+	public Boolean getHasNoProfile() {
+		return hasNoProfile;
+	}
+
+	public void setHasNoProfile(Boolean hasNoProfile) {
+		this.hasNoProfile = hasNoProfile;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
 }
