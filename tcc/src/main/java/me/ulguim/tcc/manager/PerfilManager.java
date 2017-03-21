@@ -29,4 +29,22 @@ public class PerfilManager extends TCCBaseManager {
 		return view;
 	}
 
+	public PerfilView save(Profile profile, PerfilView view) throws ValidationException {
+		//TODO validate
+
+		Perfil perfil = perfilService.selectPerfilByAccountId(getAccountLogada(profile).getId());
+		if (perfil == null) {
+			//novo perfil
+			perfil = new Perfil();
+			perfil.setAccount(getAccountLogadaLoaded(profile));
+			perfil = super.save(perfil, profile);
+
+			System.out.println("perfil = " + perfil);
+		} else {
+
+		}
+
+		return view;
+	}
+
 }

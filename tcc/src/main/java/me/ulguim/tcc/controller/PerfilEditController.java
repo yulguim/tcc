@@ -35,4 +35,9 @@ public class PerfilEditController extends TCCBaseController {
 		return perfilManager.meuPerfil(getProfile());
 	}
 
+	@RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public PerfilView save(PerfilView view) throws ValidationException {
+		return perfilManager.save(getProfile(), view);
+	}
+
 }
