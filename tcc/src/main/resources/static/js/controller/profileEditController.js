@@ -1,4 +1,4 @@
-app.controller("profileEditCtrl", ["$scope", '$routeParams', "profileEditService", function ($scope, $routeParams, profileEditService) {
+app.controller("profileEditCtrl", ["$scope", '$routeParams', "profileEditService", "localizacaoService", function ($scope, $routeParams, profileEditService, localizacaoService) {
     var vm = this;
 
     vm.view = {};
@@ -18,6 +18,12 @@ app.controller("profileEditCtrl", ["$scope", '$routeParams', "profileEditService
             if (vm.view.hasNoProfile) {
                 console.log("nao tem perfil");
             }
+
+            //TODO Remover
+            var cidade = "Flori";
+            localizacaoService.searchCidade(cidade).success(function (data) {
+               console.log(data);
+            });
 
             //Localização
             $('input.autocomplete').autocomplete({
