@@ -21,7 +21,7 @@ public class Estado extends BaseEntity implements Serializable {
 	private String sigla;
 
 	@OneToMany(mappedBy = "estado", fetch = FetchType.LAZY)
-	private List<Cidade> cidadeList;
+	private transient List<Cidade> cidadeList;
 
 	@Override
 	public Long getId() {

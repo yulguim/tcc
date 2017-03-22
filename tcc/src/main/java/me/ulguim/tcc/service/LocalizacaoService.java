@@ -11,8 +11,8 @@ import java.util.List;
 public class LocalizacaoService extends BaseService {
 	
 	public List<Cidade> selectCidadeByStr(String str) {
-		String QUERY = "SELECT obj FROM Cidade obj WHERE LOWER(obj.nome) LIKE '%?1'";
-		return super.selectByQuery(QUERY, str);
+		String QUERY = "SELECT obj FROM Cidade obj WHERE LOWER(obj.nome) LIKE '" + str.toLowerCase() + "%'";
+		return super.selectByQuery(QUERY);
 	}
 
 }

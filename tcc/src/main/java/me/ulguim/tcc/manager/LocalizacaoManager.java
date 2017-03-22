@@ -18,7 +18,8 @@ public class LocalizacaoManager extends TCCBaseManager {
 	private LocalizacaoService localizacaoService;
 
 	public List<Cidade> searchCidade(String str) {
-		return localizacaoService.selectCidadeByStr(str);
+		List<Cidade> cidades = localizacaoService.selectCidadeByStr(str);
+		return cidades;
 	}
 
 }
