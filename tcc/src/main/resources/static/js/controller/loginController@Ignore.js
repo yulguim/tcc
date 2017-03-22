@@ -10,9 +10,8 @@ app.controller("loginCtrl", ['$location', 'loginService', function ($location, l
 
 	function doLogin(view) {
 		loginService.doLogin(view).success(function(view) {
-			console.log(view);
 			//Redirect para home
-			$location.path("/home");
+            window.location = '/';
 		});
 	};
 	
@@ -30,9 +29,8 @@ app.controller("loginCtrl", ['$location', 'loginService', function ($location, l
 
 	function cadastrar(view) {
 		loginService.cadastrar(view).success(function(view) {
-			console.log(view);
 			//Redirect para home
-			$location.path("/profile-edit/");
+			window.location = '/#/profile-edit/';
 		});
 	}
      

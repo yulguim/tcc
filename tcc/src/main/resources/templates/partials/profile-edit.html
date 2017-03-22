@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row" ng-if="vm.view.hasNoProfile">
 		<div class="col s12">
-			<h3>Complete seu perfil</h3>
+			<h3>Complete seu perfil {{perfil.complete$}}</h3>
 		</div>
 	</div>
 	<div class="row">
@@ -16,6 +16,27 @@
 					<label class="active" for="last_name">Sobrenome</label>
 				</div>
 			</div>
+			<div clas="row">
+				<div class="input-field col s12">
+					<textarea id="about_me" class="validate materialize-textarea" ng-model="vm.view.about"></textarea>
+					<label for="about_me">Sobre mim</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<input type="text" id="autocomplete-input" class="autocomplete">
+					<label for="autocomplete-input">Minha localização</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<h4>Conhecimento</h4>
+					<div class="chips chips-autocomplete"></div>
+				</div>
+			</div>
+
+			Redes sociais
+
 			<div class="row">
 				<a class="waves-effect waves-light btn-large" ng-click="vm.salvarPerfil()">Salvar</a>
 			</div>
