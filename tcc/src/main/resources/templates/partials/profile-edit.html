@@ -1,64 +1,74 @@
 <div class="container">
-	<div class="row" ng-if="vm.view.hasNoProfile">
-		<div class="col s12">
-			<h3>Complete seu perfil {{perfil.complete$}}</h3>
-		</div>
-	</div>
-	<div class="row">
-		<form class="col s12">
-			<div class="row">
-				<div class="input-field col s6">
-					<input id="first_name" type="text" class="validate" ng-model="vm.view.name">
-					<label class="active" for="first_name">Nome</label>
-				</div>
-				<div class="input-field col s6">
-					<input id="last_name" type="text" class="validate" ng-model="vm.view.lastname">
-					<label class="active" for="last_name">Sobrenome</label>
-				</div>
-			</div>
-			<div clas="row">
-				<div class="input-field col s12">
-					<textarea id="about_me" class="validate materialize-textarea" ng-model="vm.view.about"></textarea>
-					<label for="about_me">Sobre mim</label>
-				</div>
-			</div>
-			<div class="row">
-				<div class="input-field col s12">
-					<input type="text" id="autocomplete-input" class="autocomplete" ng-model="vm.view.cidadeNome" ng-change="vm.procurarCidade(vm.view.cidadeNome)">
-					<label for="autocomplete-input">Minha localização</label>
-				</div>
-			</div>
-			<div class="row">
-				<div class="input-field col s12">
-					<h4>Conhecimento</h4>
-					<div class="chips chips-autocomplete"></div>
-				</div>
-			</div>
-			<div clas="row">
-				<div class="input-field col s12">
-					<h4>Meus links</h4>
-				</div>
-				<div class="col s12">
-					<div class="input-field col s2">
-						<select class="browser-default">
-							<option value="" disabled selected>Selecione</option>
-							<option value="FACEBOOK">Facebook</option>
-							<option value="LINKEDIN">Linked</option>
-							<option value="TWITTER">Twitter</option>
-						</select>
-					</div>
-					<div class="input-field col s8">
-						<input type="text">
-					</div>
-					<div class="input-field col s2">
-						<a class="waves-effect waves-light btn"><i class="material-icons">plus</i></a>
-					</div>
-				</div>
-			</div>
+    <div class="row" ng-if="vm.view.hasNoProfile">
+        <div class="col-md-12">
+            <h2>Complete seu perfil {{perfil.complete$}}</h2>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <form class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Nome *</label>
+                                <input type="text" class="form-control" ng-model="vm.view.name"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Sobrenome *</label>
+                                <input type="text" class="form-control" ng-model="vm.view.lastname"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div clas="row">
+                        <div class="form-group">
+                            <label>Sobre mim *</label>
+                            <textarea class="form-control" ng-model="vm.view.about"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label>Minha localização *</label>
+                            <input type="text" ng-model="vm.view.cidadeNome" uib-typeahead="location as location.label for location in vm.cidades" ng-change="vm.procurarCidade(vm.view.cidadeNome)" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label>Habilidades</label>
+                            <tags-input ng-model="vm.view.habilidades" display-property="label">
+                                <auto-complete source="vm.habilidades"></auto-complete>
+                            </tags-input>
+                        </div>
+                    </div>
+                    <div clas="row">
+                        <div class="input-field col s12">
+                            <h4>Meus links</h4>
+                        </div>
+                        <div class="col s12">
+                            <div class="input-field col s2">
+                                <select class="browser-default">
+                                    <option value="" disabled selected>Selecione</option>
+                                    <option value="FACEBOOK">Facebook</option>
+                                    <option value="LINKEDIN">Linked</option>
+                                    <option value="TWITTER">Twitter</option>
+                                </select>
+                            </div>
+                            <div class="input-field col s8">
+                                <input type="text">
+                            </div>
+                            <div class="input-field col s2">
+                                <a class="waves-effect waves-light btn"><i class="material-icons">plus</i></a>
+                            </div>
+                        </div>
+                    </div>
 
-			<div class="row">
-				<a class="waves-effect waves-light btn-large" ng-click="vm.salvarPerfil()">Salvar</a>
-			</div>
-		</form>
-	</div>
+                    <div class="row">
+                        <a class="waves-effect waves-light btn-large" ng-click="vm.salvarPerfil()">Salvar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

@@ -3,7 +3,7 @@ app.controller("profileEditCtrl", ["$scope", '$routeParams', "profileEditService
 
     vm.view = {};
     vm.cidades = [];
-    vm.cidadesNome = {};
+    vm.habilidades = [{label: 'Um'}, {label: 'Dois'}, {label: 'Três'}];
 
     //functions
     vm.procurarCidade = procurarCidade;
@@ -16,10 +16,7 @@ app.controller("profileEditCtrl", ["$scope", '$routeParams', "profileEditService
 
         localizacaoService.searchCidade(str).success(function (data) {
             vm.cidades = data.cidades;
-            vm.cidadesNome = data.cidadesNome;
             console.log(vm.cidades);
-            console.log(vm.cidadesNome);
-
         });
     }
 
@@ -32,8 +29,9 @@ app.controller("profileEditCtrl", ["$scope", '$routeParams', "profileEditService
 	var iniciarTela = function() {
         profileEditService.initialData().success(function(data) {
             vm.view = data.formData.meuPerfil;
+            vm.view.habilidades = [];
             if (vm.view.hasNoProfile) {
-                console.log("nao tem perfil");
+
             }
         });
 	};

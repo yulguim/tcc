@@ -1,8 +1,12 @@
 package me.ulguim.tcc.entity;
 
 import in.k2s.sdk.jpa.entity.BaseEntity;
+import me.ulguim.tcc.bean.ExtraParamsBean;
+import me.ulguim.tcc.bean.HabilidadeBean;
 import me.ulguim.tcc.bean.SocialNetwork;
 import me.ulguim.tcc.entity.Account;
+import me.ulguim.tcc.entity.converter.ExtraParamsConverter;
+import me.ulguim.tcc.entity.converter.HabilidadesConverter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -23,6 +27,10 @@ public class Perfil extends BaseEntity implements Serializable {
 	@OneToOne(fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
 	private Account account;
+
+	@Column(name = "habilidades")
+	@Convert(converter = HabilidadesConverter.class)
+	private List<HabilidadeBean> habilidadeList;
 
 	//	private List<SocialNetwork> socialNetworkList;
 
@@ -90,5 +98,13 @@ public class Perfil extends BaseEntity implements Serializable {
 
 	public void setUpdateBy(Long updateBy) {
 		this.updateBy = updateBy;
+	}
+
+	public List<HabilidadeBean> getHabilidadeList() {
+		return habilidadeList;
+	}
+
+	public void setHabilidadeList(List<HabilidadeBean> habilidadeList) {
+		this.habilidadeList = habilidadeList;
 	}
 }

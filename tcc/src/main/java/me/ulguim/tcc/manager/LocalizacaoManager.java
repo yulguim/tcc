@@ -6,9 +6,11 @@ import me.ulguim.tcc.entity.location.Cidade;
 import me.ulguim.tcc.manager.base.TCCBaseManager;
 import me.ulguim.tcc.service.LocalizacaoService;
 import me.ulguim.tcc.view.FeedView;
+import me.ulguim.tcc.view.LocalizacaoView;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -17,9 +19,15 @@ public class LocalizacaoManager extends TCCBaseManager {
 	@Inject
 	private LocalizacaoService localizacaoService;
 
-	public List<Cidade> searchCidade(String str) {
+	public List<LocalizacaoView> searchCidade(String str) {
 		List<Cidade> cidades = localizacaoService.selectCidadeByStr(str);
-		return cidades;
+
+		List<LocalizacaoView> list = new ArrayList<>();
+		cidades.forEach(c -> {
+			list.add(new LocalizacaoView(c.getId(), c.getNome() + ", " + c.getEstado().getSigla()));
+		});
+
+		return list;
 	}
 
 }

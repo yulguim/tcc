@@ -7,6 +7,7 @@ import me.ulguim.tcc.entity.location.Cidade;
 import me.ulguim.tcc.manager.HomeManager;
 import me.ulguim.tcc.manager.LocalizacaoManager;
 import me.ulguim.tcc.view.FeedView;
+import me.ulguim.tcc.view.LocalizacaoView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,17 +29,12 @@ public class LocalizacaoController extends TCCBaseController {
 	public ReturnDTO searchCidade(@RequestBody String str) throws ValidationException {
 		ReturnDTO returnDTO = new ReturnDTO();
 		returnDTO.cidades = localizacaoManager.searchCidade(str);
-		returnDTO.cidadesNome = new HashMap<String, String>();
-		returnDTO.cidades.forEach(c -> {
-			returnDTO.cidadesNome.put(c.getNome(), c.getNome());
-		});
 
 		return returnDTO;
 	}
 
 	public static class ReturnDTO {
-		public List<Cidade> cidades;
-		public Map<String, String> cidadesNome;
+		public List<LocalizacaoView> cidades;
 	}
 
 }
