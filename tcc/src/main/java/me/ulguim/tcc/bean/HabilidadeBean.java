@@ -11,6 +11,15 @@ public class HabilidadeBean extends BaseBean {
 
 	private String label;
 
+	public HabilidadeBean() {
+
+	}
+
+	public HabilidadeBean(Long id, String label) {
+		this.id = id;
+		this.label = label;
+	}
+
 	public Long getId() {
 		return id;
 	}

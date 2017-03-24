@@ -26,6 +26,7 @@ public class PerfilEditController extends TCCBaseController {
 	public ContainerView initialData() throws ValidationException {
 		ContainerView view = new ContainerView();
 		view.addFormData("meuPerfil", perfilManager.meuPerfil(getProfile()));
+		view.addFormData("habilidades", perfilManager.listHabilidades(getProfile()));
 
 		return view;
 	}

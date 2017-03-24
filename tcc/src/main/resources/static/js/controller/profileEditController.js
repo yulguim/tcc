@@ -3,7 +3,7 @@ app.controller("profileEditCtrl", ["$scope", '$routeParams', "profileEditService
 
     vm.view = {};
     vm.cidades = [];
-    vm.habilidades = [{label: 'Um'}, {label: 'Dois'}, {label: 'Três'}];
+    vm.habilidades = [];
 
     //functions
     vm.procurarCidade = procurarCidade;
@@ -28,8 +28,10 @@ app.controller("profileEditCtrl", ["$scope", '$routeParams', "profileEditService
 
 	var iniciarTela = function() {
         profileEditService.initialData().success(function(data) {
+            vm.habilidades = data.formData.habilidades;
+            console.log(vm.habilidades);
+
             vm.view = data.formData.meuPerfil;
-            vm.view.habilidades = [];
             if (vm.view.hasNoProfile) {
 
             }
