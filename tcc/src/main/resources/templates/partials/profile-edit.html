@@ -24,7 +24,7 @@
 			</div>
 			<div class="row">
 				<div class="input-field col s12">
-					<input type="text" id="autocomplete-input" class="autocomplete">
+					<input type="text" id="autocomplete-input" class="autocomplete" ng-model="vm.view.cidadeNome" ng-change="vm.procurarCidade(vm.view.cidadeNome)">
 					<label for="autocomplete-input">Minha localização</label>
 				</div>
 			</div>
@@ -34,8 +34,27 @@
 					<div class="chips chips-autocomplete"></div>
 				</div>
 			</div>
-
-			Redes sociais
+			<div clas="row">
+				<div class="input-field col s12">
+					<h4>Meus links</h4>
+				</div>
+				<div class="col s12">
+					<div class="input-field col s2">
+						<select class="browser-default">
+							<option value="" disabled selected>Selecione</option>
+							<option value="FACEBOOK">Facebook</option>
+							<option value="LINKEDIN">Linked</option>
+							<option value="TWITTER">Twitter</option>
+						</select>
+					</div>
+					<div class="input-field col s8">
+						<input type="text">
+					</div>
+					<div class="input-field col s2">
+						<a class="waves-effect waves-light btn"><i class="material-icons">plus</i></a>
+					</div>
+				</div>
+			</div>
 
 			<div class="row">
 				<a class="waves-effect waves-light btn-large" ng-click="vm.salvarPerfil()">Salvar</a>

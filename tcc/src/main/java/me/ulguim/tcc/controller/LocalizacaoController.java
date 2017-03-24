@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 @ControllerSecurity(ControllerSecurity.Security.PRIVATE)
@@ -25,8 +25,20 @@ public class LocalizacaoController extends TCCBaseController {
 	private LocalizacaoManager localizacaoManager;
 
 	@RequestMapping(value="/cidade", method = RequestMethod.POST)
-	public List<Cidade> searchCidade(@RequestBody String str) throws ValidationException {
-		return localizacaoManager.searchCidade(str);
+	public ReturnDTO searchCidade(@RequestBody String str) throws ValidationException {
+		ReturnDTO returnDTO = new ReturnDTO();
+		returnDTO.cidades = localizacaoManager.searchCidade(str);
+		returnDTO.cidadesNome = new HashMap<String, String>();
+		returnDTO.cidades.forEach(c -> {
+			returnDTO.cidadesNome.put(c.getNome(), c.getNome());
+		});
+
+		return returnDTO;
+	}
+
+	public static class ReturnDTO {
+		public List<Cidade> cidades;
+		public Map<String, String> cidadesNome;
 	}
 
 }

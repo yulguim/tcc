@@ -2,9 +2,26 @@ app.controller("profileEditCtrl", ["$scope", '$routeParams', "profileEditService
     var vm = this;
 
     vm.view = {};
+    vm.cidades = [];
+    vm.cidadesNome = {};
 
     //functions
+    vm.procurarCidade = procurarCidade;
     vm.salvarPerfil = salvarPerfil;
+
+    function procurarCidade(str) {
+        if (str === undefined || str === null || str.length < 3) {
+            return;
+        }
+
+        localizacaoService.searchCidade(str).success(function (data) {
+            vm.cidades = data.cidades;
+            vm.cidadesNome = data.cidadesNome;
+            console.log(vm.cidades);
+            console.log(vm.cidadesNome);
+
+        });
+    }
 
     function salvarPerfil() {
         profileEditService.save(vm.view).success(function(view) {
@@ -18,40 +35,6 @@ app.controller("profileEditCtrl", ["$scope", '$routeParams', "profileEditService
             if (vm.view.hasNoProfile) {
                 console.log("nao tem perfil");
             }
-
-            //TODO Remover
-            var cidade = "Flori";
-            localizacaoService.searchCidade(cidade).success(function (data) {
-               console.log(data);
-            });
-
-            //Localização
-            $('input.autocomplete').autocomplete({
-                data: {
-                    "Apple": null,
-                    "Microsoft": null,
-                    "Google": 'http://placehold.it/250x250'
-                },
-                limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
-                onAutocomplete: function(val) {
-                    // Callback function when value is autcompleted.
-                },
-                minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
-            });
-
-            //Tags
-            $('.chips').material_chip();
-            $('.chips-autocomplete').material_chip({
-                autocompleteOptions: {
-                    data: {
-                        'Apple': null,
-                        'Microsoft': null,
-                        'Google': null
-                    },
-                    limit: Infinity,
-                    minLength: 1
-                }
-            });
         });
 	};
      

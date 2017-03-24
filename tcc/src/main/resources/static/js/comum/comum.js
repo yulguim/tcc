@@ -88,7 +88,6 @@ app.factory('httpInterceptorService', ['$q', 'feedbackService', function($q, fee
         'responseError' : function(rejection) {
         	feedbackService.hideNotify();
             if(rejection.status === 401) {
-                console.log("aosijdaoisj");
             	window.location = '/login/';
             } else if(rejection.status === 402) {
             	//console.log('Pagamento Pendente - 402');

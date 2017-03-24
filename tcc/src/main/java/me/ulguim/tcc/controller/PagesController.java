@@ -1,5 +1,7 @@
 package me.ulguim.tcc.controller;
 
+import in.k2s.sdk.springboot.controller.annotation.ControllerSecurity;
+import in.k2s.sdk.springboot.controller.annotation.ControllerSecurity.Security;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +10,7 @@ import in.k2s.sdk.springboot.resource.ResourceList;
 import in.k2s.sdk.web.validation.ValidationException;
 
 @Controller
+@ControllerSecurity(Security.PUBLIC)
 public class PagesController {
 
 	@RequestMapping("/")
