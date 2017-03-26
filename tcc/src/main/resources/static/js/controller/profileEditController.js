@@ -8,6 +8,18 @@ app.controller("profileEditCtrl", ["$scope", '$routeParams', "profileEditService
     //functions
     vm.procurarCidade = procurarCidade;
     vm.salvarPerfil = salvarPerfil;
+    vm.addLink = addLink;
+    vm.removeLink = removeLink;
+    vm.onSelectLocalizacao = onSelectLocalizacao;
+
+    function addLink() {
+        vm.view.links.push({});
+    }
+
+    function removeLink(link) {
+        var index = vm.view.links.indexOf(link);
+        vm.view.links.splice(index, 1);
+    }
 
     function procurarCidade(str) {
         if (str === undefined || str === null || str.length < 3) {
@@ -16,8 +28,11 @@ app.controller("profileEditCtrl", ["$scope", '$routeParams', "profileEditService
 
         localizacaoService.searchCidade(str).success(function (data) {
             vm.cidades = data.cidades;
-            console.log(vm.cidades);
         });
+    }
+
+    function onSelectLocalizacao($item, $model, $label) {
+        vm.view.localizacao = $model;
     }
 
     function salvarPerfil() {
@@ -29,12 +44,9 @@ app.controller("profileEditCtrl", ["$scope", '$routeParams', "profileEditService
 	var iniciarTela = function() {
         profileEditService.initialData().success(function(data) {
             vm.habilidades = data.formData.habilidades;
-            console.log(vm.habilidades);
 
             vm.view = data.formData.meuPerfil;
-            if (vm.view.hasNoProfile) {
-
-            }
+            if (!vm.view.links) vm.view.links = [{}];
         });
 	};
      

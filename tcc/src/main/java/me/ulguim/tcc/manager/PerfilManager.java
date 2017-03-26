@@ -1,5 +1,7 @@
 package me.ulguim.tcc.manager;
 
+import in.k2s.sdk.web.message.Message;
+import in.k2s.sdk.web.message.MessageSeverity;
 import in.k2s.sdk.web.profile.Profile;
 import in.k2s.sdk.web.validation.ValidationException;
 import me.ulguim.tcc.bean.HabilidadeBean;
@@ -48,6 +50,9 @@ public class PerfilManager extends TCCBaseManager {
 
 	public PerfilView save(Profile profile, PerfilView view) throws ValidationException {
 		//TODO validate
+		if (view == null || view .getAvatar() == null || !view.getAvatar().equals("sa8db79daksdha")) {
+			throw new ValidationException(new Message("warn.save", MessageSeverity.WARN));
+		}
 
 		Perfil perfil = perfilService.selectPerfilByAccountId(getAccountLogada(profile).getId());
 		if (perfil == null) {

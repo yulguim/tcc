@@ -2,6 +2,9 @@ package me.ulguim.tcc.view;
 
 import in.k2s.sdk.web.view.BaseView;
 import in.k2s.sdk.web.view.annotation.View;
+import me.ulguim.tcc.bean.HabilidadeBean;
+
+import java.util.List;
 
 @View
 public class PerfilView extends BaseView {
@@ -14,6 +17,14 @@ public class PerfilView extends BaseView {
 	private String lastname;
 
 	private String avatar;
+
+	private String about;
+
+	private LocalizacaoView localizacao;
+
+	private List<HabilidadeBean> habilidades;
+
+	private List<LinkView> links;
 
 	//Extras
 
@@ -61,5 +72,37 @@ public class PerfilView extends BaseView {
 
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
+	}
+
+	public String getAbout() {
+		return about;
+	}
+
+	public void setAbout(String about) {
+		this.about = about;
+	}
+
+	public LocalizacaoView getLocalizacao() {
+		return localizacao;
+	}
+
+	public void setLocalizacao(LocalizacaoView localizacao) {
+		this.localizacao = localizacao;
+	}
+
+	public List<HabilidadeBean> getHabilidades() {
+		return habilidades;
+	}
+
+	public void setHabilidades(List<HabilidadeBean> habilidades) {
+		this.habilidades = habilidades;
+	}
+
+	public List<LinkView> getLinks() {
+		return links;
+	}
+
+	public void setLinks(List<LinkView> links) {
+		this.links = links;
 	}
 }
