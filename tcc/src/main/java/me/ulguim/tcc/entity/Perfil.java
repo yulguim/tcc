@@ -24,8 +24,8 @@ public class Perfil extends BaseEntity implements Serializable {
 	@Id
 	private Long id;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn
+	@OneToOne
+	@JoinColumn(name = "account_id")
 	private Account account;
 
 	@Column(name = "habilidades")

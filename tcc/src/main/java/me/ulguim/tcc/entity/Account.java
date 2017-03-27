@@ -35,7 +35,7 @@ public class Account extends BaseEntity implements Serializable {
 	@Convert(converter = ExtraParamsConverter.class)
 	private ExtraParamsBean extraParams;
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "account", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "account")
 	private Perfil profile;
 
 	@OneToMany(mappedBy = "author", fetch = FetchType.LAZY)

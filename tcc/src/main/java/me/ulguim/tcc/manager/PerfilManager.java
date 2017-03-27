@@ -43,12 +43,14 @@ public class PerfilManager extends TCCBaseManager {
 
 	public PerfilView meuPerfil(Profile profile) throws ValidationException {
 		PerfilView view = new PerfilView();
+		view.setName(getAccountLogadaLoaded(profile).getName());
+		view.setLastname(getAccountLogada(profile).getLastname());
 
 		Perfil perfil = getAccountLogadaLoaded(profile).getProfile();
 		if (perfil == null) {
 			view.setHasNoProfile(true);
-			view.setName(getAccountLogadaLoaded(profile).getName());
-			view.setLastname(getAccountLogada(profile).getLastname());
+		} else {
+			view.setHabilidades(perfil.getHabilidadeList());
 		}
 
 		return view;
@@ -61,15 +63,17 @@ public class PerfilManager extends TCCBaseManager {
 		accountLogada.setName(view.getName());
 		accountLogada.setLastname(view.getLastname());
 		accountLogada = super.update(accountLogada, profile);
-		Perfil perfil = perfilService.selectPerfilByAccountId(getAccountLogada(profile).getId());
+		Perfil perfil = accountLogada.getProfile();
 		if (perfil == null) {
 			perfil = new Perfil();
 			perfil.setAccount(accountLogada);
+			perfil.setHabilidadeList(view.getHabilidades());
 			perfil = super.save(perfil, profile);
 
 			System.out.println("perfil = " + perfil);
 		} else {
-
+			perfil.setHabilidadeList(view.getHabilidades());
+			perfil = super.update(perfil, profile);
 		}
 
 		profile.setUsuario(accountLogada);

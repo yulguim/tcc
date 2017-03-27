@@ -48,6 +48,8 @@ app.controller("profileEditCtrl", ["$scope", '$routeParams', "profileEditService
 
             vm.view = data.formData.meuPerfil;
             if (!vm.view.links) vm.view.links = [{}];
+
+            console.log(vm.view);
         });
 	};
      
