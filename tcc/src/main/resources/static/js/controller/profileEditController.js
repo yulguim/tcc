@@ -36,6 +36,7 @@ app.controller("profileEditCtrl", ["$scope", '$routeParams', "profileEditService
     }
 
     function salvarPerfil() {
+        console.log(vm.view);
         profileEditService.save(vm.view).success(function(view) {
             console.log(view);
         });

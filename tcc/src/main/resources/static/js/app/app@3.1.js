@@ -15,7 +15,12 @@ app.run(function($rootScope, $http, $timeout, $route, $location) {
 
 });
 
-app.controller("appCtrl", ["$scope", '$translate', function ($scope, $translate) {
+app.controller("appCtrl", ["$scope", '$translate', 'usuarioLogadoService', function ($scope, $translate, usuarioLogadoService) {
+    $scope.usuarioLogado = {};
+    usuarioLogadoService.loadUsuario().success(function(data) {
+        usuarioLogadoService.setUsuario(data);
+        $scope.usuarioLogado = usuarioLogadoService.getUsuario();
+    });
 
     $scope.changeLanguage = function(lang) {
         $translate.use(lang);

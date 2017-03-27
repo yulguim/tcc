@@ -10,6 +10,7 @@ import me.ulguim.tcc.view.ContatoView;
 import me.ulguim.tcc.view.PerfilView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,7 +38,7 @@ public class PerfilEditController extends TCCBaseController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public PerfilView save(PerfilView view) throws ValidationException {
+	public PerfilView save(@RequestBody PerfilView view) throws ValidationException {
 		return perfilManager.save(getProfile(), view);
 	}
 

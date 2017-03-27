@@ -1,10 +1,10 @@
 app.controller("homeCtrl", ["homeService", function (homeService) {
 	var vm = this;
 
-	vm.mensagem = "eitaaa nóis";
+	vm.mensagem = "home ctrl";
 
 	function iniciarTela() {
-		console.log(vm.mensagem);
+
 	}
 
 	iniciarTela();

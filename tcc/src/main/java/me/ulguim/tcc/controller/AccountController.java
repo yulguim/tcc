@@ -22,7 +22,7 @@ import java.util.List;
 
 @RestController
 @ControllerSecurity(ControllerSecurity.Security.PRIVATE)
-@RequestMapping(value="/account", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+@RequestMapping(value="/account", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class AccountController extends TCCBaseController {
 
 	@Autowired
