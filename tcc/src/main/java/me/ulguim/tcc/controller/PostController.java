@@ -43,7 +43,7 @@ public class PostController extends TCCBaseController {
 		return postManager.saveComentario(getProfile(), view);
 	}
 
-	@RequestMapping(value="/delete-comment", method = RequestMethod.POST)
+	@RequestMapping(value="/delete-comment", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ComentarioView deleteComentario(ComentarioView view) throws ValidationException {
 		return postManager.deleteComentario(getProfile(), view);
 	}

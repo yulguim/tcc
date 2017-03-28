@@ -8,10 +8,15 @@ app.factory('postService', ['ajaxService', function(ajaxService) {
     var _saveComment = function(view) {
         return ajaxService.post(_pageUrl + "/save-comment", view);
     }
+
+    var _removeComment = function(view) {
+        return ajaxService.post(_pageUrl + "/delete-comment", view);
+    }
  	
 	return {
 		save : _save,
-		saveComment : _saveComment
+		saveComment : _saveComment,
+		removeComment : _removeComment
 	}
 	
 }]);

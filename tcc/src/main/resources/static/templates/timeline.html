@@ -7,7 +7,7 @@
 			</div>
 			<div class="panel-footer">
 				<p ng-if="post.commentList.length === 0">Nenhum comentário</p>
-				<p ng-repeat="comment in post.commentList">{{comment.comentario}} - {{comment.insertTime}} - {{comment.authorLabel}}</p>
+				<p ng-repeat="comment in post.commentList">{{comment.comentario}} - {{comment.insertTime}} - {{comment.authorLabel}} <a href="" ng-click="deleteComment(post, comment)"><i class="fa fa-remove"></i></a></p>
 				<hr/>
 				<textarea class="form-control" style="margin-bottom: 5px;" ng-model="post.newComment"></textarea>
 				<button class="btn btn-sm btn-primary" ng-click="comment(post)">Comentar</button>

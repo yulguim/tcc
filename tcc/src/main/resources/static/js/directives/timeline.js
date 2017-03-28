@@ -21,6 +21,16 @@ app.directive('timeline', ['timelineService', 'postService', function(timelineSe
         });
       }
 
+        function deleteComment(post, comment) {
+            var view = {};
+            view.postKey = post.key;
+            view.id = comment.id;
+            postService.removeComment(view).success(function() {
+                var index = post.commentList.indexOf(comment);
+                post.commentList.splice(index, 1);
+            });
+        }
+
       function iniciar() {
         timelineService.initialData().success(function(data) {
           scope.posts = data.posts;
