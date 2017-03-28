@@ -7,7 +7,7 @@ import in.k2s.sdk.web.view.annotation.View;
 public class ComentarioView extends BaseView {
 	private static final long serialVersionUID = 1L;
 
-	private String postKey;
+	private Long id;
 
 	private String comentario;
 
@@ -17,7 +17,7 @@ public class ComentarioView extends BaseView {
 
 	private String insertTime;
 
-	private int index;
+	private String postKey;
 
 	public ComentarioView() {
 		
@@ -37,14 +37,6 @@ public class ComentarioView extends BaseView {
 
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
-	}
-
-	public int getIndex() {
-		return index;
-	}
-
-	public void setIndex(int index) {
-		this.index = index;
 	}
 
 	public Long getAuthorId() {
@@ -69,5 +61,13 @@ public class ComentarioView extends BaseView {
 
 	public void setInsertTime(String insertTime) {
 		this.insertTime = insertTime;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

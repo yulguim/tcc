@@ -10,6 +10,8 @@ import java.util.List;
  */
 public class ComentarioBean extends BaseBean {
 
+	private Long id;
+
 	private Long idUsuario;
 
 	private String labelUsuario;
@@ -58,5 +60,13 @@ public class ComentarioBean extends BaseBean {
 
 	public void setLabelUsuario(String labelUsuario) {
 		this.labelUsuario = labelUsuario;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

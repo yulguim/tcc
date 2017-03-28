@@ -68,6 +68,16 @@ public class Post extends BaseEntity implements Serializable {
 		this.post = post;
 	}
 
+	public ComentarioBean getComentarioById(Long id) {
+			return this.comentarioList.stream()
+					.filter(c -> c.getId().equals(id))
+					.findAny().orElseGet(null);
+	}
+
+	public boolean removeComentarioById(Long id) {
+		return this.comentarioList.removeIf(c -> c.getId().equals(id));
+	}
+
 	public List<ComentarioBean> getComentarioList() {
 		return comentarioList;
 	}

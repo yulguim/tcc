@@ -1,6 +1,8 @@
 package me.ulguim.tcc.manager;
 
+import in.k2s.sdk.jpa.sequence.SequenceGenerator;
 import in.k2s.sdk.util.data.DataUtil;
+import in.k2s.sdk.util.security.Keygen;
 import in.k2s.sdk.web.message.Message;
 import in.k2s.sdk.web.message.MessageSeverity;
 import in.k2s.sdk.web.profile.Profile;
@@ -64,6 +66,7 @@ public class PostManager extends TCCBaseManager {
 		Account accountLogada = getAccountLogada(profile);
 
 		ComentarioBean bean = new ComentarioBean();
+		bean.setId(SequenceGenerator.generate());
 		bean.setIdUsuario(accountLogada.getId());
 		bean.setLabelUsuario(accountLogada.getLabel());
 		bean.setComentario(view.getComentario());
@@ -84,12 +87,13 @@ public class PostManager extends TCCBaseManager {
 		Account accountLogada = getAccountLogada(profile);
 
 		Post entity = postService.selectByChave(Post.class, view.getPostKey());
-		ComentarioBean comentarioBean = entity.getComentarioList().get(view.getIndex());
-		if (!comentarioBean.getIdUsuario().equals(accountLogada.getId())) {
+		ComentarioBean comentarioBean = entity.getComentarioById(view.getId());
+		if (comentarioBean == null || !comentarioBean.getIdUsuario().equals(accountLogada.getId())) {
 			throw new ValidationException(new Message("error.save", MessageSeverity.ERROR));
 		}
 
-		entity.getComentarioList().remove(comentarioBean);
+		//Remove comentario da lista
+		entity.removeComentarioById(view.getId());
 		super.update(entity, profile);
 
 		return view;
