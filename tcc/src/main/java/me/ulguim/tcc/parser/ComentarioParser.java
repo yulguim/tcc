@@ -14,6 +14,7 @@ public class ComentarioParser extends BaseParser {
 
 	public static ComentarioView parse(ComentarioBean bean) {
 		ComentarioView view = new ComentarioView();
+		view.setId(bean.getId());
 		view.setAuthorId(bean.getIdUsuario());
 		view.setAuthorLabel(bean.getLabelUsuario());
 		view.setComentario(bean.getComentario());

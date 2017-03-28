@@ -10,6 +10,7 @@ app.directive('timeline', ['timelineService', 'postService', function(timelineSe
 
       //functions
       scope.comment = comment;
+      scope.deleteComment = deleteComment;
 
       function comment(post) {
         var view = {};
