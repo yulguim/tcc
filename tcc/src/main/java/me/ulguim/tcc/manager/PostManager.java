@@ -18,6 +18,7 @@ import me.ulguim.tcc.view.PostView;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 
 @Component
 public class PostManager extends TCCBaseManager {
@@ -35,11 +36,14 @@ public class PostManager extends TCCBaseManager {
 
 	public PostView save(Profile profile, PostView view) throws ValidationException {
 		validate(view);
+
 		if (view.getKey() != null) {
 			throw new ValidationException(new Message("error.save", MessageSeverity.ERROR));
 		}
 
 		Post entity = PostParser.parse(view);
+		entity.setAuthor(getAccountLogadaLoaded(profile));
+		entity.setComentarioList(new ArrayList<>());
 		entity = super.save(entity, profile);
 
 		return view;
@@ -61,6 +65,7 @@ public class PostManager extends TCCBaseManager {
 
 		ComentarioBean bean = new ComentarioBean();
 		bean.setIdUsuario(accountLogada.getId());
+		bean.setLabelUsuario(accountLogada.getLabel());
 		bean.setComentario(view.getComentario());
 		bean.setLikes(0);
 		bean.setInsertTime(DataUtil.format(DataUtil.getTimestamp(), "dd/MM/yyyy HH:mm:ss"));
@@ -69,6 +74,9 @@ public class PostManager extends TCCBaseManager {
 		post.getComentarioList().add(bean);
 		super.update(post, profile);
 
+		view.setAuthorId(bean.getIdUsuario());
+		view.setAuthorLabel(bean.getLabelUsuario());
+		view.setInsertTime(bean.getInsertTime());
 		return view;
 	}
 

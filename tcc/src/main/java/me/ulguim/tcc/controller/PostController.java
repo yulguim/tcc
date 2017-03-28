@@ -9,12 +9,13 @@ import me.ulguim.tcc.view.ContatoView;
 import me.ulguim.tcc.view.PostView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value="/post", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+@RequestMapping(value="/post", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class PostController extends TCCBaseController {
 
 	@Autowired
@@ -25,8 +26,8 @@ public class PostController extends TCCBaseController {
 		return postManager.load(getProfile(), view);
 	}
 
-	@RequestMapping(value="/", method = RequestMethod.POST)
-	public PostView save(PostView view) throws ValidationException {
+	@RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public PostView save(@RequestBody PostView view) throws ValidationException {
 		return postManager.save(getProfile(), view);
 	}
 
@@ -37,8 +38,8 @@ public class PostController extends TCCBaseController {
 
 	/* COMENTARIOS */
 
-	@RequestMapping(value="/save-comment", method = RequestMethod.POST)
-	public ComentarioView saveComentario(ComentarioView view) throws ValidationException {
+	@RequestMapping(value="/save-comment", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ComentarioView saveComentario(@RequestBody ComentarioView view) throws ValidationException {
 		return postManager.saveComentario(getProfile(), view);
 	}
 

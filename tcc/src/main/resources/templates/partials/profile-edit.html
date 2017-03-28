@@ -1,9 +1,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <legend ng-if="vm.view.hasNoProfile" style="font-size: 32px;">Complete seu perfil</legend>
-            <legend ng-if="!vm.view.hasNoProfile" style="font-size: 32px;">Editar perfil</legend>
-            <legend>{{'HELLO' | translate}}</legend>
+            <legend ng-if="vm.view.hasNoProfile" style="font-size: 32px;">{{'COMPLETE.SEU.PERFIL' | translate}}</legend>
+            <legend ng-if="!vm.view.hasNoProfile" style="font-size: 32px;">{{'EDITAR.PERFIL' | translate}}</legend>
         </div>
     </div>
             <div class="row">
@@ -11,26 +10,26 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Nome *</label>
+                                <label>{{'NOME' | translate}} *</label>
                                 <input type="text" class="form-control" ng-model="vm.view.name"/>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Sobrenome *</label>
+                                <label>{{'SOBRENOME' | translate}} *</label>
                                 <input type="text" class="form-control" ng-model="vm.view.lastname"/>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group">
-                            <label>Sobre mim *</label>
+                            <label>{{'SOBRE.MIM' | translate}} *</label>
                             <textarea class="form-control" ng-model="vm.view.about"></textarea>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group">
-                            <label>Minha localização *</label>
+                            <label>{{'MINHA.LOCALIZACAO' | translate}} *</label>
                             <input type="text" class="form-control" ng-model="vm.view.localizacaoNome"
                                    uib-typeahead="location as location.label for location in vm.cidades"
                                    ng-change="vm.procurarCidade(vm.view.localizacaoNome)"
@@ -39,7 +38,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group">
-                            <label>Habilidades</label>
+                            <label>{{'HABILIDADES' | translate}}</label>
                             <tags-input ng-model="vm.view.habilidades" display-property="label">
                                 <auto-complete source="vm.habilidades"></auto-complete>
                             </tags-input>
@@ -50,7 +49,7 @@
                         <div class="form-group" ng-repeat="link in vm.view.links">
                             <div class="col-md-2">
                                 <select class="form-control" ng-model="link.site">
-                                    <option value="" disabled selected>Selecione</option>
+                                    <option value="" disabled selected>{{'SELECIONE' | translate}}</option>
                                     <option value="FACEBOOK">Facebook</option>
                                     <option value="LINKEDIN">Linked</option>
                                     <option value="TWITTER">Twitter</option>
@@ -67,7 +66,7 @@
                     </div>
 
                     <div class="row">
-                        <button class="btn btn-primary" ng-click="vm.salvarPerfil()">Salvar</button>
+                        <button class="btn btn-primary" ng-click="vm.salvarPerfil()">{{'SALVAR' | translate}}</button>
                     </div>
                 </form>
             </div>

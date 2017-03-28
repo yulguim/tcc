@@ -11,6 +11,12 @@ public class ComentarioView extends BaseView {
 
 	private String comentario;
 
+	private Long authorId;
+
+	private String authorLabel;
+
+	private String insertTime;
+
 	private int index;
 
 	public ComentarioView() {
@@ -39,5 +45,29 @@ public class ComentarioView extends BaseView {
 
 	public void setIndex(int index) {
 		this.index = index;
+	}
+
+	public Long getAuthorId() {
+		return authorId;
+	}
+
+	public void setAuthorId(Long authorId) {
+		this.authorId = authorId;
+	}
+
+	public String getAuthorLabel() {
+		return authorLabel;
+	}
+
+	public void setAuthorLabel(String authorLabel) {
+		this.authorLabel = authorLabel;
+	}
+
+	public String getInsertTime() {
+		return insertTime;
+	}
+
+	public void setInsertTime(String insertTime) {
+		this.insertTime = insertTime;
 	}
 }

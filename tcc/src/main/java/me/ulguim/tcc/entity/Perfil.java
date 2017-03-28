@@ -7,6 +7,7 @@ import me.ulguim.tcc.bean.SocialNetwork;
 import me.ulguim.tcc.entity.Account;
 import me.ulguim.tcc.entity.converter.ExtraParamsConverter;
 import me.ulguim.tcc.entity.converter.HabilidadesConverter;
+import me.ulguim.tcc.entity.location.Estado;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -27,6 +28,10 @@ public class Perfil extends BaseEntity implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "account_id")
 	private Account account;
+
+	@ManyToOne
+	@JoinColumn(name = "ocupacao_id")
+	private Ocupacao ocupacao;
 
 	@Column(name = "habilidades")
 	@Convert(converter = HabilidadesConverter.class)
@@ -106,5 +111,13 @@ public class Perfil extends BaseEntity implements Serializable {
 
 	public void setHabilidadeList(List<HabilidadeBean> habilidadeList) {
 		this.habilidadeList = habilidadeList;
+	}
+
+	public Ocupacao getOcupacao() {
+		return ocupacao;
+	}
+
+	public void setOcupacao(Ocupacao ocupacao) {
+		this.ocupacao = ocupacao;
 	}
 }

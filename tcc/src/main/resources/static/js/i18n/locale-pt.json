@@ -1,3 +1,11 @@
 {
-  "HELLO" : "Oi!"
+  "COMPLETE.SEU.PERFIL" : "Complete seu perfil",
+  "EDITAR.PERFIL" : "Editar perfil",
+  "NOME" : "Nome",
+  "SOBRENOME" : "Sobrenome",
+  "SOBRE.MIM" : "Sobre mim",
+  "MINHA.LOCALIZACAO" : "Minha localização",
+  "HABILIDADES" : "Habilidades",
+  "SELECIONE" : "Selecione",
+  "SALVAR" : "Salvar"
 }

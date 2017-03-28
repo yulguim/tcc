@@ -12,6 +12,8 @@ public class ComentarioBean extends BaseBean {
 
 	private Long idUsuario;
 
+	private String labelUsuario;
+
 	private String comentario;
 
 	private int likes;
@@ -48,5 +50,13 @@ public class ComentarioBean extends BaseBean {
 
 	public void setInsertTime(String insertTime) {
 		this.insertTime = insertTime;
+	}
+
+	public String getLabelUsuario() {
+		return labelUsuario;
+	}
+
+	public void setLabelUsuario(String labelUsuario) {
+		this.labelUsuario = labelUsuario;
 	}
 }
