@@ -3,7 +3,7 @@ app.config(function($routeProvider) {
 	$routeProvider.when('/contatos', {templateUrl: '/contatos.html', controller: 'contatosCtrl'});
 	$routeProvider.when('/mensagens', {templateUrl: '/mensagens.html', controller: 'mensagensCtrl'});
     $routeProvider.when('/profile-edit/', {templateUrl: '/profile-edit.html', controller: 'profileEditCtrl as vm'});
-    $routeProvider.when('/profile/:key', {templateUrl: '/profile.html', controller: 'profileCtrl'});
+    $routeProvider.when('/profile/:key', {templateUrl: '/profile.html', controller: 'profileCtrl as vm'});
 
 	//other
 	$routeProvider.otherwise({redirectTo: '/home'});

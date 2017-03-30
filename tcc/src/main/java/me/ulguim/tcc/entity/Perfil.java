@@ -120,4 +120,8 @@ public class Perfil extends BaseEntity implements Serializable {
 	public void setOcupacao(Ocupacao ocupacao) {
 		this.ocupacao = ocupacao;
 	}
+
+	public String getLabel() {
+		return this.account.getLabel();
+	}
 }

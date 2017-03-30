@@ -12,6 +12,8 @@ public class ExtraParamsBean extends BaseBean {
 
 	private List<Long> requests = new ArrayList<>();
 
+	private List<NotificationBean> notifications = new ArrayList<>();
+
 	public List<Long> getRequests() {
 		return requests;
 	}
@@ -26,5 +28,9 @@ public class ExtraParamsBean extends BaseBean {
 
 	public void removeRequest(Long id) {
 		this.requests.removeIf(l -> l.equals(id));
+	}
+
+	public boolean existsRequest(Long toFind) {
+		return this.requests.stream().filter(id -> id.equals(toFind)).findAny().isPresent();
 	}
 }

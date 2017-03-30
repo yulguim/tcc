@@ -13,8 +13,7 @@ import java.util.List;
 
 @RestController
 @ControllerSecurity(ControllerSecurity.Security.PRIVATE)
-@RequestMapping(value="/contato",
-		produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+@RequestMapping(value="/contato", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class ContatosController extends TCCBaseController {
 
 	@Autowired
@@ -25,24 +24,24 @@ public class ContatosController extends TCCBaseController {
 		return contatosManager.list(getProfile());
 	}
 
-	@RequestMapping(value="/request/{view.key}", method = RequestMethod.GET)
-	public ContatoView request(ContatoView view) throws ValidationException {
-		return contatosManager.request(getProfile(), view);
+	@RequestMapping(value="/request/{key}", method = RequestMethod.GET)
+	public ContatoView request(@PathVariable("key") String key) throws ValidationException {
+		return contatosManager.request(getProfile(), new ContatoView(key));
 	}
 
-	@RequestMapping(value="/accept/{view.key}", method = RequestMethod.GET)
-	public ContatoView acceptRequest(ContatoView view) throws ValidationException {
-		return contatosManager.acceptRequest(getProfile(), view);
+	@RequestMapping(value="/accept/{key}", method = RequestMethod.GET)
+	public ContatoView acceptRequest(@PathVariable("key") String key) throws ValidationException {
+		return contatosManager.acceptRequest(getProfile(), new ContatoView(key));
 	}
 
-	@RequestMapping(value="/ignore/{view.key}", method = RequestMethod.GET)
-	public ContatoView ignoreRequest(ContatoView view) throws ValidationException {
-		return contatosManager.ignoreRequest(getProfile(), view);
+	@RequestMapping(value="/ignore/{key}", method = RequestMethod.GET)
+	public ContatoView ignoreRequest(@PathVariable("key") String key) throws ValidationException {
+		return contatosManager.ignoreRequest(getProfile(), new ContatoView(key));
 	}
 
-	@RequestMapping(value="/{view.key}", method = RequestMethod.DELETE)
-	public ContatoView unfriend(ContatoView view) throws ValidationException {
-		return contatosManager.load(getProfile(), view);
+	@RequestMapping(value="/{key}", method = RequestMethod.DELETE)
+	public ContatoView unfriend(@PathVariable("key") String key) throws ValidationException {
+		return contatosManager.load(getProfile(), new ContatoView(key));
 	}
 
 }

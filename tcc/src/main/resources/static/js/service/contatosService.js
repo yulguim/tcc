@@ -1,13 +1,22 @@
-app.factory('contatosService', ['ajaxService', 'mockerService', function(ajaxService, mockerService) {
-	var _pageUrl = "/contatos";
-	
-	var _initialData = function() {
-		//return ajaxService.get(_pageUrl+"/initial-data");
-		return mockerService.get('contatos.json');
-	};
+app.factory('contatosService', ['ajaxService', function(ajaxService) {
+	var _pageUrl = "/contato";
+
+    var _request = function(key) {
+        return ajaxService.get(_pageUrl+"/request/" + key);
+    };
+
+    var _accept = function(key) {
+        return ajaxService.get(_pageUrl+"/accept/" + key);
+    };
+
+    var _ignore = function(key) {
+        return ajaxService.get(_pageUrl+"/ignore/" + key);
+    };
  	
 	return {
-		initialData : _initialData
+		request : _request,
+		accept : _accept,
+		ignore : _ignore
 	}
 	
 }]);

@@ -17,6 +17,10 @@ public class ContatoView extends BaseView {
 		
 	}
 
+	public ContatoView(String key) {
+		this.key = key;
+	}
+
 	public String getKey() {
 		return key;
 	}

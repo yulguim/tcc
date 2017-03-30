@@ -16,6 +16,8 @@ public class PerfilView extends BaseView {
 
 	private String lastname;
 
+	private String label;
+
 	private String avatar;
 
 	private String about;
@@ -27,6 +29,8 @@ public class PerfilView extends BaseView {
 	private List<LinkView> links;
 
 	//Extras
+
+	private String key;
 
 	private Boolean hasNoProfile;
 
@@ -104,5 +108,21 @@ public class PerfilView extends BaseView {
 
 	public void setLinks(List<LinkView> links) {
 		this.links = links;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
 	}
 }

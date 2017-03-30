@@ -11,10 +11,12 @@ import me.ulguim.tcc.entity.Account;
 import me.ulguim.tcc.entity.Perfil;
 import me.ulguim.tcc.entity.other.Habilidade;
 import me.ulguim.tcc.manager.base.TCCBaseManager;
+import me.ulguim.tcc.parser.PerfilParser;
 import me.ulguim.tcc.service.HabilidadeService;
 import me.ulguim.tcc.service.PerfilService;
 import me.ulguim.tcc.view.PerfilView;
 import org.springframework.stereotype.Component;
+import sun.misc.Perf;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -52,6 +54,15 @@ public class PerfilManager extends TCCBaseManager {
 		} else {
 			view.setHabilidades(perfil.getHabilidadeList());
 		}
+
+		return view;
+	}
+
+	public PerfilView load(Profile profile, PerfilView view) throws ValidationException {
+
+		Perfil perfil = perfilService.selectByChave(Perfil.class, view.getKey());
+
+		view = PerfilParser.parse(perfil);
 
 		return view;
 	}

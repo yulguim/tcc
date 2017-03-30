@@ -2,6 +2,7 @@ package me.ulguim.tcc.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -37,6 +38,10 @@ public class Account extends BaseEntity implements Serializable {
 
 	@OneToOne(mappedBy = "account")
 	private Perfil profile;
+
+	@Column(name = "contacts_ids")
+	@ElementCollection(targetClass=Long.class)
+	private List<Long> contactsIdList = new ArrayList<>();
 
 	@OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
 	private List<Post> postList;
@@ -182,5 +187,17 @@ public class Account extends BaseEntity implements Serializable {
 
 	public String getLabel() {
 		return this.name + " " + this.lastname;
+	}
+
+	public List<Long> getContactsIdList() {
+		return contactsIdList;
+	}
+
+	public void setContactsIdList(List<Long> contactsIdList) {
+		this.contactsIdList = contactsIdList;
+	}
+
+	public void addContact(Long id) {
+		this.contactsIdList.add(id);
 	}
 }
