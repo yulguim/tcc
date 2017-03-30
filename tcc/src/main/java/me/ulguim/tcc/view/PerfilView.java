@@ -34,6 +34,12 @@ public class PerfilView extends BaseView {
 
 	private Boolean hasNoProfile;
 
+	private Boolean isFriend;
+
+	private Boolean isRequested;
+
+	private Boolean isMyProfile;
+
 	public PerfilView() {
 
 	}
@@ -124,5 +130,29 @@ public class PerfilView extends BaseView {
 
 	public void setLabel(String label) {
 		this.label = label;
+	}
+
+	public Boolean getFriend() {
+		return isFriend;
+	}
+
+	public void setFriend(Boolean friend) {
+		isFriend = friend;
+	}
+
+	public Boolean getRequested() {
+		return isRequested;
+	}
+
+	public void setRequested(Boolean requested) {
+		isRequested = requested;
+	}
+
+	public Boolean getMyProfile() {
+		return isMyProfile;
+	}
+
+	public void setMyProfile(Boolean myProfile) {
+		isMyProfile = myProfile;
 	}
 }

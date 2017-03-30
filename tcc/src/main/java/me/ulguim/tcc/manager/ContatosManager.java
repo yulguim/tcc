@@ -37,9 +37,6 @@ public class ContatosManager extends TCCBaseManager {
 	}
 
 	public ContatoView request(Profile profile, ContatoView view) {
-		Account ac = accountService.selectById(Account.class, 4900594292770001L);
-		System.out.println("ac.getId() = " + ac.getId());
-		
 		Perfil perfil = perfilService.selectByChave(Perfil.class, view.getKey());
 		Account account = perfil.getAccount();
 		account.getExtraParams().addRequest(super.getAccountLogada(profile).getId());
@@ -65,8 +62,8 @@ public class ContatosManager extends TCCBaseManager {
 		}
 
 		Account myAccount = super.getAccountLogadaLoaded(profile);
-
 		Account toAccept = accountService.selectByChave(Account.class, view.getKey());
+		if (toAccept == null) return view;
 
 		if (myAccount.getExtraParams().existsRequest(toAccept.getId())) {
 			//Aceitar

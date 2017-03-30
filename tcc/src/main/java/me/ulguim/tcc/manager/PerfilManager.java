@@ -4,6 +4,7 @@ import in.k2s.sdk.springboot.singleton.ProfileSingleton;
 import in.k2s.sdk.util.string.StringUtil;
 import in.k2s.sdk.web.message.Message;
 import in.k2s.sdk.web.message.MessageSeverity;
+import in.k2s.sdk.web.message.MessageWarning;
 import in.k2s.sdk.web.profile.Profile;
 import in.k2s.sdk.web.validation.ValidationException;
 import me.ulguim.tcc.bean.HabilidadeBean;
@@ -59,10 +60,21 @@ public class PerfilManager extends TCCBaseManager {
 	}
 
 	public PerfilView load(Profile profile, PerfilView view) throws ValidationException {
+		Account accountLogadaLoaded = getAccountLogadaLoaded(profile);
 
 		Perfil perfil = perfilService.selectByChave(Perfil.class, view.getKey());
+		if (perfil == null) {
+			throw new ValidationException(new MessageWarning("warn.load"));
+		}
 
 		view = PerfilParser.parse(perfil);
+		if (perfil.getAccount().getId().equals(accountLogadaLoaded.getId())) { //Ver se o profile eh o meu
+			view.setMyProfile(true);
+		} else if (accountLogadaLoaded.contactExists(accountLogadaLoaded.getId())) { //Ver se eh amigo
+			view.setFriend(true);
+		} else if (accountLogadaLoaded.getExtraParams().existsRequest(perfil.getId())) { //Ver se tem request
+			view.setRequested(true);
+		}
 
 		return view;
 	}
@@ -77,9 +89,14 @@ public class PerfilManager extends TCCBaseManager {
 		Perfil perfil = accountLogada.getProfile();
 		if (perfil == null) {
 			perfil = new Perfil();
+			perfil.setId(accountLogada.getId());
+			perfil.setChave(accountLogada.getChave());
 			perfil.setAccount(accountLogada);
 			perfil.setHabilidadeList(view.getHabilidades());
-			perfil = super.save(perfil, profile);
+			//TODO
+			//perfil = super.save(perfil, profile);
+			perfil = auditoria(perfil, profile);
+			//perfil = super..insert(perfil);
 
 			System.out.println("perfil = " + perfil);
 		} else {

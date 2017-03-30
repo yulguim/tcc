@@ -200,4 +200,10 @@ public class Account extends BaseEntity implements Serializable {
 	public void addContact(Long id) {
 		this.contactsIdList.add(id);
 	}
+
+	public boolean contactExists(Long id) {
+		return this.contactsIdList.stream()
+				.filter(l -> l.equals(id))
+				.findAny().isPresent();
+	}
 }
