@@ -9,6 +9,7 @@ import in.k2s.sdk.web.message.MessageSeverity;
 import in.k2s.sdk.web.profile.Profile;
 import in.k2s.sdk.web.profile.ProfileBean;
 import in.k2s.sdk.web.validation.ValidationException;
+import me.ulguim.tcc.bean.ExtraParamsBean;
 import me.ulguim.tcc.entity.Account;
 import me.ulguim.tcc.manager.base.TCCBaseManager;
 import me.ulguim.tcc.service.AccountService;
@@ -41,6 +42,7 @@ public class SigninManager extends TCCBaseManager {
 		entity.setPassword(view.getPassword());
 		entity.setName(view.getNome());
 		entity.setLastname(view.getSobrenome());
+		entity.setExtraParams(new ExtraParamsBean());
 
 		entity = super.save(entity);
 

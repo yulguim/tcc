@@ -41,7 +41,7 @@ public class ContatosController extends TCCBaseController {
 
 	@RequestMapping(value="/{key}", method = RequestMethod.DELETE)
 	public ContatoView unfriend(@PathVariable("key") String key) throws ValidationException {
-		return contatosManager.load(getProfile(), new ContatoView(key));
+		return contatosManager.remove(getProfile(), new ContatoView(key));
 	}
 
 }

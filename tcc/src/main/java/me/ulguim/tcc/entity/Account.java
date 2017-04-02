@@ -206,4 +206,8 @@ public class Account extends BaseEntity implements Serializable {
 				.filter(l -> l.equals(id))
 				.findAny().isPresent();
 	}
+
+	public boolean removeContact(Long id) {
+		return this.contactsIdList.removeIf(l -> l.equals(id));
+	}
 }

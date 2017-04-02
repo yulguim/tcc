@@ -93,10 +93,8 @@ public class PerfilManager extends TCCBaseManager {
 			perfil.setChave(accountLogada.getChave());
 			perfil.setAccount(accountLogada);
 			perfil.setHabilidadeList(view.getHabilidades());
-			//TODO
-			//perfil = super.save(perfil, profile);
 			perfil = auditoria(perfil, profile);
-			//perfil = super..insert(perfil);
+			perfil = super.service.insert(perfil);
 
 			System.out.println("perfil = " + perfil);
 		} else {

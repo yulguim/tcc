@@ -1,6 +1,9 @@
 <div class="container">
 	<div class="row">
 		perfil {{vm.view}}
-		<button class="btn btn-primary" ng-click="vm.requestFriendship()">add</button>
+		<button class="btn btn-primary" ng-if="!vm.view.isMyProfile && !vm.view.isRequested && !vm.view.isFriend" ng-click="vm.requestFriendship()">add</button>
+		<button class="btn btn-success" ng-if="!vm.view.isMyProfile && vm.view.isFriend" ng-click="vm.removeFriendship()">remove</button>
+		<button class="btn btn-danger" ng-if="!vm.view.isMyProfile && vm.view.isRequested && !vm.view.isFriend" ng-click="vm.acceptFriendship()">accept</button>
+		<button class="btn btn-danger" ng-if="!vm.view.isMyProfile && vm.view.isRequested && !vm.view.isFriend" ng-click="vm.denyFriendship()">deny</button>
 	</div>
 </div>

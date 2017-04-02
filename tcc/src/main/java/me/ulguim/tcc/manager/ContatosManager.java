@@ -75,6 +75,24 @@ public class ContatosManager extends TCCBaseManager {
 		return view;
 	}
 
+	public ContatoView remove(Profile profile, ContatoView view) throws ValidationException {
+		if (view == null || view.getKey() == null) {
+			throw new ValidationException(new MessageWarning("warn.delete"));
+		}
+
+		Account myAccount = super.getAccountLogadaLoaded(profile);
+		Account toRemove = accountService.selectByChave(Account.class, view.getKey());
+		if (toRemove == null) return view;
+
+		if (myAccount.contactExists(toRemove.getId())) {
+			//Remover
+			myAccount.removeContact(toRemove.getId());
+			super.update(myAccount);
+		}
+
+		return view;
+	}
+
 	public ContatoView load(Profile profile, ContatoView view) {
 		return null;
 	}

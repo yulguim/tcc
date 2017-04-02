@@ -12,11 +12,16 @@ app.factory('contatosService', ['ajaxService', function(ajaxService) {
     var _ignore = function(key) {
         return ajaxService.get(_pageUrl+"/ignore/" + key);
     };
+
+    var _remove = function(key) {
+        return ajaxService.remove(_pageUrl+"/" + key);
+    };
  	
 	return {
 		request : _request,
 		accept : _accept,
-		ignore : _ignore
+		ignore : _ignore,
+        remove : _remove
 	}
 	
 }]);

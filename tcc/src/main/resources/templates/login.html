@@ -5,6 +5,7 @@
 <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <!--Import bootstrap.css-->
 <link type="text/css" rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="/vendor/toastr/toastr.min.css">
 <!--Let browser know website is optimized for mobile-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<style>
@@ -154,7 +155,8 @@
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
-												<button class="btn btn-login form-control" tabindex="4" ng-click="vm.doLogin(vm.view)">Log In</button>
+												<button ng-show="!showCadastro" class="btn btn-login form-control" tabindex="4" ng-click="vm.doLogin(vm.view)">Log In</button>
+												<button ng-show="showCadastro" class="btn btn-login form-control" tabindex="4" ng-click="vm.cadastrar(vm.view)">Registrar</button>
 											</div>
 										</div>
 									</div>
@@ -183,6 +185,7 @@
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.min.js"></script>
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.min.js"></script>
 	<script type="text/javascript" src="/vendor/ui.bootstrap/ui-bootstrap-tpls-2.5.0.min.js"></script>
+	<script type="text/javascript" src="/vendor/toastr/toastr.min.js"></script>
 
 	<script type="text/javascript" src="/js/app/publicApp@ignore.js"></script>
 	<script type="text/javascript" src="/js/comum/comum.js"></script>
