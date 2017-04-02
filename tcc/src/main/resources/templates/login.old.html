@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html ng-app="PublicApp">
+<head>
+<!--Import Google Icon Font-->
+<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!--Import bootstrap.css-->
+<link type="text/css" rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="/vendor/toastr/toastr.min.css">
+<!--Let browser know website is optimized for mobile-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<style>
+		body {
+			padding-top: 90px;
+		}
+		.panel-login {
+			border-color: #ccc;
+			-webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+			-moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+			box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+		}
+		.panel-login>.panel-heading {
+			color: #00415d;
+			background-color: #fff;
+			border-color: #fff;
+			text-align:center;
+		}
+		.panel-login>.panel-heading a{
+			text-decoration: none;
+			color: #666;
+			font-weight: bold;
+			font-size: 15px;
+			-webkit-transition: all 0.1s linear;
+			-moz-transition: all 0.1s linear;
+			transition: all 0.1s linear;
+		}
+		.panel-login>.panel-heading a.active{
+			color: #029f5b;
+			font-size: 18px;
+		}
+		.panel-login>.panel-heading hr{
+			margin-top: 10px;
+			margin-bottom: 0px;
+			clear: both;
+			border: 0;
+			height: 1px;
+			background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
+			background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+			background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+			background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+		}
+		.panel-login input[type="text"],.panel-login input[type="email"],.panel-login input[type="password"] {
+			height: 45px;
+			border: 1px solid #ddd;
+			font-size: 16px;
+			-webkit-transition: all 0.1s linear;
+			-moz-transition: all 0.1s linear;
+			transition: all 0.1s linear;
+		}
+		.panel-login input:hover,
+		.panel-login input:focus {
+			outline:none;
+			-webkit-box-shadow: none;
+			-moz-box-shadow: none;
+			box-shadow: none;
+			border-color: #ccc;
+		}
+		.btn-login {
+			background-color: #59B2E0;
+			outline: none;
+			color: #fff;
+			font-size: 14px;
+			height: auto;
+			font-weight: normal;
+			padding: 14px 0;
+			text-transform: uppercase;
+			border-color: #59B2E6;
+		}
+		.btn-login:hover,
+		.btn-login:focus {
+			color: #fff;
+			background-color: #53A3CD;
+			border-color: #53A3CD;
+		}
+		.forgot-password {
+			text-decoration: underline;
+			color: #888;
+		}
+		.forgot-password:hover,
+		.forgot-password:focus {
+			text-decoration: underline;
+			color: #666;
+		}
+
+		.btn-register {
+			background-color: #1CB94E;
+			outline: none;
+			color: #fff;
+			font-size: 14px;
+			height: auto;
+			font-weight: normal;
+			padding: 14px 0;
+			text-transform: uppercase;
+			border-color: #1CB94A;
+		}
+		.btn-register:hover,
+		.btn-register:focus {
+			color: #fff;
+			background-color: #1CA347;
+			border-color: #1CA347;
+		}
+
+	</style>
+</head>
+
+<body ng-controller="loginCtrl as vm" class="body-login-page">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div class="panel panel-login">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-6">
+								<a href="#" ng-class="!showCadastro ? 'active' : ''" ng-click="showCadastro = false">Login</a>
+							</div>
+							<div class="col-xs-6">
+								<a href="#" ng-class="showCadastro ? 'active' : ''" ng-click="showCadastro = true">Register</a>
+							</div>
+						</div>
+						<hr>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-12">
+								<form role="form" style="display: block;">
+									<div class="form-group" ng-show="showCadastro">
+										<div class="row">
+											<div class="col-sm-6">
+												<input type="text" tabindex="1" class="form-control" placeholder="Nome" ng-model="vm.view.nome" ng-keypress="($event.which === 13) ? vm.doLogin(vm.view) : 0">
+											</div>
+											<div class="col-sm-6">
+												<input type="text" tabindex="1" class="form-control" placeholder="Sobrenome" ng-model="vm.view.sobrenome" ng-keypress="($event.which === 13) ? vm.doLogin(vm.view) : 0">
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<input type="text" tabindex="1" class="form-control" placeholder="Email" ng-model="vm.view.email" ng-keypress="($event.which === 13) ? vm.doLogin(vm.view) : 0">
+									</div>
+									<div class="form-group">
+										<input type="password" tabindex="2" class="form-control" placeholder="Password" ng-model="vm.view.password" ng-keypress="($event.which === 13) ? vm.doLogin(vm.view) : 0">
+									</div>
+									<div class="form-group text-center">
+										<input type="checkbox" tabindex="3" class="" name="remember" id="remember">
+										<label for="remember"> Remember Me</label>
+									</div>
+									<div class="form-group">
+										<div class="row">
+											<div class="col-sm-6 col-sm-offset-3">
+												<button ng-show="!showCadastro" class="btn btn-login form-control" tabindex="4" ng-click="vm.doLogin(vm.view)">Log In</button>
+												<button ng-show="showCadastro" class="btn btn-login form-control" tabindex="4" ng-click="vm.cadastrar(vm.view)">Registrar</button>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="row">
+											<div class="col-lg-12">
+												<div class="text-center">
+													<a href="http://phpoll.com/recover" tabindex="5" class="forgot-password">Forgot Password?</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--Import jQuery before materialize.js-->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.min.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.min.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.min.js"></script>
+	<script type="text/javascript" src="/vendor/ui.bootstrap/ui-bootstrap-tpls-2.5.0.min.js"></script>
+	<script type="text/javascript" src="/vendor/toastr/toastr.min.js"></script>
+
+	<script type="text/javascript" src="/js/app/publicApp@ignore.js"></script>
+	<script type="text/javascript" src="/js/comum/comum.js"></script>
+	<script type="text/javascript" src="/js/controller/loginController@ignore.js"></script>
+	<script type="text/javascript" src="/js/service/loginService.js"></script>
+</body>
+</html>

@@ -1,195 +1,98 @@
 <!DOCTYPE html>
-<html ng-app="PublicApp">
+<html class="hide-sidebar ls-bottom-footer" lang="en" ng-app="PublicApp">
+
 <head>
-<!--Import Google Icon Font-->
-<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<!--Import bootstrap.css-->
-<link type="text/css" rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css" />
-<link type="text/css" rel="stylesheet" href="/vendor/toastr/toastr.min.css">
-<!--Let browser know website is optimized for mobile-->
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<style>
-		body {
-			padding-top: 90px;
-		}
-		.panel-login {
-			border-color: #ccc;
-			-webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
-			-moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
-			box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
-		}
-		.panel-login>.panel-heading {
-			color: #00415d;
-			background-color: #fff;
-			border-color: #fff;
-			text-align:center;
-		}
-		.panel-login>.panel-heading a{
-			text-decoration: none;
-			color: #666;
-			font-weight: bold;
-			font-size: 15px;
-			-webkit-transition: all 0.1s linear;
-			-moz-transition: all 0.1s linear;
-			transition: all 0.1s linear;
-		}
-		.panel-login>.panel-heading a.active{
-			color: #029f5b;
-			font-size: 18px;
-		}
-		.panel-login>.panel-heading hr{
-			margin-top: 10px;
-			margin-bottom: 0px;
-			clear: both;
-			border: 0;
-			height: 1px;
-			background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
-			background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
-			background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
-			background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
-		}
-		.panel-login input[type="text"],.panel-login input[type="email"],.panel-login input[type="password"] {
-			height: 45px;
-			border: 1px solid #ddd;
-			font-size: 16px;
-			-webkit-transition: all 0.1s linear;
-			-moz-transition: all 0.1s linear;
-			transition: all 0.1s linear;
-		}
-		.panel-login input:hover,
-		.panel-login input:focus {
-			outline:none;
-			-webkit-box-shadow: none;
-			-moz-box-shadow: none;
-			box-shadow: none;
-			border-color: #ccc;
-		}
-		.btn-login {
-			background-color: #59B2E0;
-			outline: none;
-			color: #fff;
-			font-size: 14px;
-			height: auto;
-			font-weight: normal;
-			padding: 14px 0;
-			text-transform: uppercase;
-			border-color: #59B2E6;
-		}
-		.btn-login:hover,
-		.btn-login:focus {
-			color: #fff;
-			background-color: #53A3CD;
-			border-color: #53A3CD;
-		}
-		.forgot-password {
-			text-decoration: underline;
-			color: #888;
-		}
-		.forgot-password:hover,
-		.forgot-password:focus {
-			text-decoration: underline;
-			color: #666;
-		}
-
-		.btn-register {
-			background-color: #1CB94E;
-			outline: none;
-			color: #fff;
-			font-size: 14px;
-			height: auto;
-			font-weight: normal;
-			padding: 14px 0;
-			text-transform: uppercase;
-			border-color: #1CB94A;
-		}
-		.btn-register:hover,
-		.btn-register:focus {
-			color: #fff;
-			background-color: #1CA347;
-			border-color: #1CA347;
-		}
-
-	</style>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>ThemeKit</title>
+  <link href="/vendor/themekit40/css/vendor/all.css" rel="stylesheet">
+  <link href="/vendor/themekit40/css/app/app.css" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="/vendor/toastr/toastr.min.css">
 </head>
 
-<body ng-controller="loginCtrl as vm" class="body-login-page">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<div class="panel panel-login">
-					<div class="panel-heading">
-						<div class="row">
-							<div class="col-xs-6">
-								<a href="#" ng-class="!showCadastro ? 'active' : ''" ng-click="showCadastro = false">Login</a>
-							</div>
-							<div class="col-xs-6">
-								<a href="#" ng-class="showCadastro ? 'active' : ''" ng-click="showCadastro = true">Register</a>
-							</div>
-						</div>
-						<hr>
-					</div>
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-lg-12">
-								<form role="form" style="display: block;">
-									<div class="form-group" ng-show="showCadastro">
-										<div class="row">
-											<div class="col-sm-6">
-												<input type="text" tabindex="1" class="form-control" placeholder="Nome" ng-model="vm.view.nome" ng-keypress="($event.which === 13) ? vm.doLogin(vm.view) : 0">
-											</div>
-											<div class="col-sm-6">
-												<input type="text" tabindex="1" class="form-control" placeholder="Sobrenome" ng-model="vm.view.sobrenome" ng-keypress="($event.which === 13) ? vm.doLogin(vm.view) : 0">
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-										<input type="text" tabindex="1" class="form-control" placeholder="Email" ng-model="vm.view.email" ng-keypress="($event.which === 13) ? vm.doLogin(vm.view) : 0">
-									</div>
-									<div class="form-group">
-										<input type="password" tabindex="2" class="form-control" placeholder="Password" ng-model="vm.view.password" ng-keypress="($event.which === 13) ? vm.doLogin(vm.view) : 0">
-									</div>
-									<div class="form-group text-center">
-										<input type="checkbox" tabindex="3" class="" name="remember" id="remember">
-										<label for="remember"> Remember Me</label>
-									</div>
-									<div class="form-group">
-										<div class="row">
-											<div class="col-sm-6 col-sm-offset-3">
-												<button ng-show="!showCadastro" class="btn btn-login form-control" tabindex="4" ng-click="vm.doLogin(vm.view)">Log In</button>
-												<button ng-show="showCadastro" class="btn btn-login form-control" tabindex="4" ng-click="vm.cadastrar(vm.view)">Registrar</button>
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="row">
-											<div class="col-lg-12">
-												<div class="text-center">
-													<a href="http://phpoll.com/recover" tabindex="5" class="forgot-password">Forgot Password?</a>
-												</div>
-											</div>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!--Import jQuery before materialize.js-->
-	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.min.js"></script>
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.min.js"></script>
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.min.js"></script>
-	<script type="text/javascript" src="/vendor/ui.bootstrap/ui-bootstrap-tpls-2.5.0.min.js"></script>
-	<script type="text/javascript" src="/vendor/toastr/toastr.min.js"></script>
+<body class="login" ng-controller="loginCtrl as vm">
 
-	<script type="text/javascript" src="/js/app/publicApp@ignore.js"></script>
-	<script type="text/javascript" src="/js/comum/comum.js"></script>
-	<script type="text/javascript" src="/js/controller/loginController@ignore.js"></script>
-	<script type="text/javascript" src="/js/service/loginService.js"></script>
+  <div id="content">
+    <div class="container-fluid">
+
+      <div class="lock-container">
+        <h1>Account Access</h1>
+        <div class="panel panel-default text-center">
+          <img src="/vendor/themekit40/images/people/110/guy-5.jpg" class="img-circle">
+          <div class="panel-body">
+            <input class="form-control" type="text" placeholder="Email" ng-model="vm.view.email" ng-keypress="($event.which === 13) ? vm.doLogin(vm.view) : 0">
+            <input class="form-control" type="password" placeholder="Enter Password" ng-model="vm.view.password" ng-keypress="($event.which === 13) ? vm.doLogin(vm.view) : 0">
+
+            <a href="#" class="btn btn-primary" ng-click="vm.doLogin(vm.view)">Login <i class="fa fa-fw fa-unlock-alt"></i></a>
+            <a href="#" class="forgot-password">Forgot password?</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <strong>ThemeKit</strong> v4.0.0 &copy; Copyright 2015
+  </footer>
+  <!-- // Footer -->
+  <!-- Inline Script for colors and config objects; used by various external scripts; -->
+  <script>
+    var colors = {
+      "danger-color": "#e74c3c",
+      "success-color": "#81b53e",
+      "warning-color": "#f0ad4e",
+      "inverse-color": "#2c3e50",
+      "info-color": "#2d7cb5",
+      "default-color": "#6e7882",
+      "default-light-color": "#cfd9db",
+      "purple-color": "#9D8AC7",
+      "mustard-color": "#d4d171",
+      "lightred-color": "#e15258",
+      "body-bg": "#f6f6f6"
+    };
+    var config = {
+      theme: "social-3",
+      skins: {
+        "default": {
+          "primary-color": "#16ae9f"
+        },
+        "orange": {
+          "primary-color": "#e74c3c"
+        },
+        "blue": {
+          "primary-color": "#4687ce"
+        },
+        "purple": {
+          "primary-color": "#af86b9"
+        },
+        "brown": {
+          "primary-color": "#c3a961"
+        },
+        "default-nav-inverse": {
+          "color-block": "#242424"
+        }
+      }
+    };
+  </script>
+  <script type="text/javascript" src="/vendor/themekit40/js/vendor/all@Ignore.js"></script>
+  <script type="text/javascript" src="/vendor/themekit40/js/app/app@Ignore.js"></script>
+
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.min.js"></script>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.min.js"></script>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.min.js"></script>
+  <script type="text/javascript" src="/vendor/ui.bootstrap/ui-bootstrap-tpls-2.5.0.min.js"></script>
+  <script type="text/javascript" src="/vendor/toastr/toastr.min.js"></script>
+
+  <script type="text/javascript" src="/js/app/publicApp@ignore.js"></script>
+  <script type="text/javascript" src="/js/comum/comum.js"></script>
+  <script type="text/javascript" src="/js/controller/loginController@ignore.js"></script>
+  <script type="text/javascript" src="/js/service/loginService.js"></script>
 </body>
+
 </html>
