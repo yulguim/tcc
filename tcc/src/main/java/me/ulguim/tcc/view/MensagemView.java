@@ -9,6 +9,8 @@ public class MensagemView extends BaseView {
 
 	private Long id;
 
+	private Long chatId;
+
 	private String mensagem;
 
 	private String data;
@@ -39,5 +41,13 @@ public class MensagemView extends BaseView {
 
 	public void setData(String data) {
 		this.data = data;
+	}
+
+	public Long getChatId() {
+		return chatId;
+	}
+
+	public void setChatId(Long chatId) {
+		this.chatId = chatId;
 	}
 }

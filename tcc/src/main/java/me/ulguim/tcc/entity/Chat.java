@@ -66,4 +66,6 @@ public class Chat extends BaseEntity implements Serializable {
 	}
 
 
+
+
 }

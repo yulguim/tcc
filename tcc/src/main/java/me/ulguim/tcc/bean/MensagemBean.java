@@ -9,6 +9,8 @@ public class MensagemBean extends BaseBean {
 
 	private Long id;
 
+	private Long userId;
+
 	private String mensagem;
 
 	private String data;
@@ -41,4 +43,11 @@ public class MensagemBean extends BaseBean {
 		this.data = data;
 	}
 
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 }
