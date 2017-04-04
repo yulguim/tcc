@@ -10,8 +10,8 @@ app.controller("profileCtrl", ["$scope", '$routeParams', "profileService", "cont
 
 	function requestFriendship() {
         var key = $routeParams.key;
-        contatosService.request(key).success(function(view) {
-        	console.log(view);
+        contatosService.request(key).success(function() {
+        	vm.view.isRequested = true;
 		});
 	}
 
@@ -24,8 +24,8 @@ app.controller("profileCtrl", ["$scope", '$routeParams', "profileService", "cont
 
     function acceptFriendship() {
         var key = $routeParams.key;
-        contatosService.accept(key).success(function(view) {
-            console.log(view);
+        contatosService.accept(key).success(function() {
+            vm.view.isFriend = true;
         });
     }
 

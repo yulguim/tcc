@@ -1,15 +1,76 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" ng-app="App">
+<html xmlns:th="http://www.thymeleaf.org" ng-app="App"
+      class="st-layout ls-top-navbar ls-bottom-footer hide-sidebar sidebar-r2" lang="en">
 <head>
-<meta charset="UTF-8">
-<title>TCC</title>
-<object th:include="include/head"></object>
-<object th:each="css : ${cssList}" th:utext="${css}"></object>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>ThemeKit</title>
+    <link href="/vendor/themekit40/css/vendor/all@Ignore.css" rel="stylesheet">
+    <link href="/vendor/themekit40/css/app/app@Ignore.css" rel="stylesheet">
+    <object th:each="css : ${cssList}" th:utext="${css}"></object>
 </head>
 <body ng-controller="appCtrl">
-	<object th:include="include/nav"></object>
-	<div ng-view=""></div>
-	<object th:include="include/footer"></object>
-	<object th:each="js : ${jsList}" th:utext="${js}"></object>
+<div class="st-container">
+    <object th:include="include/nav"></object>
+    <!-- content push wrapper -->
+    <div class="st-pusher" id="content">
+        <!-- this is the wrapper for the content -->
+        <div class="st-content">
+            <!-- extra div for emulating position:fixed of the menu -->
+            <div class="st-content-inner">
+                <div ng-view=""></div>
+            </div>
+            <!-- /st-content -->
+        </div>
+        <!-- /st-pusher -->
+        <!-- Footer -->
+        <footer class="footer">
+            <strong>ThemeKit</strong> v4.0.0 &copy; Copyright 2015
+        </footer>
+    </div>
+</div>
+<script>
+    var colors = {
+        "danger-color": "#e74c3c",
+        "success-color": "#81b53e",
+        "warning-color": "#f0ad4e",
+        "inverse-color": "#2c3e50",
+        "info-color": "#2d7cb5",
+        "default-color": "#6e7882",
+        "default-light-color": "#cfd9db",
+        "purple-color": "#9D8AC7",
+        "mustard-color": "#d4d171",
+        "lightred-color": "#e15258",
+        "body-bg": "#f6f6f6"
+    };
+    var config = {
+        theme: "social-3",
+        skins: {
+            "default": {
+                "primary-color": "#16ae9f"
+            },
+            "orange": {
+                "primary-color": "#e74c3c"
+            },
+            "blue": {
+                "primary-color": "#4687ce"
+            },
+            "purple": {
+                "primary-color": "#af86b9"
+            },
+            "brown": {
+                "primary-color": "#c3a961"
+            },
+            "default-nav-inverse": {
+                "color-block": "#242424"
+            }
+        }
+    };
+</script>
+<object th:include="include/footer"></object>
+<object th:each="js : ${jsList}" th:utext="${js}"></object>
 </body>
 </html>

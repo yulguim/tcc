@@ -72,7 +72,7 @@ public class PerfilManager extends TCCBaseManager {
 			view.setMyProfile(true);
 		} else if (accountLogadaLoaded.contactExists(accountLogadaLoaded.getId())) { //Ver se eh amigo
 			view.setFriend(true);
-		} else if (accountLogadaLoaded.getExtraParams().existsRequest(perfil.getId())) { //Ver se tem request
+		} else if (perfil.getAccount().getExtraParams().existsRequest(accountLogadaLoaded.getId())) { //Ver se tem request
 			view.setRequested(true);
 		}
 

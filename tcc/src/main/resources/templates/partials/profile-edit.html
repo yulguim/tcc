@@ -1,73 +1,76 @@
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <legend ng-if="vm.view.hasNoProfile" style="font-size: 32px;">{{'COMPLETE.SEU.PERFIL' | translate}}</legend>
-            <legend ng-if="!vm.view.hasNoProfile" style="font-size: 32px;">{{'EDITAR.PERFIL' | translate}}</legend>
+    <div class="jumbotron bg-transparent text-center margin-none">
+        <h1 ng-if="vm.view.hasNoProfile" style="font-size: 32px;">{{'COMPLETE.SEU.PERFIL' | translate}}</h1>
+        <h1 ng-if="!vm.view.hasNoProfile" style="font-size: 32px;">{{'EDITAR.PERFIL' | translate}}</h1>
+        <p>ThemeKit includes all the form controls shipped with Bootstrap, as well as custom form components that cover various usage scenarios, all themed for modern websites.</p>
+    </div>
+
+    <div class="page-section">
+        <div class="row">
+            <div class="col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2">
+
+                <h4 class="page-section-heading">Basic example</h4>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-control-default required">
+                                        <label for="exampleInputFirstName">{{'NOME' | translate}}</label>
+                                        <input type="text" class="form-control" id="exampleInputFirstName" ng-model="vm.view.name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-control-default required">
+                                        <label for="exampleInputLastName">{{'SOBRENOME' | translate}}</label>
+                                        <input type="text" class="form-control" id="exampleInputLastName" ng-model="vm.view.lastname">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-control-default required">
+                                <label for="exampleInputPassword12">{{'SOBRE.MIM' | translate}}</label>
+                                <textarea rows="10" class="form-control" id="exampleInputPassword12" placeholder="Fale um pouco sobre você" ng-model="vm.view.about"></textarea>
+                            </div>
+                            <div class="form-group required">
+                                <label class="control-label" for="inputSuccess1">{{'MINHA.LOCALIZACAO' | translate}}</label>
+                                <input type="text" class="form-control" id="inputSuccess1" ng-model="vm.view.localizacaoNome"
+                                       uib-typeahead="location as location.label for location in vm.cidades"
+                                       ng-change="vm.procurarCidade(vm.view.localizacaoNome)"
+                                       typeahead-on-select="vm.onSelectLocalizacao($item, $model, $label)">
+                            </div>
+                            <div class="form-group required">
+                                <label class="control-label">{{'HABILIDADES' | translate}}</label>
+                                <tags-input ng-model="vm.view.habilidades" display-property="label">
+                                    <auto-complete source="vm.habilidades"></auto-complete>
+                                </tags-input>
+                            </div>
+                            <div class="row">
+                                <h4>Links</h4>
+                            </div>
+                            <div class="form-group required" ng-repeat="link in vm.view.links">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <select class="form-control" ng-model="link.site">
+                                            <option value="" disabled selected>{{'SELECIONE' | translate}}</option>
+                                            <option value="FACEBOOK">Facebook</option>
+                                            <option value="LINKEDIN">Linked</option>
+                                            <option value="TWITTER">Twitter</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" ng-model="link.url" class="form-control">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button class="btn btn-default" ng-click="vm.addLink()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                        <button class="btn btn-default" ng-click="vm.removeLink(link)"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary" ng-click="vm.salvarPerfil()">{{'SALVAR' | translate}}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-            <div class="row">
-                <form class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>{{'NOME' | translate}} *</label>
-                                <input type="text" class="form-control" ng-model="vm.view.name"/>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>{{'SOBRENOME' | translate}} *</label>
-                                <input type="text" class="form-control" ng-model="vm.view.lastname"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group">
-                            <label>{{'SOBRE.MIM' | translate}} *</label>
-                            <textarea class="form-control" ng-model="vm.view.about"></textarea>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group">
-                            <label>{{'MINHA.LOCALIZACAO' | translate}} *</label>
-                            <input type="text" class="form-control" ng-model="vm.view.localizacaoNome"
-                                   uib-typeahead="location as location.label for location in vm.cidades"
-                                   ng-change="vm.procurarCidade(vm.view.localizacaoNome)"
-                                   typeahead-on-select="vm.onSelectLocalizacao($item, $model, $label)">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group">
-                            <label>{{'HABILIDADES' | translate}}</label>
-                            <tags-input ng-model="vm.view.habilidades" display-property="label">
-                                <auto-complete source="vm.habilidades"></auto-complete>
-                            </tags-input>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <h4>Links</h4>
-                        <div class="form-group" ng-repeat="link in vm.view.links">
-                            <div class="col-md-2">
-                                <select class="form-control" ng-model="link.site">
-                                    <option value="" disabled selected>{{'SELECIONE' | translate}}</option>
-                                    <option value="FACEBOOK">Facebook</option>
-                                    <option value="LINKEDIN">Linked</option>
-                                    <option value="TWITTER">Twitter</option>
-                                </select>
-                            </div>
-                            <div class="col-md-8">
-                                <input type="text" ng-model="link.url" class="form-control">
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-default" ng-click="vm.addLink()"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                                <button class="btn btn-default" ng-click="vm.removeLink(link)"><i class="fa fa-minus" aria-hidden="true"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <button class="btn btn-primary" ng-click="vm.salvarPerfil()">{{'SALVAR' | translate}}</button>
-                    </div>
-                </form>
-            </div>
 </div>
