@@ -13,6 +13,7 @@ import me.ulguim.tcc.entity.Perfil;
 import me.ulguim.tcc.entity.other.Habilidade;
 import me.ulguim.tcc.manager.base.TCCBaseManager;
 import me.ulguim.tcc.parser.PerfilParser;
+import me.ulguim.tcc.service.AccountService;
 import me.ulguim.tcc.service.HabilidadeService;
 import me.ulguim.tcc.service.PerfilService;
 import me.ulguim.tcc.view.PerfilView;
@@ -28,6 +29,9 @@ public class PerfilManager extends TCCBaseManager {
 
 	@Inject
 	private PerfilService perfilService;
+
+	@Inject
+	private AccountService accountService;
 
 	@Inject
 	private HabilidadeService habilidadeService;
@@ -62,18 +66,21 @@ public class PerfilManager extends TCCBaseManager {
 	public PerfilView load(Profile profile, PerfilView view) throws ValidationException {
 		Account accountLogadaLoaded = getAccountLogadaLoaded(profile);
 
+		Account account = accountService.selectByChave(Account.class, view.getKey());
 		Perfil perfil = perfilService.selectByChave(Perfil.class, view.getKey());
-		if (perfil == null) {
+		if (account == null || perfil == null) {
 			throw new ValidationException(new MessageWarning("warn.load"));
 		}
 
 		view = PerfilParser.parse(perfil);
-		if (perfil.getAccount().getId().equals(accountLogadaLoaded.getId())) { //Ver se o profile eh o meu
+		if (account.getId().equals(accountLogadaLoaded.getId())) { //Ver se o profile eh o meu
 			view.setMyProfile(true);
 		} else if (accountLogadaLoaded.contactExists(accountLogadaLoaded.getId())) { //Ver se eh amigo
 			view.setFriend(true);
-		} else if (perfil.getAccount().getExtraParams().existsRequest(accountLogadaLoaded.getId())) { //Ver se tem request
-			view.setRequested(true);
+		} else if (account.getExtraParams().existsRequest(accountLogadaLoaded.getId())) { //Ver se tem request meu
+			view.setRequestedByMe(true);
+		} else if (accountLogadaLoaded.getExtraParams().existsRequest(account.getId())) { //Ver se tem request do user para mim
+			view.setRequestedByUser(true);
 		}
 
 		return view;

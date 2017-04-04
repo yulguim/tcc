@@ -52,17 +52,29 @@
 			<div class="avatar">
 				<img src="images/people/110/guy-5.jpg" alt="people" />
 			</div>
-			<div class="name"><a href="/#/profile/{{vm.view.key}}">{{vm.view.label}}</a></div>
+			<div class="name"><a ng-href="/#/profile/{{vm.view.key}}">{{vm.view.label}}</a></div>
 			<ul class="cover-nav">
-				<li>
-					<a href="" ng-if="!vm.view.isMyProfile && !vm.view.isRequested && !vm.view.isFriend" ng-click="vm.requestFriendship()"><i class="fa fa-fw fa-check"></i> Adicionar como contato</a>
-					<a href="" ng-if="!vm.view.isMyProfile && vm.view.isFriend" ng-click="vm.removeFriendship()"><i class="fa fa-fw fa-remove"></i> Remover dos contatos</a>
-					<a href="" ng-if="!vm.view.isMyProfile && vm.view.isRequested && !vm.view.isFriend" ng-click="vm.acceptFriendship()"><i class="fa fa-fw fa-check"></i> Aceitar contato</a>
-					<a href="" ng-if="!vm.view.isMyProfile && vm.view.isRequested && !vm.view.isFriend" ng-click="vm.denyFriendship()"><i class="fa fa-fw fa-remove"></i> Recusar contato</a>
+				<li ng-if="vm.view.isMyProfile">
+					<a href=""><i class="fa fa-fw fa-check"></i> Meu perfil</a>
 				</li>
-				<li><a href="user-public-timeline.html"><i class="fa fa-fw icon-ship-wheel"></i> Timeline</a></li>
-				<li><a href="user-public-profile.html"><i class="fa fa-fw icon-user-1"></i> About</a></li>
-				<li><a href="user-public-users.html"><i class="fa fa-fw fa-users"></i> Friends</a></li>
+				<li ng-if="!vm.view.isMyProfile && !vm.view.isRequestedByMe && !vm.view.isRequestedByUser && !vm.view.isFriend">
+					<a href="" ng-click="vm.requestFriendship()"><i class="fa fa-fw fa-check"></i> Adicionar como contato</a>
+				</li>
+				<li ng-if="!vm.view.isMyProfile && vm.view.isFriend">
+					<a href="" ng-click="vm.removeFriendship()"><i class="fa fa-fw fa-remove"></i> Remover dos contatos</a>
+				</li>
+				<li ng-if="!vm.view.isMyProfile && vm.view.isRequestedByUser && !vm.view.isFriend">
+					<a href="" ng-click="vm.acceptFriendship()"><i class="fa fa-fw fa-check"></i> Aceitar contato</a>
+				</li>
+				<li ng-if="!vm.view.isMyProfile && vm.view.isRequestedByMe && !vm.view.isFriend">
+					<a href="" ng-click="vm.cancelFriendshipRequest()"><i class="fa fa-fw fa-check"></i> Cancelar request</a>
+				</li>
+				<li ng-if="!vm.view.isMyProfile && vm.view.isRequestedByUser && !vm.view.isFriend">
+					<a href="" ng-click="vm.denyFriendship()"><i class="fa fa-fw fa-remove"></i> Recusar contato</a>
+				</li>
+				<li class="active"><a ng-href="/#/profile/{{vm.view.key}}"><i class="fa fa-fw icon-user-1"></i> About</a></li>
+				<li><a href=""><i class="fa fa-fw fa-users"></i> Friends</a></li>
+				<li><a href=""><i class="fa fa-fw fa-file"></i> Projects</a></li>
 			</ul>
 		</div>
 	</div>

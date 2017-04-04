@@ -22,6 +22,7 @@ public class AccountManager extends TCCBaseManager {
 		Account accountLogadaLoaded = getAccountLogadaLoaded(profile);
 
 		AccountView view = new AccountView();
+		view.setKey(accountLogadaLoaded.getChave());
 		view.setAvatar(accountLogadaLoaded.getAvatar());
 		view.setLabel(accountLogadaLoaded.getLabel());
 

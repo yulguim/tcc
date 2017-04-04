@@ -56,6 +56,17 @@ public class ContatosManager extends TCCBaseManager {
 		return view;
 	}
 
+	public ContatoView cancelRequest(Profile profile, ContatoView view) {
+		Account myAccount = super.getAccountLogadaLoaded(profile);
+		Account toCancel = accountService.selectByChave(Account.class, view.getKey());
+		if (toCancel != null) {
+			toCancel.getExtraParams().removeRequest(myAccount.getId());
+			super.update(toCancel);
+		}
+
+		return view;
+	}
+
 	public ContatoView acceptRequest(Profile profile, ContatoView view) throws ValidationException {
 		if (view == null || view.getKey() == null) {
 			throw new ValidationException(new MessageWarning("warn.save"));

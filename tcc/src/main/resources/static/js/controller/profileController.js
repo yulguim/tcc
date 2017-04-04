@@ -7,11 +7,12 @@ app.controller("profileCtrl", ["$scope", '$routeParams', "profileService", "cont
 	vm.removeFriendship = removeFriendship;
 	vm.acceptFriendship = acceptFriendship;
 	vm.denyFriendship = denyFriendship;
+	vm.cancelFriendshipRequest = cancelFriendshipRequest;
 
 	function requestFriendship() {
         var key = $routeParams.key;
         contatosService.request(key).success(function() {
-        	vm.view.isRequested = true;
+        	vm.view.isRequestedByMe = true;
 		});
 	}
 
@@ -31,8 +32,15 @@ app.controller("profileCtrl", ["$scope", '$routeParams', "profileService", "cont
 
     function denyFriendship() {
         var key = $routeParams.key;
-        contatosService.ignore(key).success(function(view) {
-            console.log(view);
+        contatosService.ignore(key).success(function() {
+            vm.view.isRequestedByUser = false;
+        });
+    }
+
+    function cancelFriendshipRequest() {
+        var key = $routeParams.key;
+        contatosService.cancelRequest(key).success(function() {
+            vm.view.isRequestedByMe = false;
         });
     }
 

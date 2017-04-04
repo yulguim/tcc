@@ -36,7 +36,9 @@ public class PerfilView extends BaseView {
 
 	private Boolean isFriend;
 
-	private Boolean isRequested;
+	private Boolean isRequestedByMe;
+
+	private Boolean isRequestedByUser;
 
 	private Boolean isMyProfile;
 
@@ -140,19 +142,27 @@ public class PerfilView extends BaseView {
 		isFriend = friend;
 	}
 
-	public Boolean getRequested() {
-		return isRequested;
-	}
-
-	public void setRequested(Boolean requested) {
-		isRequested = requested;
-	}
-
 	public Boolean getMyProfile() {
 		return isMyProfile;
 	}
 
 	public void setMyProfile(Boolean myProfile) {
 		isMyProfile = myProfile;
+	}
+
+	public Boolean getRequestedByMe() {
+		return isRequestedByMe;
+	}
+
+	public void setRequestedByMe(Boolean requestedByMe) {
+		isRequestedByMe = requestedByMe;
+	}
+
+	public Boolean getRequestedByUser() {
+		return isRequestedByUser;
+	}
+
+	public void setRequestedByUser(Boolean requestedByUser) {
+		isRequestedByUser = requestedByUser;
 	}
 }

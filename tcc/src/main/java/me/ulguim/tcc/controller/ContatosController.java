@@ -39,6 +39,11 @@ public class ContatosController extends TCCBaseController {
 		return contatosManager.ignoreRequest(getProfile(), new ContatoView(key));
 	}
 
+	@RequestMapping(value="/cancel/{key}", method = RequestMethod.GET)
+	public ContatoView cancelRequest(@PathVariable("key") String key) throws ValidationException {
+		return contatosManager.cancelRequest(getProfile(), new ContatoView(key));
+	}
+
 	@RequestMapping(value="/{key}", method = RequestMethod.DELETE)
 	public ContatoView unfriend(@PathVariable("key") String key) throws ValidationException {
 		return contatosManager.remove(getProfile(), new ContatoView(key));
