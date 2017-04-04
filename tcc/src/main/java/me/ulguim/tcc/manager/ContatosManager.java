@@ -1,5 +1,6 @@
 package me.ulguim.tcc.manager;
 
+import in.k2s.sdk.core.interfaces.Entity;
 import in.k2s.sdk.web.message.Message;
 import in.k2s.sdk.web.message.MessageWarning;
 import in.k2s.sdk.web.profile.Profile;
@@ -10,9 +11,11 @@ import me.ulguim.tcc.entity.Account;
 import me.ulguim.tcc.entity.Contato;
 import me.ulguim.tcc.entity.Perfil;
 import me.ulguim.tcc.manager.base.TCCBaseManager;
+import me.ulguim.tcc.parser.AccountParser;
 import me.ulguim.tcc.service.AccountService;
 import me.ulguim.tcc.service.LoginService;
 import me.ulguim.tcc.service.PerfilService;
+import me.ulguim.tcc.view.AccountView;
 import me.ulguim.tcc.view.ContatoView;
 import me.ulguim.tcc.view.LoginView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,7 @@ import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 import java.lang.ref.SoftReference;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -31,9 +35,16 @@ public class ContatosManager extends TCCBaseManager {
 	@Inject
 	private PerfilService perfilService;
 
-	public List<ContatoView> list(Profile profile) {
-		Account accountLogada = super.getAccountLogada(profile);
-		return null;
+	public List<AccountView> list(Profile profile) {
+		Account accountLogada = super.getAccountLogadaLoaded(profile);
+
+		List<AccountView> list = new ArrayList<>();
+		accountLogada.getContactsIdList().forEach(c -> {
+			Account a = accountService.selectById(Account.class, c);
+			list.add(AccountParser.parse(a));
+		});
+
+		return list;
 	}
 
 	public ContatoView request(Profile profile, ContatoView view) {
@@ -77,10 +88,14 @@ public class ContatosManager extends TCCBaseManager {
 		if (toAccept == null) return view;
 
 		if (myAccount.getExtraParams().existsRequest(toAccept.getId())) {
-			//Aceitar
+			//Add nos meus contatos
 			myAccount.addContact(toAccept.getId());
 			myAccount.getExtraParams().removeRequest(toAccept.getId());
-			super.update(myAccount);
+			myAccount = super.update(myAccount, profile);
+			//Add nos contatos da pessoa
+			toAccept.addContact(myAccount.getId());
+			toAccept.getExtraParams().removeRequest(myAccount.getId());
+			super.update(toAccept, profile);
 		}
 
 		return view;
@@ -96,9 +111,11 @@ public class ContatosManager extends TCCBaseManager {
 		if (toRemove == null) return view;
 
 		if (myAccount.contactExists(toRemove.getId())) {
-			//Remover
+			//Remove dos meus contatos
 			myAccount.removeContact(toRemove.getId());
-			super.update(myAccount);
+			myAccount = super.update(myAccount, profile);
+			//Remove dos contatos da pessoa
+			toRemove.removeContact(myAccount.getId());
 		}
 
 		return view;

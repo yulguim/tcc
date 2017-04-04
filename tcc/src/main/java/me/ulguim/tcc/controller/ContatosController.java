@@ -4,6 +4,7 @@ import in.k2s.sdk.springboot.controller.annotation.ControllerSecurity;
 import in.k2s.sdk.web.validation.ValidationException;
 import me.ulguim.tcc.controller.base.TCCBaseController;
 import me.ulguim.tcc.manager.ContatosManager;
+import me.ulguim.tcc.view.AccountView;
 import me.ulguim.tcc.view.ContatoView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,7 +21,7 @@ public class ContatosController extends TCCBaseController {
 	private ContatosManager contatosManager;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<ContatoView> list() throws ValidationException {
+	public List<AccountView> list() throws ValidationException {
 		return contatosManager.list(getProfile());
 	}
 
