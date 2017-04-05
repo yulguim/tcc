@@ -1,13 +1,15 @@
-app.controller("profileCtrl", ["$scope", '$routeParams', "profileService", "contatosService", function ($scope, $routeParams, profileService, contatosService) {
+app.controller("profileCtrl", ['$routeParams', "profileService", "contatosService", 'mensagensService', function ($routeParams, profileService, contatosService, mensagensService) {
 	var vm = this;
 
 	vm.view = {};
+    vm.mensagem = {};
 	//functions
 	vm.requestFriendship = requestFriendship;
 	vm.removeFriendship = removeFriendship;
 	vm.acceptFriendship = acceptFriendship;
 	vm.denyFriendship = denyFriendship;
 	vm.cancelFriendshipRequest = cancelFriendshipRequest;
+	vm.sendMensagem = sendMensagem;
 
 	function requestFriendship() {
         var key = $routeParams.key;
@@ -44,12 +46,19 @@ app.controller("profileCtrl", ["$scope", '$routeParams', "profileService", "cont
         });
     }
 
+    function sendMensagem() {
+	    vm.mensagem.userKey = $routeParams.key;
+        mensagensService.saveMensagem(vm.mensagem).success(function() {
+	        vm.mensagem = {};
+        });
+    }
+
 	var iniciarTela = function() {
 		var key = $routeParams.key;
 		profileService.load(key).success(function(view) {
 			vm.view = view;
 		})
 	};
-     
+
 	iniciarTela();
 }]);

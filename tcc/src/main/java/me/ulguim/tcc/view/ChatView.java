@@ -2,6 +2,7 @@ package me.ulguim.tcc.view;
 
 import in.k2s.sdk.web.view.BaseView;
 import in.k2s.sdk.web.view.annotation.View;
+import me.ulguim.tcc.bean.MensagemBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,13 @@ public class ChatView extends BaseView {
 
 	private String user2Label;
 
-	private List<MensagemView> mensagens = new ArrayList<>();
+	private List<MensagemBean> mensagens = new ArrayList<>();
+
+	//No list da tela de mensagens
+
+	private Long user;
+
+	private String userLabel;
 
 	public ChatView() {
 
@@ -66,11 +73,27 @@ public class ChatView extends BaseView {
 		this.user2Label = user2Label;
 	}
 
-	public List<MensagemView> getMensagens() {
+	public List<MensagemBean> getMensagens() {
 		return mensagens;
 	}
 
-	public void setMensagens(List<MensagemView> mensagens) {
+	public void setMensagens(List<MensagemBean> mensagens) {
 		this.mensagens = mensagens;
+	}
+
+	public Long getUser() {
+		return user;
+	}
+
+	public void setUser(Long user) {
+		this.user = user;
+	}
+
+	public String getUserLabel() {
+		return userLabel;
+	}
+
+	public void setUserLabel(String userLabel) {
+		this.userLabel = userLabel;
 	}
 }

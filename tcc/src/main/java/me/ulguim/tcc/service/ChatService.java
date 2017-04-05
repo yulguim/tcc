@@ -20,4 +20,9 @@ public class ChatService extends BaseService {
 		return super.selectFirstByQuery(QUERY, id, accountId);
 	}
 
+	public Chat selectChatByUser1IdUser2Id(Long user1, Long user2) {
+		String QUERY = "SELECT obj FROM Chat obj WHERE (obj.user1 = ?1 AND obj.user2 = ?2) OR (obj.user1 = ?2 AND obj.user2 = ?1)";
+		return super.selectFirstByQuery(QUERY, user1, user2);
+	}
+
 }

@@ -84,10 +84,10 @@
 	<div class="panel panel-default share">
 		<div class="input-group">
 			<div class="input-group-btn">
-				<a class="btn btn-primary" href="#"><i class="fa fa-envelope"></i>Send</a>
+				<a class="btn btn-primary" href="" ng-click="vm.sendMensagem()"><i class="fa fa-envelope"></i>Send</a>
 			</div>
 			<!-- /btn-group -->
-			<input type="text" class="form-control share-text" placeholder="Write message..." />
+			<input type="text" class="form-control share-text" ng-model="vm.mensagem.mensagem" placeholder="Write message..." />
 		</div>
 		<!-- /input-group -->
 	</div>

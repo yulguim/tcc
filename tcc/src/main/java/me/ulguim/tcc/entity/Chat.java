@@ -3,9 +3,11 @@ package me.ulguim.tcc.entity;
 import in.k2s.sdk.jpa.entity.BaseEntity;
 import me.ulguim.tcc.bean.MensagemBean;
 import me.ulguim.tcc.entity.converter.HabilidadesConverter;
+import me.ulguim.tcc.entity.converter.MensagemConverter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +26,18 @@ public class Chat extends BaseEntity implements Serializable {
 	private Long user2;
 
 	@Column(name = "mensagens")
-	@Convert(converter = HabilidadesConverter.class)
+	@Convert(converter = MensagemConverter.class)
 	private List<MensagemBean> mensagens = new ArrayList<>();
+
+	private String chave;
+	@Column(name = "insert_time")
+	private Timestamp insertTime;
+	@Column(name = "update_time")
+	private Timestamp updateTime;
+	@Column(name = "insert_by")
+	private Long insertBy;
+	@Column(name = "update_by")
+	private Long updateBy;
 
 	public Chat() {
 
@@ -65,7 +77,45 @@ public class Chat extends BaseEntity implements Serializable {
 		this.mensagens = mensagens;
 	}
 
+	public void addMensagem(MensagemBean bean) {this.mensagens.add(bean); }
 
+	public String getChave() {
+		return chave;
+	}
 
+	public void setChave(String chave) {
+		this.chave = chave;
+	}
 
+	public Timestamp getInsertTime() {
+		return insertTime;
+	}
+
+	public void setInsertTime(Timestamp insertTime) {
+		this.insertTime = insertTime;
+	}
+
+	public Timestamp getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Timestamp updateTime) {
+		this.updateTime = updateTime;
+	}
+
+	public Long getInsertBy() {
+		return insertBy;
+	}
+
+	public void setInsertBy(Long insertBy) {
+		this.insertBy = insertBy;
+	}
+
+	public Long getUpdateBy() {
+		return updateBy;
+	}
+
+	public void setUpdateBy(Long updateBy) {
+		this.updateBy = updateBy;
+	}
 }

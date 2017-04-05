@@ -1,13 +1,118 @@
 <div class="container">
-	<div class="row">
-		<div class="col s12" style="margin-top: 5px;">
-			<div class="col s12">
-				<h3>Mensagens</h3>
+
+	<div class="media messages-container media-clearfix-xs-min media-grid">
+		<div class="media-left">
+			<div class="messages-list">
+				<div class="panel panel-default">
+					<ul class="list-group">
+						<li class="list-group-item active" ng-repeat="chat in vm.chats">
+							<a href="" ng-click="vm.loadChat(chat)">
+								<div class="media">
+									<div class="media-left">
+										<img src="images/people/110/woman-5.jpg" width="50" alt="" class="media-object" />
+									</div>
+									<div class="media-body">
+										<span class="date">Today</span>
+										<span class="user">{{chat.userLabel}}</span>
+										<div class="message">Are we ok to meet...</div>
+									</div>
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
 			</div>
-			<div class="col s12">
-				<div class="col s4">Lista</div>
-				<div class="col s8">Mensagens</div>
+		</div>
+		<div class="media-body">
+			<div class="panel panel-default share">
+				<div class="input-group">
+					<div class="input-group-btn">
+						<a class="btn btn-primary" href="#">
+							<i class="fa fa-envelope"></i> Send
+						</a>
+					</div>
+					<!-- /btn-group -->
+					<input type="text" class="form-control share-text" placeholder="Write message..." />
+				</div>
+				<!-- /input-group -->
+			</div>
+			<div class="media" ng-repeat="mensagem in vm.chatLoaded.mensagens">
+				<div class="media-left">
+					<a href="#">
+						<img src="images/people/110/woman-5.jpg" width="60" alt="woman" class="media-object" />
+					</a>
+				</div>
+				<div class="media-body message">
+					<div class="panel panel-default">
+						<div class="panel-heading panel-heading-white">
+							<div class="pull-right">
+								<small class="text-muted">{{mensagem.data}}</small>
+							</div>
+							<a href="#">{{mensagem.userId}}</a>
+						</div>
+						<div class="panel-body">
+							{{mensagem.mensagem}}
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="media">
+				<div class="media-body message">
+					<div class="panel panel-default">
+						<div class="panel-heading panel-heading-white">
+							<div class="pull-right">
+								<small class="text-muted">10 min ago</small>
+							</div>
+							<a href="#">Me</a>
+						</div>
+						<div class="panel-body">
+							Are we still on for Today?
+						</div>
+					</div>
+				</div>
+				<div class="media-right">
+					<img src="images/people/110/guy-5.jpg" width="60" alt="" class="media-object" />
+				</div>
+			</div>
+			<div class="media">
+				<div class="media-left">
+					<img src="images/people/110/woman-5.jpg" width="60" alt="" class="media-object" />
+				</div>
+				<div class="media-body message">
+					<div class="panel panel-default">
+						<div class="panel-heading panel-heading-white">
+							<div class="pull-right">
+								<small class="text-muted">1 day ago</small>
+							</div>
+							<a href="#">Mary D.</a>
+						</div>
+						<div class="panel-body">
+							Cool. It's settled. Tomorrow will discuss the project.
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="media">
+				<div class="media-body message">
+					<div class="panel panel-default">
+						<div class="panel-heading panel-heading-white">
+							<div class="pull-right">
+								<small class="text-muted">3 days ago</small>
+							</div>
+							<a href="#">Me</a>
+						</div>
+						<div class="panel-body">
+							I suggest a meeting on Tuesday. What do you think?
+						</div>
+					</div>
+				</div>
+				<div class="media-right">
+					<img src="images/people/110/guy-5.jpg" width="60" alt="" class="media-object" />
+				</div>
 			</div>
 		</div>
 	</div>
+
 </div>
