@@ -33,7 +33,7 @@ public class Perfil extends BaseEntity implements Serializable {
 	@JoinColumn(name = "ocupacao_id")
 	private Ocupacao ocupacao;
 
-	@Column(name = "habilidades")
+	@Column(name = "habilidades", columnDefinition="TEXT")
 	@Convert(converter = HabilidadesConverter.class)
 	private List<HabilidadeBean> habilidadeList;
 

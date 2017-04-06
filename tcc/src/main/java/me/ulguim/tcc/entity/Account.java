@@ -32,14 +32,14 @@ public class Account extends BaseEntity implements Serializable {
 	
 	private String password;
 
-	@Column(name = "extra_params")
+	@Column(name = "extra_params", columnDefinition="TEXT")
 	@Convert(converter = ExtraParamsConverter.class)
 	private ExtraParamsBean extraParams;
 
 	@OneToOne(mappedBy = "account")
 	private Perfil profile;
 
-	@Column(name = "contacts_ids")
+	@Column(name = "contacts_ids", columnDefinition="TEXT")
 	@ElementCollection(targetClass=Long.class)
 	private List<Long> contactsIdList = new ArrayList<>();
 

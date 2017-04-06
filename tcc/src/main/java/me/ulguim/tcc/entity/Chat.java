@@ -25,7 +25,7 @@ public class Chat extends BaseEntity implements Serializable {
 
 	private Long user2;
 
-	@Column(name = "mensagens")
+	@Column(name = "mensagens", columnDefinition="TEXT")
 	@Convert(converter = MensagemConverter.class)
 	private List<MensagemBean> mensagens = new ArrayList<>();
 
@@ -78,6 +78,17 @@ public class Chat extends BaseEntity implements Serializable {
 	}
 
 	public void addMensagem(MensagemBean bean) {this.mensagens.add(bean); }
+
+	public MensagemBean getMensagemById(Long id) {
+		return this.mensagens.stream()
+				.filter(m -> m.getId().equals(id))
+				.findAny()
+				.orElseGet(null);
+	}
+
+	public boolean deleteMensagemById(Long id) {
+		return this.mensagens.removeIf(l -> l.getId().equals(id));
+	}
 
 	public String getChave() {
 		return chave;

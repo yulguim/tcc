@@ -27,17 +27,17 @@
 			<div class="panel panel-default share">
 				<div class="input-group">
 					<div class="input-group-btn">
-						<a class="btn btn-primary" href="#">
+						<a class="btn btn-primary" href="" ng-click="vm.saveMensagem(mensagem)">
 							<i class="fa fa-envelope"></i> Send
 						</a>
 					</div>
 					<!-- /btn-group -->
-					<input type="text" class="form-control share-text" placeholder="Write message..." />
+					<input type="text" class="form-control share-text" ng-model="mensagem.mensagem" placeholder="Write message..." />
 				</div>
 				<!-- /input-group -->
 			</div>
-			<div class="media" ng-repeat="mensagem in vm.chatLoaded.mensagens">
-				<div class="media-left">
+			<div class="media" ng-repeat="mensagem in vm.chatLoaded.mensagens | orderBy:'-'">
+				<div class="media-left" ng-if="vm.usuarioLogado.id === mensagem.userId">
 					<a href="#">
 						<img src="images/people/110/woman-5.jpg" width="60" alt="woman" class="media-object" />
 					</a>
@@ -47,6 +47,7 @@
 						<div class="panel-heading panel-heading-white">
 							<div class="pull-right">
 								<small class="text-muted">{{mensagem.data}}</small>
+								<span ng-if="vm.usuarioLogado.id === mensagem.userId" class="pull-right" style="margin-left: 10px; margin-right: -10px;">X</span>
 							</div>
 							<a href="#">{{mensagem.userId}}</a>
 						</div>
@@ -55,61 +56,10 @@
 						</div>
 					</div>
 				</div>
-			</div>
-
-
-			<div class="media">
-				<div class="media-body message">
-					<div class="panel panel-default">
-						<div class="panel-heading panel-heading-white">
-							<div class="pull-right">
-								<small class="text-muted">10 min ago</small>
-							</div>
-							<a href="#">Me</a>
-						</div>
-						<div class="panel-body">
-							Are we still on for Today?
-						</div>
-					</div>
-				</div>
-				<div class="media-right">
-					<img src="images/people/110/guy-5.jpg" width="60" alt="" class="media-object" />
-				</div>
-			</div>
-			<div class="media">
-				<div class="media-left">
-					<img src="images/people/110/woman-5.jpg" width="60" alt="" class="media-object" />
-				</div>
-				<div class="media-body message">
-					<div class="panel panel-default">
-						<div class="panel-heading panel-heading-white">
-							<div class="pull-right">
-								<small class="text-muted">1 day ago</small>
-							</div>
-							<a href="#">Mary D.</a>
-						</div>
-						<div class="panel-body">
-							Cool. It's settled. Tomorrow will discuss the project.
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="media">
-				<div class="media-body message">
-					<div class="panel panel-default">
-						<div class="panel-heading panel-heading-white">
-							<div class="pull-right">
-								<small class="text-muted">3 days ago</small>
-							</div>
-							<a href="#">Me</a>
-						</div>
-						<div class="panel-body">
-							I suggest a meeting on Tuesday. What do you think?
-						</div>
-					</div>
-				</div>
-				<div class="media-right">
-					<img src="images/people/110/guy-5.jpg" width="60" alt="" class="media-object" />
+				<div class="media-right" ng-if="vm.usuarioLogado.id !== mensagem.userId">
+					<a href="#">
+						<img src="images/people/110/woman-5.jpg" width="60" alt="woman" class="media-object" />
+					</a>
 				</div>
 			</div>
 		</div>

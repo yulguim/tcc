@@ -25,6 +25,7 @@ public class Post extends BaseEntity implements Serializable {
 
 	private String post;
 
+	@Column(name="comentarios", columnDefinition="TEXT")
 	@Convert(converter = ComentarioConverter.class)
 	private List<ComentarioBean> comentarioList;
 

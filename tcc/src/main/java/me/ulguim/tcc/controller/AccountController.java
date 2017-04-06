@@ -11,10 +11,7 @@ import me.ulguim.tcc.view.AccountView;
 import me.ulguim.tcc.view.ContatoView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -40,6 +37,11 @@ public class AccountController extends TCCBaseController {
 		bean.setContentType(file.getContentType());
 		bean.setArquivo(file.getInputStream());
 		return accountManager.saveAvatar(getProfile(), bean);
+	}
+
+	@RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public AccountView update(@RequestBody AccountView view) throws ValidationException {
+		return accountManager.update(getProfile(), view);
 	}
 
 }

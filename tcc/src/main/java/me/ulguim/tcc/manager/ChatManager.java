@@ -2,6 +2,7 @@ package me.ulguim.tcc.manager;
 
 import in.k2s.sdk.jpa.sequence.SequenceGenerator;
 import in.k2s.sdk.util.data.DataUtil;
+import in.k2s.sdk.web.message.MessageWarning;
 import in.k2s.sdk.web.profile.Profile;
 import in.k2s.sdk.web.validation.ValidationException;
 import me.ulguim.tcc.bean.ArquivoBean;
@@ -83,6 +84,26 @@ public class ChatManager extends TCCBaseManager {
 		chat.addMensagem(bean);
 		super.update(chat, profile);
 
+		view.setId(bean.getId());
+		view.setUserId(bean.getUserId());
+		view.setData(bean.getData());
+		return view;
+	}
+
+	public MensagemView deleteMensagem(Profile profile, MensagemView view) throws ValidationException {
+		Chat chat = chatService.selectById(Chat.class, view.getChatId());
+		if (chat.getUser1().equals(getAccountLogada(profile).getId()) || chat.getUser2().equals(getAccountLogada(profile).getId())) {
+			//Usuario nao esta no chat, quer apagar porque?
+		}
+
+		MensagemBean mensagemBean = chat.getMensagemById(view.getId());
+		if (mensagemBean == null || !mensagemBean.getUserId().equals(getAccountLogada(profile).getId())) {
+			//Mensagem nao existe ou nao foi usuario que escreveu
+			throw new ValidationException(new MessageWarning("warn.delete"));
+		}
+
+		chat.deleteMensagemById(view.getId());
+		super.update(chat, profile);
 		return view;
 	}
 

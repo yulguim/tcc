@@ -48,6 +48,11 @@ public class PagesController {
 	public String contatos() throws ValidationException {
 		return "partials/contatos";
 	}
+
+	@RequestMapping("/my-account.html")
+	public String myAccount() throws ValidationException {
+		return "partials/my-account";
+	}
 	
 	@RequestMapping("/profile.html")
 	public String profile() throws ValidationException {
