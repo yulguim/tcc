@@ -13,6 +13,14 @@ public class ContatoView extends BaseView {
 
 	private String label;
 
+	private Boolean isFriend;
+
+	private Boolean isRequestedByMe;
+
+	private Boolean isRequestedByUser;
+
+	private Boolean isMyProfile;
+
 	public ContatoView() {
 		
 	}
@@ -45,4 +53,35 @@ public class ContatoView extends BaseView {
 		this.label = label;
 	}
 
+	public Boolean getFriend() {
+		return isFriend;
+	}
+
+	public void setFriend(Boolean friend) {
+		isFriend = friend;
+	}
+
+	public Boolean getRequestedByMe() {
+		return isRequestedByMe;
+	}
+
+	public void setRequestedByMe(Boolean requestedByMe) {
+		isRequestedByMe = requestedByMe;
+	}
+
+	public Boolean getRequestedByUser() {
+		return isRequestedByUser;
+	}
+
+	public void setRequestedByUser(Boolean requestedByUser) {
+		isRequestedByUser = requestedByUser;
+	}
+
+	public Boolean getMyProfile() {
+		return isMyProfile;
+	}
+
+	public void setMyProfile(Boolean myProfile) {
+		isMyProfile = myProfile;
+	}
 }

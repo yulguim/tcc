@@ -68,5 +68,10 @@ public class PagesController {
 	public String mensagens() throws ValidationException {
 		return "partials/mensagens";
 	}
+
+	@RequestMapping("/search.html")
+	public String search() throws ValidationException {
+		return "partials/search";
+	}
 	
 }

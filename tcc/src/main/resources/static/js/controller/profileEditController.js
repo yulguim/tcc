@@ -1,4 +1,4 @@
-app.controller("profileEditCtrl", ["$scope", '$routeParams', "profileEditService", "localizacaoService", function ($scope, $routeParams, profileEditService, localizacaoService) {
+app.controller("profileEditCtrl", ["$scope", '$routeParams', '$timeout', 'Upload', "profileEditService", "localizacaoService", function ($scope, $routeParams, $timeout, Upload, profileEditService, localizacaoService) {
     var vm = this;
 
     vm.view = {};
@@ -11,6 +11,7 @@ app.controller("profileEditCtrl", ["$scope", '$routeParams', "profileEditService
     vm.addLink = addLink;
     vm.removeLink = removeLink;
     vm.onSelectLocalizacao = onSelectLocalizacao;
+    vm.uploadAvatar = uploadAvatar;
 
     function addLink() {
         vm.view.links.push({});
@@ -39,6 +40,25 @@ app.controller("profileEditCtrl", ["$scope", '$routeParams', "profileEditService
         console.log(vm.view);
         profileEditService.save(vm.view).success(function(view) {
             console.log(view);
+        });
+    }
+
+    function uploadAvatar(dataUrl, name) {
+        console.log(Upload.dataUrltoBlob(dataUrl, name));
+        Upload.upload({
+            url: '/account/save-avatar',
+            data: {
+                file: Upload.dataUrltoBlob(dataUrl, name)
+            },
+        }).then(function (response) {
+            $timeout(function () {
+                $scope.result = response.data;
+            });
+        }, function (response) {
+            if (response.status > 0) $scope.errorMsg = response.status
+                + ': ' + response.data;
+        }, function (evt) {
+            $scope.progress = parseInt(100.0 * evt.loaded / evt.total);
         });
     }
 

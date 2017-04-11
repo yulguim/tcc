@@ -72,7 +72,7 @@ public class PerfilManager extends TCCBaseManager {
 			throw new ValidationException(new MessageWarning("warn.load"));
 		}
 
-		view = PerfilParser.parse(perfil);
+		view = PerfilParser.parse(account, perfil);
 		if (account.getId().equals(accountLogadaLoaded.getId())) { //Ver se o profile eh o meu
 			view.setMyProfile(true);
 		} else if (accountLogadaLoaded.contactExists(accountLogadaLoaded.getId())) { //Ver se eh amigo

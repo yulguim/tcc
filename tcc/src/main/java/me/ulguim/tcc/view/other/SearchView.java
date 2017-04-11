@@ -2,6 +2,7 @@ package me.ulguim.tcc.view.other;
 
 import in.k2s.sdk.web.view.BaseView;
 import in.k2s.sdk.web.view.annotation.View;
+import me.ulguim.tcc.view.ContatoView;
 import me.ulguim.tcc.view.PerfilView;
 
 import java.util.List;
@@ -12,11 +13,13 @@ import java.util.List;
 @View
 public class SearchView extends BaseView {
 
+	private String search;
+
 	private Boolean perfil;
 
 	private Boolean projetos;
 
-	private List<PerfilView> perfilResults;
+	private List<ContatoView> perfilResults;
 
 	public Boolean getPerfil() {
 		return perfil;
@@ -34,11 +37,19 @@ public class SearchView extends BaseView {
 		this.projetos = projetos;
 	}
 
-	public List<PerfilView> getPerfilResults() {
+	public List<ContatoView> getPerfilResults() {
 		return perfilResults;
 	}
 
-	public void setPerfilResults(List<PerfilView> perfilResults) {
+	public void setPerfilResults(List<ContatoView> perfilResults) {
 		this.perfilResults = perfilResults;
+	}
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
 	}
 }

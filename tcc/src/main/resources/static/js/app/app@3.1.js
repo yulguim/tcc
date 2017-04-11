@@ -1,4 +1,4 @@
-var app = angular.module("App", ["ngSanitize", "ngRoute", 'ui.bootstrap', 'ui.select', 'ngTagsInput', 'pascalprecht.translate'])
+var app = angular.module("App", ["ngSanitize", "ngRoute", 'ui.bootstrap', 'ui.select', 'ngTagsInput', 'pascalprecht.translate', 'ngFileUpload', 'ngImgCrop'])
 
 .config(function($translateProvider) {
     $translateProvider.useSanitizeValueStrategy(null);
@@ -17,13 +17,23 @@ app.run(function($rootScope, $http, $timeout, $route, $location) {
 
 app.controller("appCtrl", ["$scope", '$translate', 'usuarioLogadoService', function ($scope, $translate, usuarioLogadoService) {
     $scope.usuarioLogado = {};
+
     usuarioLogadoService.loadUsuario().success(function(data) {
+        console.log("Usuario Logado: " + JSON.stringify(data));
         usuarioLogadoService.setUsuario(data);
         $scope.usuarioLogado = usuarioLogadoService.getUsuario();
     });
 
     $scope.changeLanguage = function(lang) {
         $translate.use(lang);
+    }
+
+    $scope.doSearch = function(search) {
+        if (search === undefined || search.length === 0) {
+            return;
+        }
+        console.log(search);
+        window.location = '/#/search/' + encodeURIComponent(search);
     }
 
 }]);
