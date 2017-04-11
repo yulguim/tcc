@@ -21,6 +21,17 @@ public class NotificationBean extends BaseBean {
 
 	}
 
+	public NotificationBean(String label, String description) {
+		this.label = label;
+		this.description = description;
+	}
+
+	public NotificationBean(String label, String description, String url) {
+		this.label = label;
+		this.description = description;
+		this.url = url;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -59,5 +70,13 @@ public class NotificationBean extends BaseBean {
 
 	public void setRead(boolean read) {
 		this.read = read;
+	}
+
+	public static NotificationBean createNotification(String label, String description) {
+		return new NotificationBean(label, description);
+	}
+
+	public static NotificationBean createNotification(String label, String description, String url) {
+		return new NotificationBean(label, description, url);
 	}
 }

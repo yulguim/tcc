@@ -15,11 +15,11 @@ app.run(function($rootScope, $http, $timeout, $route, $location) {
 
 });
 
-app.controller("appCtrl", ["$scope", '$translate', 'usuarioLogadoService', function ($scope, $translate, usuarioLogadoService) {
+app.controller("appCtrl", ["$scope", '$translate', '$interval', 'usuarioLogadoService', 'notificationsService', function ($scope, $translate, $interval, usuarioLogadoService, notificationsService) {
     $scope.usuarioLogado = {};
+    $scope.notifications = [];
 
     usuarioLogadoService.loadUsuario().success(function(data) {
-        console.log("Usuario Logado: " + JSON.stringify(data));
         usuarioLogadoService.setUsuario(data);
         $scope.usuarioLogado = usuarioLogadoService.getUsuario();
     });
@@ -36,4 +36,14 @@ app.controller("appCtrl", ["$scope", '$translate', 'usuarioLogadoService', funct
         window.location = '/#/search/' + encodeURIComponent(search);
     }
 
+    //Notificacoes
+    var getNotifications = function() {
+        notificationsService.list().success(function(notifications) {
+           $scope.notifications = notifications;
+           console.log('Notifications:' + JSON.stringify($scope.notifications));
+        });
+    };
+
+    getNotifications(); //Pega no load da pagina
+    $interval(getNotifications, 5000); //Refresh a cada 5 segundos
 }]);

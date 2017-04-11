@@ -4,12 +4,17 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.*;
 
 import in.k2s.sdk.jpa.entity.BaseEntity;
 import me.ulguim.tcc.bean.ExtraParamsBean;
+import me.ulguim.tcc.bean.MensagemBean;
+import me.ulguim.tcc.bean.NotificationBean;
 import me.ulguim.tcc.entity.converter.ExtraParamsConverter;
+import me.ulguim.tcc.entity.converter.MensagemConverter;
+import me.ulguim.tcc.entity.converter.NotificationsConverter;
 import sun.misc.Perf;
 
 @Entity
@@ -31,6 +36,10 @@ public class Account extends BaseEntity implements Serializable {
 	private String email;
 	
 	private String password;
+
+	@Column(name = "notifications", columnDefinition="TEXT")
+	@Convert(converter = NotificationsConverter.class)
+	private List<NotificationBean> notifications = new ArrayList<>();
 
 	@Column(name = "extra_params", columnDefinition="TEXT")
 	@Convert(converter = ExtraParamsConverter.class)
@@ -193,10 +202,6 @@ public class Account extends BaseEntity implements Serializable {
 		return contactsIdList;
 	}
 
-	public void setContactsIdList(List<Long> contactsIdList) {
-		this.contactsIdList = contactsIdList;
-	}
-
 	public void addContact(Long id) {
 		this.contactsIdList.add(id);
 	}
@@ -209,5 +214,22 @@ public class Account extends BaseEntity implements Serializable {
 
 	public boolean removeContact(Long id) {
 		return this.contactsIdList.removeIf(l -> l.equals(id));
+	}
+
+	public List<NotificationBean> getNotifications() {
+		return notifications;
+	}
+
+	public void addNotification(NotificationBean bean) {
+		this.notifications.add(0, bean);
+	}
+
+	public List<NotificationBean> getNotifications(int num) {
+		List<NotificationBean> collect = this.notifications.stream().filter(n -> !n.isRead()).collect(Collectors.toList());
+		if (collect.size() > num) {
+			return collect.subList(0, num);
+		} else {
+			return collect;
+		}
 	}
 }
