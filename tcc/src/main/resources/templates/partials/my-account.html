@@ -1,5 +1,33 @@
 <div class="container">
+	<div class="jumbotron bg-transparent text-center margin-none">
+		<h1 style="font-size: 32px;">{{'EDITAR.CONTA' | translate}}</h1>
+		<p>ThemeKit includes all the form controls shipped with Bootstrap, as well as custom form components that cover various usage scenarios, all themed for modern websites.</p>
+	</div>
 
-	{{vm.view}}
-
+	<div class="page-section">
+		<div class="row">
+			<div class="col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2">
+				<h4 class="page-section-heading">Basic example</h4>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<form>
+							<div class="form-group form-control-default required">
+								<label for="exampleInputChave">{{'CHAVE' | translate}}</label>
+								<input type="password" class="form-control" id="exampleInputChave" ng-model="vm.view.key">
+							</div>
+							<div class="form-group form-control-default required">
+								<label for="exampleInputEmail">Email</label>
+								<input type="email" class="form-control" id="exampleInputEmail" ng-model="vm.view.email">
+							</div>
+							<div class="form-group form-control-default required">
+								<label for="exampleInputPassword">{{'SENHA' | translate}}</label>
+								<input type="password" class="form-control" id="exampleInputPassword" ng-model="vm.view.password">
+							</div>
+							<button type="button" class="btn btn-primary" ng-click="vm.salvarConta()">{{'SALVAR' | translate}}</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

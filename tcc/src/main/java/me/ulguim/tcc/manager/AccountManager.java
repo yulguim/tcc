@@ -1,10 +1,15 @@
 package me.ulguim.tcc.manager;
 
 import in.k2s.sdk.springboot.singleton.ProfileSingleton;
+import in.k2s.sdk.util.validator.EmailValidator;
+import in.k2s.sdk.web.message.Message;
+import in.k2s.sdk.web.message.MessageSeverity;
+import in.k2s.sdk.web.message.MessageWarning;
 import in.k2s.sdk.web.profile.Profile;
 import in.k2s.sdk.web.validation.ValidationException;
 import me.ulguim.tcc.bean.ArquivoBean;
 import me.ulguim.tcc.entity.Account;
+import me.ulguim.tcc.entity.Perfil;
 import me.ulguim.tcc.entity.other.Arquivo;
 import me.ulguim.tcc.manager.base.TCCBaseManager;
 import me.ulguim.tcc.service.AccountService;
@@ -87,15 +92,17 @@ public class AccountManager extends TCCBaseManager {
 	public AccountView update(Profile profile, AccountView view) throws ValidationException {
 		validate(profile, view);
 		Account account = getAccountLogadaLoaded(profile);
-		account.setName(view.getNome());
-		account.setLastname(view.getSobrenome());
 		account.setEmail(view.getEmail());
 		account.setPassword(view.getPassword());
-
 		account.setChave(view.getKey());
 		account.setUsername(view.getKey());
-
 		account = super.update(account, profile);
+
+		Perfil perfil = account.getProfile();
+		if (perfil != null) {
+			perfil.setChave(view.getKey());
+			super.update(perfil, profile);
+		}
 
 		profile.setUsuario(account);
 		super.getProfileSingleton().add(profile);
@@ -103,7 +110,28 @@ public class AccountManager extends TCCBaseManager {
 	}
 
 	private void validate(Profile profile, AccountView view) throws ValidationException {
+		ValidationException ex = new ValidationException();
+		if (view == null) {
+			ex.addMessage(new MessageWarning("warn.save"));
+			throw ex;
+		}
 
+		if (view.getKey() == null) {
+			ex.addMessage(new Message("message.custom", MessageSeverity.WARN, "A chave é obrigatória."));
+		} else {
+			Account account = accountService.selectByChave(Account.class, view.getKey());
+			if (account != null && !account.getId().equals(getAccountLogada(profile).getId())) {
+				ex.addMessage(new Message("message.custom", MessageSeverity.WARN, "Esta chave não está disponível."));
+			}
+		}
+		if (view.getEmail() == null || !EmailValidator.validate(view.getEmail())) {
+			ex.addMessage(new Message("message.warn.invalid", MessageSeverity.WARN, "Email"));
+		}
+		if (view.getPassword() == null || view.getPassword().length() < 5) {
+			ex.addMessage(new Message("message.custom", MessageSeverity.WARN, "A senha deve conter pelo menos 5 caracteres."));
+		}
+
+		if (ex.haveMessages()) throw ex;
 	}
 
 	private File saveArquivoNoDisco(File file, InputStream inputStream, boolean image) {

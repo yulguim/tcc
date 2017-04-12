@@ -3,8 +3,19 @@ app.controller("myAccountCtrl", ['usuarioLogadoService', "myAccountService", fun
 
 	vm.view = {};
 
+	//functions
+	vm.salvarConta = salvarConta;
+
+	function salvarConta() {
+		myAccountService.update(vm.view).success(function() {
+			delete vm.view.password;
+		});
+	}
+
 	var iniciarTela = function() {
-		vm.view.hello = 'hello';
+		myAccountService.load().success(function(view) {
+			vm.view = view;
+		});
 	};
 	
     iniciarTela(); 
