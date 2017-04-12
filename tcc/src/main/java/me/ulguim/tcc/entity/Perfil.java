@@ -1,17 +1,16 @@
 package me.ulguim.tcc.entity;
 
 import in.k2s.sdk.jpa.entity.BaseEntity;
-import me.ulguim.tcc.bean.ExtraParamsBean;
 import me.ulguim.tcc.bean.HabilidadeBean;
-import me.ulguim.tcc.bean.SocialNetwork;
-import me.ulguim.tcc.entity.Account;
-import me.ulguim.tcc.entity.converter.ExtraParamsConverter;
+import me.ulguim.tcc.bean.SocialNetworkBean;
 import me.ulguim.tcc.entity.converter.HabilidadesConverter;
-import me.ulguim.tcc.entity.location.Estado;
+import me.ulguim.tcc.entity.converter.SocialNetworkConverter;
+import me.ulguim.tcc.entity.location.Cidade;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +24,8 @@ public class Perfil extends BaseEntity implements Serializable {
 	@Id
 	private Long id;
 
+	private String about;
+
 	@OneToOne
 	@JoinColumn(name = "account_id")
 	private Account account;
@@ -37,7 +38,13 @@ public class Perfil extends BaseEntity implements Serializable {
 	@Convert(converter = HabilidadesConverter.class)
 	private List<HabilidadeBean> habilidadeList;
 
-	//	private List<SocialNetwork> socialNetworkList;
+	@ManyToOne
+	@JoinColumn(name = "fk_cidade")
+	private Cidade cidade;
+
+	@Column(name = "social_network", columnDefinition="TEXT")
+	@Convert(converter = SocialNetworkConverter.class)
+	private List<SocialNetworkBean> socialNetworkList = new ArrayList<>();
 
 	private String chave;
 	@Column(name = "insert_time")
@@ -123,5 +130,29 @@ public class Perfil extends BaseEntity implements Serializable {
 
 	public String getLabel() {
 		return this.account.getLabel();
+	}
+
+	public Cidade getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getAbout() {
+		return about;
+	}
+
+	public void setAbout(String about) {
+		this.about = about;
+	}
+
+	public List<SocialNetworkBean> getSocialNetworkList() {
+		return socialNetworkList;
+	}
+
+	public void setSocialNetworkList(List<SocialNetworkBean> socialNetworkList) {
+		this.socialNetworkList = socialNetworkList;
 	}
 }

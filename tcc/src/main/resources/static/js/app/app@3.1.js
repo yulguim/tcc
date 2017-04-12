@@ -18,6 +18,7 @@ app.run(function($rootScope, $http, $timeout, $route, $location) {
 app.controller("appCtrl", ["$scope", '$translate', '$interval', 'usuarioLogadoService', 'notificationsService', function ($scope, $translate, $interval, usuarioLogadoService, notificationsService) {
     $scope.usuarioLogado = {};
     $scope.notifications = [];
+    $scope.notificationsCount = 0;
 
     usuarioLogadoService.loadUsuario().success(function(data) {
         usuarioLogadoService.setUsuario(data);
@@ -32,7 +33,6 @@ app.controller("appCtrl", ["$scope", '$translate', '$interval', 'usuarioLogadoSe
         if (search === undefined || search.length === 0) {
             return;
         }
-        console.log(search);
         window.location = '/#/search/' + encodeURIComponent(search);
     }
 
@@ -40,7 +40,7 @@ app.controller("appCtrl", ["$scope", '$translate', '$interval', 'usuarioLogadoSe
     var getNotifications = function() {
         notificationsService.list().success(function(notifications) {
            $scope.notifications = notifications;
-           console.log('Notifications:' + JSON.stringify($scope.notifications));
+           $scope.notificationsCount = notifications.length;
         });
     };
 

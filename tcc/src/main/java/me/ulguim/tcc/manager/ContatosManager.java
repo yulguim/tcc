@@ -51,6 +51,7 @@ public class ContatosManager extends TCCBaseManager {
 		Perfil perfil = perfilService.selectByChave(Perfil.class, view.getKey());
 		Account account = perfil.getAccount();
 		account.getExtraParams().addRequest(super.getAccountLogada(profile).getId());
+
 		super.update(account);
 
 		return view;

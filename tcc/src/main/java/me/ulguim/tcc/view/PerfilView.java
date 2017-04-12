@@ -3,6 +3,7 @@ package me.ulguim.tcc.view;
 import in.k2s.sdk.web.view.BaseView;
 import in.k2s.sdk.web.view.annotation.View;
 import me.ulguim.tcc.bean.HabilidadeBean;
+import me.ulguim.tcc.bean.SocialNetworkBean;
 
 import java.util.List;
 
@@ -22,11 +23,17 @@ public class PerfilView extends BaseView {
 
 	private String about;
 
+	private OcupacaoView ocupacao;
+
+	private String ocupacaoNome;
+
 	private LocalizacaoView localizacao;
+
+	private String localizacaoNome;
 
 	private List<HabilidadeBean> habilidades;
 
-	private List<LinkView> links;
+	private List<SocialNetworkBean> links;
 
 	//Extras
 
@@ -110,11 +117,11 @@ public class PerfilView extends BaseView {
 		this.habilidades = habilidades;
 	}
 
-	public List<LinkView> getLinks() {
+	public List<SocialNetworkBean> getLinks() {
 		return links;
 	}
 
-	public void setLinks(List<LinkView> links) {
+	public void setLinks(List<SocialNetworkBean> links) {
 		this.links = links;
 	}
 
@@ -164,5 +171,29 @@ public class PerfilView extends BaseView {
 
 	public void setRequestedByUser(Boolean requestedByUser) {
 		isRequestedByUser = requestedByUser;
+	}
+
+	public String getLocalizacaoNome() {
+		return localizacaoNome;
+	}
+
+	public void setLocalizacaoNome(String localizacaoNome) {
+		this.localizacaoNome = localizacaoNome;
+	}
+
+	public OcupacaoView getOcupacao() {
+		return ocupacao;
+	}
+
+	public void setOcupacao(OcupacaoView ocupacao) {
+		this.ocupacao = ocupacao;
+	}
+
+	public String getOcupacaoNome() {
+		return ocupacaoNome;
+	}
+
+	public void setOcupacaoNome(String ocupacaoNome) {
+		this.ocupacaoNome = ocupacaoNome;
 	}
 }

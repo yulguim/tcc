@@ -9,13 +9,18 @@ import in.k2s.sdk.web.profile.Profile;
 import in.k2s.sdk.web.validation.ValidationException;
 import me.ulguim.tcc.bean.HabilidadeBean;
 import me.ulguim.tcc.entity.Account;
+import me.ulguim.tcc.entity.Ocupacao;
 import me.ulguim.tcc.entity.Perfil;
+import me.ulguim.tcc.entity.location.Cidade;
 import me.ulguim.tcc.entity.other.Habilidade;
 import me.ulguim.tcc.manager.base.TCCBaseManager;
 import me.ulguim.tcc.parser.PerfilParser;
 import me.ulguim.tcc.service.AccountService;
 import me.ulguim.tcc.service.HabilidadeService;
+import me.ulguim.tcc.service.OcupacaoService;
 import me.ulguim.tcc.service.PerfilService;
+import me.ulguim.tcc.view.LocalizacaoView;
+import me.ulguim.tcc.view.OcupacaoView;
 import me.ulguim.tcc.view.PerfilView;
 import org.springframework.stereotype.Component;
 import sun.misc.Perf;
@@ -37,7 +42,7 @@ public class PerfilManager extends TCCBaseManager {
 	private HabilidadeService habilidadeService;
 
 	@Inject
-	private ProfileSingleton profileSingleton;
+	private OcupacaoService ocupacaoService;
 
 	public List<HabilidadeBean> listHabilidades(Profile profile) {
 		List<Habilidade> habilidadeList = habilidadeService.selectAll();
@@ -46,6 +51,15 @@ public class PerfilManager extends TCCBaseManager {
 		habilidadeList.forEach(h -> beanList.add(new HabilidadeBean(h.getId(), h.getLabel())));
 
 		return beanList;
+	}
+
+	public List<OcupacaoView> listOcupacoes() {
+		List<Ocupacao> ocupacaoList = ocupacaoService.selectAll();
+
+		List<OcupacaoView> ocupacaoViewList = new ArrayList<>();
+		ocupacaoList.forEach(o -> ocupacaoViewList.add(new OcupacaoView(o.getId(), o.getLabel())));
+
+		return ocupacaoViewList;
 	}
 
 	public PerfilView meuPerfil(Profile profile) throws ValidationException {
@@ -57,7 +71,18 @@ public class PerfilManager extends TCCBaseManager {
 		if (perfil == null) {
 			view.setHasNoProfile(true);
 		} else {
+			view.setAbout(perfil.getAbout());
 			view.setHabilidades(perfil.getHabilidadeList());
+			view.setLinks(perfil.getSocialNetworkList());
+			if (perfil.getOcupacao() != null) {
+				view.setOcupacao(new OcupacaoView(perfil.getOcupacao().getId(), perfil.getOcupacao().getLabel()));
+				view.setOcupacaoNome(perfil.getOcupacao().getLabel());
+			}
+			if (perfil.getCidade() != null) {
+				Cidade c = perfil.getCidade();
+				view.setLocalizacao(new LocalizacaoView(c.getId(), c.getNome() + ", " + c.getEstado().getSigla()));
+				view.setLocalizacaoNome(c.getNome() + ", " + c.getEstado().getSigla());
+			}
 		}
 
 		return view;
@@ -99,18 +124,22 @@ public class PerfilManager extends TCCBaseManager {
 			perfil.setId(accountLogada.getId());
 			perfil.setChave(accountLogada.getChave());
 			perfil.setAccount(accountLogada);
+			perfil.setAbout(view.getAbout());
 			perfil.setHabilidadeList(view.getHabilidades());
 			perfil = auditoria(perfil, profile);
 			perfil = super.service.insert(perfil);
-
-			System.out.println("perfil = " + perfil);
 		} else {
+			perfil.setAbout(view.getAbout());
 			perfil.setHabilidadeList(view.getHabilidades());
+			Cidade cidade = perfilService.selectById(Cidade.class, view.getLocalizacao().getId());
+			perfil.setCidade(cidade);
+			Ocupacao ocupacao = perfilService.selectById(Ocupacao.class, view.getOcupacao().getId());
+			perfil.setOcupacao(ocupacao);
 			perfil = super.update(perfil, profile);
 		}
 
 		profile.setUsuario(accountLogada);
-		profileSingleton.add(profile);
+		super.getProfileSingleton().add(profile);
 		return view;
 	}
 

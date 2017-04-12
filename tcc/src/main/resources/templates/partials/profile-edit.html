@@ -49,6 +49,13 @@
                                 <textarea rows="10" class="form-control" id="exampleInputPassword12" placeholder="Fale um pouco sobre você" ng-model="vm.view.about"></textarea>
                             </div>
                             <div class="form-group required">
+                                <label class="control-label" for="inputOcupacao">{{'OCUPACAO' | translate}}</label>
+                                <input type="text" class="form-control" id="inputOcupacao" ng-model="vm.view.ocupacaoNome"
+                                       uib-typeahead="ocupacao as ocupacao.label for ocupacao in vm.ocupacoes"
+                                       ng-change="vm.procurarOcupacao(vm.view.ocupacaoNome)"
+                                       typeahead-on-select="vm.onSelectOcupacao($item, $model, $label)">
+                            </div>
+                            <div class="form-group required">
                                 <label class="control-label" for="inputSuccess1">{{'MINHA.LOCALIZACAO' | translate}}</label>
                                 <input type="text" class="form-control" id="inputSuccess1" ng-model="vm.view.localizacaoNome"
                                        uib-typeahead="location as location.label for location in vm.cidades"

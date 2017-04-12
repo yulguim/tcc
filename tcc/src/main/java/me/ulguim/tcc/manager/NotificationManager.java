@@ -20,9 +20,7 @@ public class NotificationManager extends TCCBaseManager {
 
 	public List<NotificationBean> list(Profile profile) throws ValidationException {
 		Account accountLogadaLoaded = getAccountLogadaLoaded(profile);
-		List<NotificationBean> notifications = accountLogadaLoaded.getNotifications(10);
-
-		System.out.println("notifications.size() = " + notifications.size()); //TODO Remover
+		List<NotificationBean> notifications = accountLogadaLoaded.getNotifications(5);
 
 		return notifications;
 	}

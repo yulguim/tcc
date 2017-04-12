@@ -31,9 +31,6 @@ public class SigninManager extends TCCBaseManager {
 	@Inject
 	private AccountService accountService;
 
-	@Inject
-	private ProfileSingleton profileSingleton;
-
 	public Profile signin(final AccountView view) throws ValidationException {
 		validate(view);
 
@@ -51,7 +48,7 @@ public class SigninManager extends TCCBaseManager {
 		Profile profile = new ProfileBean();
 		profile.setUsuario(entity);
 		profile.addParam("cookie", CookieHelper.generateCookie(entity.getChave()));
-		profileSingleton.add(profile);
+		super.getProfileSingleton().add(profile);
 
 		return profile;
 

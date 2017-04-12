@@ -1,5 +1,6 @@
 app.controller("profileEditCtrl", ["$scope", '$routeParams', '$timeout', 'Upload', "profileEditService", "localizacaoService", function ($scope, $routeParams, $timeout, Upload, profileEditService, localizacaoService) {
     var vm = this;
+    var ocupacaoDatabase = [];
 
     vm.view = {};
     vm.cidades = [];
@@ -7,10 +8,12 @@ app.controller("profileEditCtrl", ["$scope", '$routeParams', '$timeout', 'Upload
 
     //functions
     vm.procurarCidade = procurarCidade;
+    vm.procurarOcupacao = procurarOcupacao;
     vm.salvarPerfil = salvarPerfil;
     vm.addLink = addLink;
     vm.removeLink = removeLink;
     vm.onSelectLocalizacao = onSelectLocalizacao;
+    vm.onSelectOcupacao = onSelectOcupacao;
     vm.uploadAvatar = uploadAvatar;
 
     function addLink() {
@@ -32,8 +35,22 @@ app.controller("profileEditCtrl", ["$scope", '$routeParams', '$timeout', 'Upload
         });
     }
 
+    function procurarOcupacao(str) {
+        if (str === undefined || str === null || str.length < 3) {
+            return;
+        }
+
+        vm.ocupacoes = ocupacaoDatabase.filter(function(o) {
+            return o.label.indexOf(str) != -1;
+        });
+    }
+
     function onSelectLocalizacao($item, $model, $label) {
         vm.view.localizacao = $model;
+    }
+
+    function onSelectOcupacao($item, $model, $label) {
+        vm.view.ocupacao = $model;
     }
 
     function salvarPerfil() {
@@ -65,11 +82,9 @@ app.controller("profileEditCtrl", ["$scope", '$routeParams', '$timeout', 'Upload
 	var iniciarTela = function() {
         profileEditService.initialData().success(function(data) {
             vm.habilidades = data.formData.habilidades;
+            ocupacaoDatabase = data.formData.ocupacoes;
 
             vm.view = data.formData.meuPerfil;
-            if (!vm.view.links) vm.view.links = [{}];
-
-            console.log(vm.view);
         });
 	};
      

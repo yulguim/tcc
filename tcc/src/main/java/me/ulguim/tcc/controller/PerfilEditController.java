@@ -28,6 +28,7 @@ public class PerfilEditController extends TCCBaseController {
 		ContainerView view = new ContainerView();
 		view.addFormData("meuPerfil", perfilManager.meuPerfil(getProfile()));
 		view.addFormData("habilidades", perfilManager.listHabilidades(getProfile()));
+		view.addFormData("ocupacoes", perfilManager.listOcupacoes());
 
 		return view;
 	}

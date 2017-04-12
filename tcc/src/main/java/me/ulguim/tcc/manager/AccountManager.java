@@ -26,9 +26,6 @@ public class AccountManager extends TCCBaseManager {
 	private String avatarFolder;
 
 	@Inject
-	private ProfileSingleton profileSingleton;
-
-	@Inject
 	private AccountService accountService;
 
 	public AccountView load(Profile profile) {
@@ -81,7 +78,7 @@ public class AccountManager extends TCCBaseManager {
 		accountLogadaLoaded = super.update(accountLogadaLoaded, profile);
 
 		profile.setUsuario(accountLogadaLoaded);
-		profileSingleton.add(profile);
+		super.getProfileSingleton().add(profile);
 
 		AccountView view = new AccountView();
 		return view;
@@ -101,7 +98,7 @@ public class AccountManager extends TCCBaseManager {
 		account = super.update(account, profile);
 
 		profile.setUsuario(account);
-		profileSingleton.add(profile);
+		super.getProfileSingleton().add(profile);
 		return view;
 	}
 
