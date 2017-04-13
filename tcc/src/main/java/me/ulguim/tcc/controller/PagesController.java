@@ -73,5 +73,10 @@ public class PagesController {
 	public String search() throws ValidationException {
 		return "partials/search";
 	}
-	
+
+	@RequestMapping("/projeto.html")
+	public String projeto() throws ValidationException {
+		return "partials/projeto";
+	}
+
 }
