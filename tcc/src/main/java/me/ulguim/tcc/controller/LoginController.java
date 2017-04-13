@@ -57,6 +57,9 @@ public class LoginController extends TCCBaseController {
 		perfilView.setAvatar(account.getAvatar());
 		perfilView.setUsername(account.getUsername());
 		perfilView.setName(account.getName());
+		if (account.getProfile() == null) {
+			perfilView.setHasNoProfile(true);
+		}
 
 		profileSingleton.add(profile);
 		return perfilView;

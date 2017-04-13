@@ -12,7 +12,7 @@ public class LoginView extends BaseView {
 	private String login;
 	
 	private String password;
-	
+
 	public LoginView() {
 		
 	}

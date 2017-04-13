@@ -4,6 +4,7 @@ import in.k2s.sdk.springboot.singleton.ProfileSingleton;
 import in.k2s.sdk.util.validator.EmailValidator;
 import in.k2s.sdk.web.message.Message;
 import in.k2s.sdk.web.message.MessageSeverity;
+import in.k2s.sdk.web.message.MessageSuccess;
 import in.k2s.sdk.web.message.MessageWarning;
 import in.k2s.sdk.web.profile.Profile;
 import in.k2s.sdk.web.validation.ValidationException;
@@ -18,6 +19,7 @@ import me.ulguim.tcc.view.ContatoView;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.thymeleaf.util.StringUtils;
 
 import javax.inject.Inject;
 import java.awt.image.BufferedImage;
@@ -38,6 +40,7 @@ public class AccountManager extends TCCBaseManager {
 
 		AccountView view = new AccountView();
 		view.setId(accountLogadaLoaded.getId());
+		view.setEmail(accountLogadaLoaded.getEmail());
 		view.setKey(accountLogadaLoaded.getChave());
 		view.setAvatar(accountLogadaLoaded.getAvatar());
 		view.setLabel(accountLogadaLoaded.getLabel());
@@ -93,9 +96,11 @@ public class AccountManager extends TCCBaseManager {
 		validate(profile, view);
 		Account account = getAccountLogadaLoaded(profile);
 		account.setEmail(view.getEmail());
-		account.setPassword(view.getPassword());
 		account.setChave(view.getKey());
 		account.setUsername(view.getKey());
+		if (!StringUtils.isEmpty(view.getPassword())) {
+			account.setPassword(view.getPassword());
+		}
 		account = super.update(account, profile);
 
 		Perfil perfil = account.getProfile();
@@ -106,6 +111,9 @@ public class AccountManager extends TCCBaseManager {
 
 		profile.setUsuario(account);
 		super.getProfileSingleton().add(profile);
+
+		view.setPassword(null);
+		view.addMessage(new MessageSuccess( "success.save"));
 		return view;
 	}
 
@@ -116,7 +124,7 @@ public class AccountManager extends TCCBaseManager {
 			throw ex;
 		}
 
-		if (view.getKey() == null) {
+		if (StringUtils.isEmpty(view.getKey())) {
 			ex.addMessage(new Message("message.custom", MessageSeverity.WARN, "A chave é obrigatória."));
 		} else {
 			Account account = accountService.selectByChave(Account.class, view.getKey());
@@ -126,8 +134,13 @@ public class AccountManager extends TCCBaseManager {
 		}
 		if (view.getEmail() == null || !EmailValidator.validate(view.getEmail())) {
 			ex.addMessage(new Message("message.warn.invalid", MessageSeverity.WARN, "Email"));
+		} else {
+			Account account = accountService.selectByEmail(view.getEmail());
+			if (account != null && !account.getId().equals(getAccountLogada(profile).getId())) {
+				ex.addMessage(new Message("message.custom", MessageSeverity.WARN, "Este email já está cadastrado."));
+			}
 		}
-		if (view.getPassword() == null || view.getPassword().length() < 5) {
+		if (!StringUtils.isEmpty(view.getPassword()) && view.getPassword().length() < 5) {
 			ex.addMessage(new Message("message.custom", MessageSeverity.WARN, "A senha deve conter pelo menos 5 caracteres."));
 		}
 

@@ -12,8 +12,12 @@ app.controller("loginCtrl", ['$location', 'loginService', function ($location, l
 
 	function doLogin(view) {
 		loginService.doLogin(view).success(function(view) {
-			//Redirect para home
-            window.location = '/';
+			if (view.hasNoProfile) {
+                window.location = '/#/profile-edit';
+			} else {
+                //Redirect para home
+                window.location = '/';
+			}
 		});
 	};
 	

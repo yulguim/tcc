@@ -23,11 +23,23 @@
         <div class="panel panel-default text-center">
           <img src="/vendor/themekit40/images/people/110/guy-5.jpg" class="img-circle">
           <div class="panel-body">
+            <div ng-show="showCadastro">
+              <input class="form-control" type="text" placeholder="Nome" ng-model="vm.view.nome" ng-keypress="($event.which === 13) ? vm.doLogin(vm.view) : 0">
+              <input class="form-control" type="text" placeholder="Sobrenome" ng-model="vm.view.sobrenome" ng-keypress="($event.which === 13) ? vm.doLogin(vm.view) : 0">
+            </div>
+
             <input class="form-control" type="text" placeholder="Email" ng-model="vm.view.email" ng-keypress="($event.which === 13) ? vm.doLogin(vm.view) : 0">
             <input class="form-control" type="password" placeholder="Enter Password" ng-model="vm.view.password" ng-keypress="($event.which === 13) ? vm.doLogin(vm.view) : 0">
 
-            <a href="#" class="btn btn-primary" ng-click="vm.doLogin(vm.view)">Login <i class="fa fa-fw fa-unlock-alt"></i></a>
-            <a href="#" class="forgot-password">Forgot password?</a>
+            <div ng-show="!showCadastro">
+              <a href="" class="btn btn-primary" ng-click="showCadastro=!showCadastro">Cadastre-se!</a>
+              <a href="" class="btn btn-primary" ng-click="vm.doLogin(vm.view)">Login <i class="fa fa-fw fa-unlock-alt"></i></a>
+              <a href="" class="forgot-password">Forgot password?</a>
+            </div>
+            <div ng-show="showCadastro">
+              <a href="" class="btn btn-primary" ng-click="showCadastro=!showCadastro">Voltar</a>
+              <a href="" class="btn btn-primary" ng-click="vm.cadastrar(vm.view)">Cadastrar <i class="fa fa-fw fa-sign-in"></i></a>
+            </div>
           </div>
         </div>
       </div>

@@ -4,6 +4,7 @@ import in.k2s.sdk.springboot.singleton.ProfileSingleton;
 import in.k2s.sdk.util.string.StringUtil;
 import in.k2s.sdk.web.message.Message;
 import in.k2s.sdk.web.message.MessageSeverity;
+import in.k2s.sdk.web.message.MessageSuccess;
 import in.k2s.sdk.web.message.MessageWarning;
 import in.k2s.sdk.web.profile.Profile;
 import in.k2s.sdk.web.validation.ValidationException;
@@ -126,6 +127,11 @@ public class PerfilManager extends TCCBaseManager {
 			perfil.setAccount(accountLogada);
 			perfil.setAbout(view.getAbout());
 			perfil.setHabilidadeList(view.getHabilidades());
+			Cidade cidade = perfilService.selectById(Cidade.class, view.getLocalizacao().getId());
+			perfil.setCidade(cidade);
+			Ocupacao ocupacao = perfilService.selectById(Ocupacao.class, view.getOcupacao().getId());
+			perfil.setOcupacao(ocupacao);
+			perfil.setSocialNetworkList(view.getLinks());
 			perfil = auditoria(perfil, profile);
 			perfil = super.service.insert(perfil);
 		} else {
@@ -135,11 +141,15 @@ public class PerfilManager extends TCCBaseManager {
 			perfil.setCidade(cidade);
 			Ocupacao ocupacao = perfilService.selectById(Ocupacao.class, view.getOcupacao().getId());
 			perfil.setOcupacao(ocupacao);
+			perfil.setSocialNetworkList(view.getLinks());
 			perfil = super.update(perfil, profile);
 		}
 
 		profile.setUsuario(accountLogada);
 		super.getProfileSingleton().add(profile);
+		view.setLocalizacaoNome(view.getLocalizacao().getLabel());
+		view.setOcupacaoNome(view.getOcupacao().getLabel());
+		view.addMessage(new Message("success.save", MessageSeverity.SUCCESS));
 		return view;
 	}
 

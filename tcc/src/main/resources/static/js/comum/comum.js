@@ -81,6 +81,7 @@ app.factory("ajaxService", ["$http", function($http) {
         return $http.get(_baseUrl+url);
     };
     var _post = function(url, data) {
+        delete data.messages;
     	return $http.post(_baseUrl+url, data);
     };
     var _remove = function(url) {

@@ -43,6 +43,7 @@ app.controller("profileEditCtrl", ["$scope", '$routeParams', '$timeout', 'Upload
         vm.ocupacoes = ocupacaoDatabase.filter(function(o) {
             return o.label.indexOf(str) != -1;
         });
+        console.log(vm.ocupacoes);
     }
 
     function onSelectLocalizacao($item, $model, $label) {
@@ -54,9 +55,10 @@ app.controller("profileEditCtrl", ["$scope", '$routeParams', '$timeout', 'Upload
     }
 
     function salvarPerfil() {
-        console.log(vm.view);
+        delete vm.view.ocupacaoNome;
+        delete vm.view.localizacaoNome;
         profileEditService.save(vm.view).success(function(view) {
-            console.log(view);
+            vm.view = view;
         });
     }
 
@@ -85,6 +87,7 @@ app.controller("profileEditCtrl", ["$scope", '$routeParams', '$timeout', 'Upload
             ocupacaoDatabase = data.formData.ocupacoes;
 
             vm.view = data.formData.meuPerfil;
+            if (!vm.view.links || vm.view.links.length === 0) vm.view.links = [{}];
         });
 	};
      

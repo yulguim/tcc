@@ -55,6 +55,9 @@ public class Account extends BaseEntity implements Serializable {
 	@OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
 	private List<Post> postList;
 
+	@OneToMany(mappedBy="owner")
+	private List<Projeto> projetoList;
+
 	private String chave;
 	@Column(name = "insert_time")
 	private Timestamp insertTime;
@@ -192,6 +195,14 @@ public class Account extends BaseEntity implements Serializable {
 
 	public void setProfile(Perfil profile) {
 		this.profile = profile;
+	}
+
+	public List<Projeto> getProjetoList() {
+		return projetoList;
+	}
+
+	public void setProjetoList(List<Projeto> projetoList) {
+		this.projetoList = projetoList;
 	}
 
 	public String getLabel() {
