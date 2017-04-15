@@ -32,7 +32,7 @@ public class SocialNetworkBean extends BaseBean {
 
 		private final String name;
 
-		private Label(String s) {
+		Label(String s) {
 			name = s;
 		}
 

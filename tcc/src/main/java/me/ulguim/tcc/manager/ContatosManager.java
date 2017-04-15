@@ -6,6 +6,7 @@ import in.k2s.sdk.web.message.MessageWarning;
 import in.k2s.sdk.web.profile.Profile;
 import in.k2s.sdk.web.profile.ProfileBean;
 import in.k2s.sdk.web.validation.ValidationException;
+import me.ulguim.tcc.bean.NotificationBean;
 import me.ulguim.tcc.controller.base.TCCBaseController;
 import me.ulguim.tcc.entity.Account;
 import me.ulguim.tcc.entity.Contato;
@@ -48,10 +49,12 @@ public class ContatosManager extends TCCBaseManager {
 	}
 
 	public ContatoView request(Profile profile, ContatoView view) {
+		Account myAccount = super.getAccountLogada(profile);
+
 		Perfil perfil = perfilService.selectByChave(Perfil.class, view.getKey());
 		Account account = perfil.getAccount();
-		account.getExtraParams().addRequest(super.getAccountLogada(profile).getId());
-
+		account.getExtraParams().addRequest(myAccount.getId());
+		account.addNotification(NotificationBean.createNotification(NotificationBean.Label.CONTACT_REQUEST, myAccount.getLabel() + "adicionou você.", "/#/profile/" + myAccount.getChave()));
 		super.update(account);
 
 		return view;
@@ -96,6 +99,7 @@ public class ContatosManager extends TCCBaseManager {
 			//Add nos contatos da pessoa
 			toAccept.addContact(myAccount.getId());
 			toAccept.getExtraParams().removeRequest(myAccount.getId());
+			toAccept.addNotification(NotificationBean.createNotification(NotificationBean.Label.CONTACT_ACCEPT, myAccount.getLabel() + "agora é um contato.", "/#/profile/" + myAccount.getChave()));
 			super.update(toAccept, profile);
 		}
 
@@ -117,6 +121,11 @@ public class ContatosManager extends TCCBaseManager {
 			myAccount = super.update(myAccount, profile);
 			//Remove dos contatos da pessoa
 			toRemove.removeContact(myAccount.getId());
+			super.update(toRemove, profile);
+			myAccount = super.update(myAccount, profile);
+
+			profile.setUsuario(myAccount);
+			super.getProfileSingleton().add(profile);
 		}
 
 		return view;

@@ -101,7 +101,7 @@ public class PerfilManager extends TCCBaseManager {
 		view = PerfilParser.parse(account, perfil);
 		if (account.getId().equals(accountLogadaLoaded.getId())) { //Ver se o profile eh o meu
 			view.setMyProfile(true);
-		} else if (accountLogadaLoaded.contactExists(accountLogadaLoaded.getId())) { //Ver se eh amigo
+		} else if (accountLogadaLoaded.contactExists(account.getId())) { //Ver se eh amigo
 			view.setFriend(true);
 		} else if (account.getExtraParams().existsRequest(accountLogadaLoaded.getId())) { //Ver se tem request meu
 			view.setRequestedByMe(true);

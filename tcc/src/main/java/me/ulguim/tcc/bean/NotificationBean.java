@@ -9,7 +9,7 @@ public class NotificationBean extends BaseBean {
 
 	private Long id;
 
-	private String label;
+	private Label label;
 
 	private String description;
 
@@ -21,12 +21,12 @@ public class NotificationBean extends BaseBean {
 
 	}
 
-	public NotificationBean(String label, String description) {
+	private NotificationBean(Label label, String description) {
 		this.label = label;
 		this.description = description;
 	}
 
-	public NotificationBean(String label, String description, String url) {
+	private NotificationBean(Label label, String description, String url) {
 		this.label = label;
 		this.description = description;
 		this.url = url;
@@ -40,11 +40,11 @@ public class NotificationBean extends BaseBean {
 		this.id = id;
 	}
 
-	public String getLabel() {
+	public Label getLabel() {
 		return label;
 	}
 
-	public void setLabel(String label) {
+	public void setLabel(Label label) {
 		this.label = label;
 	}
 
@@ -72,11 +72,29 @@ public class NotificationBean extends BaseBean {
 		this.read = read;
 	}
 
-	public static NotificationBean createNotification(String label, String description) {
+	public static NotificationBean createNotification(Label label, String description) {
 		return new NotificationBean(label, description);
 	}
 
-	public static NotificationBean createNotification(String label, String description, String url) {
+	public static NotificationBean createNotification(Label label, String description, String url) {
 		return new NotificationBean(label, description, url);
+	}
+
+	public enum Label {
+		CONTACT_REQUEST("Contact Request"),
+		CONTACT_ACCEPT("New contact"),
+		PROJECT_REQUEST("Project Request"),
+		PROJECT_ACCEPT("Project"),
+		NEW_MESSAGE("Message");
+
+		private final String name;
+
+		Label(String s) {
+			name = s;
+		}
+
+		public String toString() {
+			return this.name;
+		}
 	}
 }

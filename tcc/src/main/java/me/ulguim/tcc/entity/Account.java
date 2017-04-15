@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.persistence.*;
@@ -242,5 +243,20 @@ public class Account extends BaseEntity implements Serializable {
 		} else {
 			return collect;
 		}
+	}
+
+	public void readNotification(Long id) {
+		Optional<NotificationBean> any = this.notifications.stream()
+				.filter(n -> n.getId().equals(id))
+				.findAny();
+		if (any.isPresent()) {
+			any.get().setRead(true);
+		}
+	}
+
+	public void readNotifications(List<Long> ids) {
+		ids.forEach(id -> {
+			this.notifications.forEach(n -> readNotification(id));
+		});
 	}
 }

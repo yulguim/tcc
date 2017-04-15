@@ -20,20 +20,16 @@ public abstract class TCCBaseManager extends BaseManager {
 		return profileSingleton;
 	}
 
-	public Account getAccountLogada(Profile profile) {
+	private Account getUsuario(Profile profile) {
 		return (Account) profile.getUsuario();
 	}
 
-	public Account getAccountLogadaLoaded(Profile profile) {
-		return super.load(Account.class, getAccountLogada(profile).getId());
+	public Account getAccountLogada(Profile profile) {
+		return super.load(Account.class, getUsuario(profile).getId());
 	}
 
-	public void saveNotification(Profile profile, NotificationBean bean) {
-		Account accountLogadaLoaded = getAccountLogadaLoaded(profile);
-		accountLogadaLoaded.addNotification(bean);
-		accountLogadaLoaded = super.update(accountLogadaLoaded, profile);
-		profile.setUsuario(accountLogadaLoaded);
-		profileSingleton.add(profile);
+	public Account getAccountLogadaLoaded(Profile profile) {
+		return super.load(Account.class, getUsuario(profile).getId());
 	}
 
 }

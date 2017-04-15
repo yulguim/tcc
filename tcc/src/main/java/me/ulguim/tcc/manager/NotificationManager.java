@@ -25,4 +25,14 @@ public class NotificationManager extends TCCBaseManager {
 		return notifications;
 	}
 
+	public boolean read(Profile profile, List<Long> ids) throws ValidationException {
+		Account accountLogadaLoaded = getAccountLogadaLoaded(profile);
+		accountLogadaLoaded.readNotifications(ids);
+		accountLogadaLoaded = super.update(accountLogadaLoaded, profile);
+		profile.setUsuario(accountLogadaLoaded);
+		super.getProfileSingleton().add(profile);
+
+		return true;
+	}
+
 }
