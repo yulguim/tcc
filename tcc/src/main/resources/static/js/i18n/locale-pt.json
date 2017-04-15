@@ -1,4 +1,5 @@
 {
+
   "COMPLETE.SEU.PERFIL" : "Complete seu perfil",
   "EDITAR.PERFIL" : "Editar perfil",
   "EDITAR.CONTA" : "Editar conta",
@@ -11,5 +12,9 @@
   "HABILIDADES" : "Habilidades",
   "SELECIONE" : "Selecione",
   "SALVAR" : "Salvar",
-  "OCUPACAO" : "Ocupação"
+  "OCUPACAO" : "Ocupação",
+
+
+  "MEUS.PROJETOS" : "Meus Projetos",
+  "MEUS.CONTATOS" : "Meus Contatos"
 }

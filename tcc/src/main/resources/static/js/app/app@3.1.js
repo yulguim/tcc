@@ -15,7 +15,7 @@ app.run(function($rootScope, $http, $timeout, $route, $location) {
 
 });
 
-app.controller("appCtrl", ["$scope", '$translate', '$interval', 'usuarioLogadoService', 'notificationsService', function ($scope, $translate, $interval, usuarioLogadoService, notificationsService) {
+app.controller("appCtrl", ["$scope", '$translate', 'usuarioLogadoService', function ($scope, $translate, usuarioLogadoService) {
     $scope.usuarioLogado = {};
     $scope.notifications = [];
     $scope.notificationsCount = 0;
@@ -35,15 +35,4 @@ app.controller("appCtrl", ["$scope", '$translate', '$interval', 'usuarioLogadoSe
         }
         window.location = '/#/search/' + encodeURIComponent(search);
     }
-
-    //Notificacoes
-    var getNotifications = function() {
-        notificationsService.list().success(function(notifications) {
-           $scope.notifications = notifications;
-           $scope.notificationsCount = notifications.length;
-        });
-    };
-
-    getNotifications(); //Pega no load da pagina
-    $interval(getNotifications, 5000); //Refresh a cada 5 segundos
 }]);

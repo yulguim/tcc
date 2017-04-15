@@ -1,6 +1,10 @@
 app.factory('contatosService', ['ajaxService', function(ajaxService) {
 	var _pageUrl = "/contato";
 
+	var _list = function() {
+	    return ajaxService.get(_pageUrl);
+    }
+
     var _request = function(key) {
         return ajaxService.get(_pageUrl+"/request/" + key);
     };
@@ -22,6 +26,7 @@ app.factory('contatosService', ['ajaxService', function(ajaxService) {
     };
  	
 	return {
+	    list : _list,
 		request : _request,
 		accept : _accept,
 		ignore : _ignore,

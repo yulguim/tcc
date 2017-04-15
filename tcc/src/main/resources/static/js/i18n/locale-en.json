@@ -1,4 +1,5 @@
 {
+
   "COMPLETE.SEU.PERFIL" : "Complete your profile",
   "EDITAR.PERFIL" : "Edit your profile",
   "EDITAR.CONTA" : "Edit your account",
@@ -11,5 +12,8 @@
   "HABILIDADES" : "Skills",
   "SELECIONE" : "Select",
   "SALVAR" : "Save",
-  "OCUPACAO" : "Ocupation"
+  "OCUPACAO" : "Ocupation",
+
+  "MEUS.PROJETOS" : "My Projects",
+  "MEUS.CONTATOS" : "My Contacts"
 }

@@ -1,0 +1,20 @@
+<li class="dropdown notifications updates hidden-xs hidden-sm">
+    <a href="" class="dropdown-toggle" data-toggle="dropdown">
+        <i class="fa fa-bell-o"></i>
+        <span class="badge badge-primary">{{notificationsCount}}</span>
+    </a>
+    <ul class="dropdown-menu" role="notification" ng-click="readAll()">
+        <li class="dropdown-header">Notifications</li>
+        <li class="media" ng-repeat="n in notifications">
+            <div class="media-left">
+                <span class="icon-block s30 bg-grey-200"><i class="fa fa-plus"></i></span>
+            </div>
+            <div class="media-body">
+                <a href="#">Mary D.</a> and <a href="#">Michelle</a> are now friends.
+                <p>
+                    <span class="text-caption text-muted">1 day ago</span>
+                </p>
+            </div>
+        </li>
+    </ul>
+</li>
