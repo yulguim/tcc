@@ -237,7 +237,7 @@ public class Account extends BaseEntity implements Serializable {
 	}
 
 	public List<NotificationBean> getNotifications(int num) {
-		List<NotificationBean> collect = this.notifications.stream().filter(n -> !n.isRead()).collect(Collectors.toList());
+		List<NotificationBean> collect = this.notifications.stream().collect(Collectors.toList());
 		if (collect.size() > num) {
 			return collect.subList(0, num);
 		} else {

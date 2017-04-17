@@ -3,16 +3,17 @@
         <i class="fa fa-bell-o"></i>
         <span class="badge badge-primary">{{notificationsCount}}</span>
     </a>
-    <ul class="dropdown-menu" role="notification" ng-click="readAll()">
-        <li class="dropdown-header">Notifications</li>
-        <li class="media" ng-repeat="n in notifications">
+    <ul class="dropdown-menu" role="notification">
+        <li class="dropdown-header">Notifications <span class="pull-right" ng-click="readAll()"><a href="">Mark all read</a></span></li>
+        <li class="media" ng-repeat="n in notifications" ng-style="!n.read && {'background-color':'#ECF0F1'}">
             <div class="media-left">
                 <span class="icon-block s30 bg-grey-200"><i class="fa fa-plus"></i></span>
             </div>
             <div class="media-body">
-                <a href="#">Mary D.</a> and <a href="#">Michelle</a> are now friends.
+                <div ng-if="n.label === 'CONTACT_REQUEST'"><a ng-href="{{n.url}}">{{n.description}}</a></div>
+                <div ng-if="n.label === 'CONTACT_ACCEPT'"><a ng-href="{{n.url}}">{{n.description}}</a></div>
                 <p>
-                    <span class="text-caption text-muted">1 day ago</span>
+                    <span class="text-caption text-muted">{{n.insertTime}}</span>
                 </p>
             </div>
         </li>

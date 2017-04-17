@@ -10,16 +10,31 @@ app.directive('notifications', ['$interval', 'notificationsService', function($i
       scope.notifications = [];
       scope.notificationsCount = 0;
 
+      //functions
+      scope.readAll = readAll;
+
+      function readAll() {
+        var ids = [];
+        angular.forEach(scope.notifications, function(obj) {
+          obj.read = true;
+          ids.push(obj.id);
+        });
+
+        var view = {ids: ids};
+        notificationsService.read(view);
+      };
+
       //Notificacoes
       var getNotifications = function() {
           notificationsService.list().success(function(notifications) {
               scope.notifications = notifications;
               scope.notificationsCount = notifications.length;
+              console.log(scope.notifications);
           });
       };
 
       getNotifications(); //Pega no load da pagina
-      $interval(getNotifications, 5000); //Refresh a cada 5 segundos
+      //$interval(getNotifications, 5000); //Refresh a cada 5 segundos
     }
   };
 }]);

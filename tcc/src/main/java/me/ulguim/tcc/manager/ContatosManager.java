@@ -54,7 +54,7 @@ public class ContatosManager extends TCCBaseManager {
 		Perfil perfil = perfilService.selectByChave(Perfil.class, view.getKey());
 		Account account = perfil.getAccount();
 		account.getExtraParams().addRequest(myAccount.getId());
-		account.addNotification(NotificationBean.createNotification(NotificationBean.Label.CONTACT_REQUEST, myAccount.getLabel() + "adicionou você.", "/#/profile/" + myAccount.getChave()));
+		account.addNotification(NotificationBean.createNotification(NotificationBean.Label.CONTACT_REQUEST, myAccount.getLabel() + " adicionou você.", "/#/profile/" + myAccount.getChave()));
 		super.update(account);
 
 		return view;
@@ -99,7 +99,7 @@ public class ContatosManager extends TCCBaseManager {
 			//Add nos contatos da pessoa
 			toAccept.addContact(myAccount.getId());
 			toAccept.getExtraParams().removeRequest(myAccount.getId());
-			toAccept.addNotification(NotificationBean.createNotification(NotificationBean.Label.CONTACT_ACCEPT, myAccount.getLabel() + "agora é um contato.", "/#/profile/" + myAccount.getChave()));
+			toAccept.addNotification(NotificationBean.createNotification(NotificationBean.Label.CONTACT_ACCEPT, myAccount.getLabel() + " agora é um contato.", "/#/profile/" + myAccount.getChave()));
 			super.update(toAccept, profile);
 		}
 

@@ -1,6 +1,8 @@
 package me.ulguim.tcc.bean;
 
 import in.k2s.sdk.core.bean.BaseBean;
+import in.k2s.sdk.jpa.sequence.SequenceGenerator;
+import in.k2s.sdk.util.data.DataUtil;
 
 /**
  * Created by yulle on 07/03/17.
@@ -15,6 +17,8 @@ public class NotificationBean extends BaseBean {
 
 	private String url;
 
+	private String insertTime;
+
 	private boolean read = false;
 
 	public NotificationBean() {
@@ -24,12 +28,16 @@ public class NotificationBean extends BaseBean {
 	private NotificationBean(Label label, String description) {
 		this.label = label;
 		this.description = description;
+		this.id = SequenceGenerator.generate();
+		this.insertTime = DataUtil.format(DataUtil.getTimestamp(), "dd/MM/yyyy HH:mm:ss");
 	}
 
 	private NotificationBean(Label label, String description, String url) {
 		this.label = label;
 		this.description = description;
 		this.url = url;
+		this.id = SequenceGenerator.generate();
+		this.insertTime = DataUtil.format(DataUtil.getTimestamp(), "dd/MM/yyyy HH:mm:ss");
 	}
 
 	public Long getId() {
@@ -70,6 +78,14 @@ public class NotificationBean extends BaseBean {
 
 	public void setRead(boolean read) {
 		this.read = read;
+	}
+
+	public String getInsertTime() {
+		return insertTime;
+	}
+
+	public void setInsertTime(String insertTime) {
+		this.insertTime = insertTime;
 	}
 
 	public static NotificationBean createNotification(Label label, String description) {

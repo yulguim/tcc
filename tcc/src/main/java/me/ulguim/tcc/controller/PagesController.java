@@ -84,4 +84,9 @@ public class PagesController {
 		return "partials/my-projects";
 	}
 
+	@RequestMapping("/new-project.html")
+	public String novoProjeto() throws ValidationException {
+		return "partials/new-project";
+	}
+
 }
