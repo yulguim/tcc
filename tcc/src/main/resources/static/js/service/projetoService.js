@@ -1,8 +1,8 @@
 app.factory('projetoService', ['ajaxService', function(ajaxService) {
 	var _pageUrl = "/projeto";
 
-	var _load = function(view) {
-		return ajaxService.get(_pageUrl + "/" + view.key);
+	var _load = function(key) {
+		return ajaxService.get(_pageUrl + "/" + key);
 	}
 	
 	var _save = function(view) {

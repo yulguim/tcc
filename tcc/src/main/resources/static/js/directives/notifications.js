@@ -28,13 +28,17 @@ app.directive('notifications', ['$interval', 'notificationsService', function($i
       var getNotifications = function() {
           notificationsService.list().success(function(notifications) {
               scope.notifications = notifications;
-              scope.notificationsCount = notifications.length;
-              console.log(scope.notifications);
+              scope.notificationsCount = 0;
+              angular.forEach(scope.notifications, function(obj) {
+                  if (!obj.read) {
+                      scope.notificationsCount = scope.notificationsCount++;
+                  }
+              });
           });
       };
 
       getNotifications(); //Pega no load da pagina
-      //$interval(getNotifications, 5000); //Refresh a cada 5 segundos
+      $interval(getNotifications, 5000); //Refresh a cada 5 segundos
     }
   };
 }]);

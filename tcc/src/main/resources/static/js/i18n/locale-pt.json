@@ -16,5 +16,11 @@
 
 
   "MEUS.PROJETOS" : "Meus Projetos",
-  "MEUS.CONTATOS" : "Meus Contatos"
+  "MEUS.CONTATOS" : "Meus Contatos",
+
+  "EDITAR.PROJETO" : "Editar Projeto",
+  "CRIAR.PROJETO" : "Criar Projeto",
+  "titulo" : "Título",
+  "descricao" : "Descrição",
+  "cancelar" : "Cancelar"
 }

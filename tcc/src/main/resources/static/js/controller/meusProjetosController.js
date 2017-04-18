@@ -1,11 +1,11 @@
 app.controller("meusProjetosCtrl", ["meusProjetosService", function (meusProjetosService) {
 	var vm = this;
 
-	vm.view = {};
+	vm.projects = [];
 
 	var iniciarTela = function() {
         meusProjetosService.list().success(function(view) {
-			vm.view = view;
+			vm.projects = view;
 		})
 	};
 

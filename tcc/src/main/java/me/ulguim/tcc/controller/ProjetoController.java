@@ -6,6 +6,7 @@ import me.ulguim.tcc.controller.base.TCCBaseController;
 import me.ulguim.tcc.manager.PerfilManager;
 import me.ulguim.tcc.manager.ProjetoManager;
 import me.ulguim.tcc.view.PerfilView;
+import me.ulguim.tcc.view.ProjetoSimpleView;
 import me.ulguim.tcc.view.ProjetoView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,7 +23,7 @@ public class ProjetoController extends TCCBaseController {
 	private ProjetoManager projetoManager;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<ProjetoView> listMyProjects() throws ValidationException {
+	public List<ProjetoSimpleView> listMyProjects() throws ValidationException {
 		return projetoManager.list(getProfile());
 	}
 

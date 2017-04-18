@@ -15,5 +15,11 @@
   "OCUPACAO" : "Ocupation",
 
   "MEUS.PROJETOS" : "My Projects",
-  "MEUS.CONTATOS" : "My Contacts"
+  "MEUS.CONTATOS" : "My Contacts",
+
+  "EDITAR.PROJETO" : "Edit Project",
+  "CRIAR.PROJETO" : "Create Project",
+  "titulo" : "Title",
+  "descricao" : "Description",
+  "cancelar" : "Cancel"
 }

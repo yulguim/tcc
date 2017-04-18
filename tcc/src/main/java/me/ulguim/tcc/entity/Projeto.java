@@ -1,19 +1,14 @@
 package me.ulguim.tcc.entity;
 
 import in.k2s.sdk.jpa.entity.BaseEntity;
-import me.ulguim.tcc.bean.ExtraParamsBean;
-import me.ulguim.tcc.bean.MensagemBean;
-import me.ulguim.tcc.bean.NotificationBean;
-import me.ulguim.tcc.entity.converter.ExtraParamsConverter;
-import me.ulguim.tcc.entity.converter.MensagemConverter;
-import me.ulguim.tcc.entity.converter.NotificationsConverter;
+import me.ulguim.tcc.bean.*;
+import me.ulguim.tcc.entity.converter.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name="projeto")
@@ -24,6 +19,23 @@ public class Projeto extends BaseEntity implements Serializable {
 	private Long id;
 
 	private String titulo;
+
+	@Column(columnDefinition="TEXT")
+	private String descricao;
+
+	@Column(name = "habilidades", columnDefinition="TEXT")
+	@Convert(converter = HabilidadesConverter.class)
+	private List<HabilidadeBean> habilidadeList;
+
+	@Column(name = "links_externos", columnDefinition="TEXT")
+	@Convert(converter = SocialNetworkConverter.class)
+	private List<SocialNetworkBean> linksExternos = new ArrayList<>();
+
+	private Boolean permiteRequest = true;
+
+	@Column(name = "tags", columnDefinition="TEXT")
+	@Convert(converter = TagsConverter.class)
+	private List<TagBean> tags = new ArrayList<>();
 
 	@ManyToOne
 	@JoinColumn(name="fk_account")
@@ -121,5 +133,45 @@ public class Projeto extends BaseEntity implements Serializable {
 
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public List<HabilidadeBean> getHabilidadeList() {
+		return habilidadeList;
+	}
+
+	public void setHabilidadeList(List<HabilidadeBean> habilidadeList) {
+		this.habilidadeList = habilidadeList;
+	}
+
+	public List<SocialNetworkBean> getLinksExternos() {
+		return linksExternos;
+	}
+
+	public void setLinksExternos(List<SocialNetworkBean> linksExternos) {
+		this.linksExternos = linksExternos;
+	}
+
+	public Boolean getPermiteRequest() {
+		return permiteRequest;
+	}
+
+	public void setPermiteRequest(Boolean permiteRequest) {
+		this.permiteRequest = permiteRequest;
+	}
+
+	public List<TagBean> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<TagBean> tags) {
+		this.tags = tags;
 	}
 }

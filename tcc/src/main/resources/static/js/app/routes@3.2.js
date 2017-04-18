@@ -8,6 +8,7 @@ app.config(function($routeProvider) {
     $routeProvider.when('/search/:key', {templateUrl: '/search.html', controller: 'searchCtrl as vm'});
     $routeProvider.when('/my-projects', {templateUrl: '/my-projects.html', controller: 'meusProjetosCtrl as vm'});
     $routeProvider.when('/new-project', {templateUrl: '/new-project.html', controller: 'novoProjetoCtrl as vm'});
+    $routeProvider.when('/edit-project/:key', {templateUrl: '/new-project.html', controller: 'novoProjetoCtrl as vm'});
     $routeProvider.when('/projeto/:key', {templateUrl: '/projeto.html', controller: 'projetoCtrl as vm'});
 
 	//other

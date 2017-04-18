@@ -9,6 +9,8 @@ public class SocialNetworkBean extends BaseBean {
 
 	private Label label;
 
+	private String description;
+
 	private String url;
 
 	public String getUrl() {
@@ -25,6 +27,14 @@ public class SocialNetworkBean extends BaseBean {
 
 	public void setLabel(Label label) {
 		this.label = label;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public enum Label {

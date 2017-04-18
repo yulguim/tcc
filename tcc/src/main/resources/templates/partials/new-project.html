@@ -1,3 +1,65 @@
 <div class="container">
-	novo projeto!
+	<div class="jumbotron bg-transparent text-center margin-none">
+		<h1 ng-if="vm.view.id" style="font-size: 32px;">{{'EDITAR.PROJETO' | translate}}</h1>
+		<h1 ng-if="!vm.view.id" style="font-size: 32px;">{{'CRIAR.PROJETO' | translate}}</h1>
+		<p>ThemeKit includes all the form controls shipped with Bootstrap, as well as custom form components that cover various usage scenarios, all themed for modern websites.</p>
+	</div>
+
+	<div class="page-section">
+		<div class="row">
+			<div class="col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2">
+				<h4 class="page-section-heading">Basic example</h4>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<form>
+							<div class="form-group form-control-default required">
+								<label for="titulo">{{'titulo' | translate}}</label>
+								<input type="text" class="form-control" id="titulo" ng-model="vm.view.titulo">
+							</div>
+							<div class="form-group form-control-default required">
+								<label for="descricao">{{'descricao' | translate}}</label>
+								<textarea rows="10" class="form-control" id="descricao" placeholder="Digite o máximo possível de informações sobre o projeto" ng-model="vm.view.descricao"></textarea>
+							</div>
+							<div class="form-group required">
+								<label class="control-label">{{'HABILIDADES' | translate}}</label>
+								<tags-input ng-model="vm.view.habilidades" display-property="label">
+									<auto-complete source="vm.habilidades"></auto-complete>
+								</tags-input>
+							</div>
+							<div class="form-group required">
+								<label class="control-label">Tags</label>
+								<tags-input ng-model="vm.view.tags" display-property="label">
+									<auto-complete source="vm.tags"></auto-complete>
+								</tags-input>
+							</div>
+							<div class="row">
+								<h4>Links</h4>
+							</div>
+							<div class="form-group required" ng-repeat="link in vm.view.links">
+								<div class="row">
+									<div class="col-md-2">
+										<select class="form-control" ng-model="link.label">
+											<option value="" disabled selected>{{'SELECIONE' | translate}}</option>
+											<option value="FACEBOOK">Facebook</option>
+											<option value="LINKED_IN">LinkedIn</option>
+											<option value="TWITTER">Twitter</option>
+										</select>
+									</div>
+									<div class="col-md-8">
+										<input type="text" ng-model="link.url" class="form-control">
+									</div>
+									<div class="col-md-2">
+										<button class="btn btn-default" ng-click="vm.addLink()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+										<button class="btn btn-default" ng-click="vm.removeLink(link)"><i class="fa fa-minus" aria-hidden="true"></i></button>
+									</div>
+								</div>
+							</div>
+							<a type="button" class="btn btn-danger" href="/#/my-projects">{{'cancelar' | translate}}</a>
+							<button type="button" class="btn btn-primary" ng-click="vm.save()">{{'SALVAR' | translate}}</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

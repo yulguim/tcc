@@ -2,6 +2,11 @@ package me.ulguim.tcc.view;
 
 import in.k2s.sdk.web.view.BaseView;
 import in.k2s.sdk.web.view.annotation.View;
+import me.ulguim.tcc.bean.HabilidadeBean;
+import me.ulguim.tcc.bean.SocialNetworkBean;
+import me.ulguim.tcc.bean.TagBean;
+
+import java.util.List;
 
 @View
 public class ProjetoView extends BaseView {
@@ -10,6 +15,16 @@ public class ProjetoView extends BaseView {
 	private Long id;
 
 	private String key;
+
+	private String titulo;
+
+	private String descricao;
+
+	private List<HabilidadeBean> habilidades;
+
+	private List<TagBean> tags;
+
+	private List<SocialNetworkBean> links;
 
 	public ProjetoView() {
 
@@ -29,5 +44,45 @@ public class ProjetoView extends BaseView {
 
 	public void setKey(String key) {
 		this.key = key;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public List<HabilidadeBean> getHabilidades() {
+		return habilidades;
+	}
+
+	public void setHabilidades(List<HabilidadeBean> habilidades) {
+		this.habilidades = habilidades;
+	}
+
+	public List<TagBean> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<TagBean> tags) {
+		this.tags = tags;
+	}
+
+	public List<SocialNetworkBean> getLinks() {
+		return links;
+	}
+
+	public void setLinks(List<SocialNetworkBean> links) {
+		this.links = links;
 	}
 }

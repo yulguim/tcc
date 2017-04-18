@@ -3,7 +3,8 @@
 		<a class="btn btn-primary" href="/#/new-project">Criar projeto</a>
 	</div>
 	<div class="clearfix">&nbsp;</div>
-	<div class="row" data-toggle="isotope">
+	{{vm.view}}
+	<div class="row" data-toggle="isotope" ng-repeat="p in vm.projects">
 		<div class="col-md-6 col-lg-4 item">
 			<div class="panel panel-default">
 				<div class="panel-heading">
@@ -13,17 +14,15 @@
 							<img ng-if="p.avatar" ng-src="/account/avatar/{{p.avatar}}" alt="people" class="media-object img-circle" />
 						</div>
 						<div class="media-body">
-							<h4 class="media-heading margin-v-5"><a href="/#/profile/{{p.key}}">{{p.label}}</a></h4>
+							<h4 class="media-heading margin-v-5"><a href="/#/projeto/{{p.key}}">{{p.titulo}}</a></h4>
 							<div class="profile-icons">
-								<span><i class="fa fa-users"></i> 372</span>
-								<span><i class="fa fa-photo"></i> 43</span>
-								<span><i class="fa fa-video-camera"></i> 3</span>
+								<span><i class="fa fa-users"></i> {{vm.participantes != undefined ? vm.participantes : 'Nenhum participante'}}</span>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="panel-body">
-					<p class="common-friends">Common Friends</p>
+					<p class="common-friends">Participantes</p>
 					<div class="user-friend-list">
 						<a href="#">
 							<img src="images/people/50/guy-3.jpg" alt="people" class="img-circle" />
@@ -40,7 +39,9 @@
 					</div>
 				</div>
 				<div class="panel-footer">
-					<a href="#" class="btn btn-default btn-sm">Follow <i class="fa fa-share"></i></a>
+					<a href="/#/projeto/{{p.key}}" class="btn btn-default btn-sm">Ir para página do projeto <i class="fa fa-share"></i></a>
+					<a href="/#/edit-project/{{p.key}}" class="btn btn-default btn-sm">Editar <i class="fa fa-edit"></i></a>
+					<a href="/#/projeto/{{p.key}}" class="btn btn-danger btn-sm">Excluir <i class="fa fa-remove"></i></a>
 				</div>
 			</div>
 		</div>
