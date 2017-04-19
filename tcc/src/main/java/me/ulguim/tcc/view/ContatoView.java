@@ -21,6 +21,10 @@ public class ContatoView extends BaseView {
 
 	private Boolean isMyProfile;
 
+	//Usado para projeto
+
+	private Long projetoId;
+
 	public ContatoView() {
 		
 	}
@@ -83,5 +87,13 @@ public class ContatoView extends BaseView {
 
 	public void setMyProfile(Boolean myProfile) {
 		isMyProfile = myProfile;
+	}
+
+	public Long getProjetoId() {
+		return projetoId;
+	}
+
+	public void setProjetoId(Long projetoId) {
+		this.projetoId = projetoId;
 	}
 }

@@ -1,8 +1,11 @@
 package me.ulguim.tcc.manager;
 
+import in.k2s.sdk.jpa.sequence.SequenceGenerator;
+import in.k2s.sdk.util.data.DataUtil;
 import in.k2s.sdk.web.message.MessageSuccess;
 import in.k2s.sdk.web.profile.Profile;
 import in.k2s.sdk.web.validation.ValidationException;
+import me.ulguim.tcc.bean.MensagemBean;
 import me.ulguim.tcc.entity.Account;
 import me.ulguim.tcc.entity.Perfil;
 import me.ulguim.tcc.entity.Projeto;
@@ -11,6 +14,7 @@ import me.ulguim.tcc.parser.ContatoParser;
 import me.ulguim.tcc.service.PerfilService;
 import me.ulguim.tcc.service.ProjetoService;
 import me.ulguim.tcc.view.ContatoView;
+import me.ulguim.tcc.view.MensagemView;
 import me.ulguim.tcc.view.ProjetoSimpleView;
 import me.ulguim.tcc.view.ProjetoView;
 import me.ulguim.tcc.view.other.SearchView;
@@ -42,6 +46,7 @@ public class ProjetoManager extends TCCBaseManager {
 	public ProjetoView load(Profile profile, ProjetoView view) throws ValidationException {
 		Projeto entity = projetoService.selectByChave(Projeto.class, view.getKey());
 		//TODO validar se projeto eh meu
+		//TODO na real pode fazer load de qualquer projeto, soh nao pode editar
 
 		view = new ProjetoView();
 		view.setTitulo(entity.getTitulo());
@@ -65,9 +70,66 @@ public class ProjetoManager extends TCCBaseManager {
 		} else {
 			//Update
 			entity = projetoService.selectById(Projeto.class, view.getId());
+			if (!entity.getOwner().getId().equals(getAccountLogada(profile).getId())) {
+				//TODO tentando editar projeto que nao eh meu
+			}
+			entity.setTitulo(view.getTitulo());
+			entity.setDescricao(view.getDescricao());
+			entity = super.update(entity, profile);
 
 			view.addMessage(new MessageSuccess("success.update"));
 		}
+
+		return view;
+	}
+
+	public MensagemView saveMensagem(Profile profile, MensagemView view) throws ValidationException {
+		Projeto projeto = projetoService.selectById(Projeto.class, view.getId());
+
+		MensagemBean bean = new MensagemBean();
+		bean.setId(SequenceGenerator.generate());
+		bean.setUserId(getAccountLogada(profile).getId());
+		bean.setMensagem(view.getMensagem());
+		bean.setData(DataUtil.getTimestamp());
+
+		projeto.addMensagem(bean);
+		projeto = super.update(projeto, profile);
+
+		return view;
+	}
+
+	public MensagemView deleteMensagem(Profile profile, MensagemView view) throws ValidationException {
+		Projeto projeto = projetoService.selectById(Projeto.class, view.getId());
+		//TODO checar se sou dono do projeto ou da mensagem
+		projeto.deleteMensagemById(view.getId());
+
+		projeto = super.update(projeto, profile);
+		return view;
+	}
+
+	public ContatoView request(Profile profile, ContatoView view) throws ValidationException {
+
+		return view;
+	}
+
+	public ContatoView acceptRequest(Profile profile, ContatoView view) throws ValidationException {
+
+		return view;
+	}
+
+	public ContatoView deleteParticipante(Profile profile, ContatoView view) throws ValidationException {
+
+		return view;
+	}
+
+	public ProjetoView delete(Profile profile, ProjetoView view) throws ValidationException {
+		Projeto entity = projetoService.selectById(Projeto.class, view.getId());
+		if (!entity.getOwner().getId().equals(getAccountLogada(profile).getId())) {
+			//TODO tentando excluir projeto que nao eh meu
+		}
+
+		entity.setStatus(Projeto.StatusProjeto.REMOVIDO);
+		entity = super.update(entity, profile);
 
 		return view;
 	}

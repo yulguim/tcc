@@ -1,6 +1,9 @@
 package me.ulguim.tcc.bean;
 
 import in.k2s.sdk.core.bean.BaseBean;
+import in.k2s.sdk.util.data.DataUtil;
+
+import java.sql.Timestamp;
 
 /**
  * Created by yulle on 07/03/17.
@@ -39,8 +42,8 @@ public class MensagemBean extends BaseBean {
 		return data;
 	}
 
-	public void setData(String data) {
-		this.data = data;
+	public void setData(Timestamp data) {
+		this.data = DataUtil.format(data, "dd/MM/yyyy HH:mm:ss");
 	}
 
 	public Long getUserId() {

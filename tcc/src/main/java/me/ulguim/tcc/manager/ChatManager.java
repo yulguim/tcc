@@ -78,7 +78,7 @@ public class ChatManager extends TCCBaseManager {
 		MensagemBean bean = new MensagemBean();
 		bean.setId(SequenceGenerator.generate());
 		bean.setUserId(getAccountLogada(profile).getId());
-		bean.setData(DataUtil.format(DataUtil.getTimestamp(), "dd/MM/yyyy HH:mm:ss"));
+		bean.setData(DataUtil.getTimestamp());
 		bean.setMensagem(view.getMensagem());
 
 		chat.addMensagem(bean);

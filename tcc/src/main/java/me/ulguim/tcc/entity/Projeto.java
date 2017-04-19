@@ -18,6 +18,8 @@ public class Projeto extends BaseEntity implements Serializable {
 	@Id
 	private Long id;
 
+	private StatusProjeto status;
+
 	private String titulo;
 
 	@Column(columnDefinition="TEXT")
@@ -59,6 +61,10 @@ public class Projeto extends BaseEntity implements Serializable {
 
 	public Projeto() {
 
+	}
+
+	public enum StatusProjeto {
+		ATIVO, INATIVO, REMOVIDO
 	}
 
 	@Override
@@ -173,5 +179,26 @@ public class Projeto extends BaseEntity implements Serializable {
 
 	public void setTags(List<TagBean> tags) {
 		this.tags = tags;
+	}
+
+	public StatusProjeto getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusProjeto status) {
+		this.status = status;
+	}
+
+	public void addMensagem(MensagemBean bean) {this.mensagens.add(bean); }
+
+	public MensagemBean getMensagemById(Long id) {
+		return this.mensagens.stream()
+				.filter(m -> m.getId().equals(id))
+				.findAny()
+				.orElseGet(null);
+	}
+
+	public boolean deleteMensagemById(Long id) {
+		return this.mensagens.removeIf(l -> l.getId().equals(id));
 	}
 }
