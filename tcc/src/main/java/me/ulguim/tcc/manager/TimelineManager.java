@@ -17,18 +17,6 @@ import java.util.List;
 @Component
 public class TimelineManager extends TCCBaseManager {
 
-	@Inject
-	private PostService postService;
 
-	public List<PostView> listFeed(Profile profile) throws ValidationException {
-		List<Post> postList = postService.selectAllPostsByAccount(getAccountLogada(profile).getId());
-
-		List<PostView> list = new ArrayList<>();
-		postList.forEach(p -> {
-			list.add(PostParser.parse(p));
-		});
-
-		return list;
-	}
 
 }

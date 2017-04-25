@@ -59,6 +59,9 @@ public class Account extends BaseEntity implements Serializable {
 	@OneToMany(mappedBy="owner")
 	private List<Projeto> projetoList;
 
+	@OneToMany(mappedBy="account")
+	private List<AccountProjeto> accountProjetoList;
+
 	private String chave;
 	@Column(name = "insert_time")
 	private Timestamp insertTime;
@@ -77,7 +80,23 @@ public class Account extends BaseEntity implements Serializable {
 		this.email = email;
 		this.password = password;
 	}
-	
+
+	public void setNotifications(List<NotificationBean> notifications) {
+		this.notifications = notifications;
+	}
+
+	public void setContactsIdList(List<Long> contactsIdList) {
+		this.contactsIdList = contactsIdList;
+	}
+
+	public List<AccountProjeto> getAccountProjetoList() {
+		return accountProjetoList;
+	}
+
+	public void setAccountProjetoList(List<AccountProjeto> accountProjetoList) {
+		this.accountProjetoList = accountProjetoList;
+	}
+
 	public String getUsername() {
 		return username;
 	}

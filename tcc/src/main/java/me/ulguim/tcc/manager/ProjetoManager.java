@@ -51,6 +51,7 @@ public class ProjetoManager extends TCCBaseManager {
 		view = new ProjetoView();
 		view.setTitulo(entity.getTitulo());
 		view.setDescricao(entity.getDescricao());
+		view.setKey(entity.getChave());
 
 		return view;
 	}

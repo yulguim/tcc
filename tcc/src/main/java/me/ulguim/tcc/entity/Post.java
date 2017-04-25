@@ -23,6 +23,10 @@ public class Post extends BaseEntity implements Serializable {
 	@JoinColumn(name = "fk_author")
 	private Account author;
 
+	@ManyToOne
+	@JoinColumn(name = "projeto_id")
+	private Projeto projeto;
+
 	private String post;
 
 	@Column(name="comentarios", columnDefinition="TEXT")
@@ -125,5 +129,13 @@ public class Post extends BaseEntity implements Serializable {
 
 	public void setUpdateBy(Long updateBy) {
 		this.updateBy = updateBy;
+	}
+
+	public Projeto getProjeto() {
+		return projeto;
+	}
+
+	public void setProjeto(Projeto projeto) {
+		this.projeto = projeto;
 	}
 }

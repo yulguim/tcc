@@ -43,6 +43,12 @@ public class Projeto extends BaseEntity implements Serializable {
 	@JoinColumn(name="fk_account")
 	private Account owner;
 
+	@OneToMany(mappedBy="projeto")
+	private List<AccountProjeto> accountProjetoList;
+
+	@OneToMany(mappedBy = "projeto", fetch = FetchType.LAZY)
+	private List<Post> postList;
+
 	//private List<Account> participantes;
 
 	@Column(name = "mensagens", columnDefinition="TEXT")
@@ -187,6 +193,22 @@ public class Projeto extends BaseEntity implements Serializable {
 
 	public void setStatus(StatusProjeto status) {
 		this.status = status;
+	}
+
+	public List<AccountProjeto> getAccountProjetoList() {
+		return accountProjetoList;
+	}
+
+	public void setAccountProjetoList(List<AccountProjeto> accountProjetoList) {
+		this.accountProjetoList = accountProjetoList;
+	}
+
+	public List<Post> getPostList() {
+		return postList;
+	}
+
+	public void setPostList(List<Post> postList) {
+		this.postList = postList;
 	}
 
 	public void addMensagem(MensagemBean bean) {this.mensagens.add(bean); }

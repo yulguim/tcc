@@ -10,6 +10,8 @@ import java.util.List;
 public class PostView extends BaseView {
 	private static final long serialVersionUID = 1L;
 
+	private String projetoKey;
+
 	private String key;
 
 	private String post;
@@ -24,6 +26,14 @@ public class PostView extends BaseView {
 
 	public PostView() {
 		
+	}
+
+	public String getProjetoKey() {
+		return projetoKey;
+	}
+
+	public void setProjetoKey(String projetoKey) {
+		this.projetoKey = projetoKey;
 	}
 
 	public String getKey() {
