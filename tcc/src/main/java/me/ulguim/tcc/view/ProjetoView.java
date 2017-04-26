@@ -26,8 +26,22 @@ public class ProjetoView extends BaseView {
 
 	private List<SocialNetworkBean> links;
 
+	// Extras
+
+	private Boolean souParticipante;
+
+	private Boolean permiteRequest;
+
+	private Boolean meuProjeto;
+
+	private Boolean isRequested;
+
 	public ProjetoView() {
 
+	}
+
+	public ProjetoView(String key) {
+		this.key = key;
 	}
 
 	public Long getId() {
@@ -84,5 +98,37 @@ public class ProjetoView extends BaseView {
 
 	public void setLinks(List<SocialNetworkBean> links) {
 		this.links = links;
+	}
+
+	public Boolean getSouParticipante() {
+		return souParticipante;
+	}
+
+	public void setSouParticipante(Boolean souParticipante) {
+		this.souParticipante = souParticipante;
+	}
+
+	public Boolean getPermiteRequest() {
+		return permiteRequest;
+	}
+
+	public void setPermiteRequest(Boolean permiteRequest) {
+		this.permiteRequest = permiteRequest;
+	}
+
+	public Boolean getMeuProjeto() {
+		return meuProjeto;
+	}
+
+	public void setMeuProjeto(Boolean meuProjeto) {
+		this.meuProjeto = meuProjeto;
+	}
+
+	public Boolean getRequested() {
+		return isRequested;
+	}
+
+	public void setRequested(Boolean requested) {
+		isRequested = requested;
 	}
 }

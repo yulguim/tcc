@@ -52,6 +52,16 @@ public class ProjetoManager extends TCCBaseManager {
 		view.setTitulo(entity.getTitulo());
 		view.setDescricao(entity.getDescricao());
 		view.setKey(entity.getChave());
+		if (entity.getOwner().getId().equals(getAccountLogada(profile).getId())) {
+			view.setMeuProjeto(true);
+		} else if (entity.getAccountProjetoByAccountId(getAccountLogada(profile).getId()) != null) {
+			view.setSouParticipante(true);
+		}
+
+		//carregar dados privados do projeto TODO
+		if (view.getMeuProjeto() || view.getSouParticipante()) {
+
+		}
 
 		return view;
 	}
@@ -84,6 +94,22 @@ public class ProjetoManager extends TCCBaseManager {
 		return view;
 	}
 
+	public ProjetoView delete(Profile profile, ProjetoView view) throws ValidationException {
+		Projeto entity = projetoService.selectById(Projeto.class, view.getId());
+		if (!entity.getOwner().getId().equals(getAccountLogada(profile).getId())) {
+			//TODO tentando excluir projeto que nao eh meu
+		}
+
+		entity.setStatus(Projeto.StatusProjeto.REMOVIDO);
+		entity = super.update(entity, profile);
+
+		return view;
+	}
+
+	/*
+		MENSAGEM
+	 */
+
 	public MensagemView saveMensagem(Profile profile, MensagemView view) throws ValidationException {
 		Projeto projeto = projetoService.selectById(Projeto.class, view.getId());
 
@@ -108,32 +134,31 @@ public class ProjetoManager extends TCCBaseManager {
 		return view;
 	}
 
+	/*
+		PARTICIPANTE
+	 */
+
 	public ContatoView request(Profile profile, ContatoView view) throws ValidationException {
+		Projeto projeto = projetoService.selectByChave(Projeto.class, view.getProjetoKey());
 
 		return view;
 	}
 
 	public ContatoView acceptRequest(Profile profile, ContatoView view) throws ValidationException {
+		Projeto projeto = projetoService.selectByChave(Projeto.class, view.getProjetoKey());
 
 		return view;
 	}
 
 	public ContatoView deleteParticipante(Profile profile, ContatoView view) throws ValidationException {
+		Projeto projeto = projetoService.selectByChave(Projeto.class, view.getProjetoKey());
 
 		return view;
 	}
 
-	public ProjetoView delete(Profile profile, ProjetoView view) throws ValidationException {
-		Projeto entity = projetoService.selectById(Projeto.class, view.getId());
-		if (!entity.getOwner().getId().equals(getAccountLogada(profile).getId())) {
-			//TODO tentando excluir projeto que nao eh meu
-		}
-
-		entity.setStatus(Projeto.StatusProjeto.REMOVIDO);
-		entity = super.update(entity, profile);
-
-		return view;
-	}
+	/*
+		PRIVATE
+	 */
 
 	private void validate(ProjetoView view) throws ValidationException {
 

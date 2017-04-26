@@ -10,9 +10,11 @@ import in.k2s.sdk.web.validation.ValidationException;
 import me.ulguim.tcc.bean.ComentarioBean;
 import me.ulguim.tcc.entity.Account;
 import me.ulguim.tcc.entity.Post;
+import me.ulguim.tcc.entity.Projeto;
 import me.ulguim.tcc.manager.base.TCCBaseManager;
 import me.ulguim.tcc.parser.PostParser;
 import me.ulguim.tcc.service.PostService;
+import me.ulguim.tcc.service.ProjetoService;
 import me.ulguim.tcc.view.AccountView;
 import me.ulguim.tcc.view.ComentarioView;
 import me.ulguim.tcc.view.FeedView;
@@ -26,34 +28,32 @@ import java.util.ArrayList;
 public class PostManager extends TCCBaseManager {
 
 	@Inject
+	private ProjetoService projetoService;
+
+	@Inject
 	private PostService postService;
-
-	public PostView load(Profile profile, PostView view) throws ValidationException {
-		Post entity = postService.selectByChave(Post.class, view.getKey());
-
-		view = PostParser.parse(entity);
-
-		return view;
-	}
 
 	public PostView save(Profile profile, PostView view) throws ValidationException {
 		validate(view);
 
-		if (view.getKey() != null) {
+		if (view.getKey() != null || view.getProjetoKey() == null) {
 			throw new ValidationException(new Message("error.save", MessageSeverity.ERROR));
 		}
+		Projeto projeto = projetoService.selectByChave(Projeto.class, view.getProjetoKey());
 
 		Post entity = PostParser.parse(view);
+		entity.setProjeto(projeto);
 		entity.setAuthor(getAccountLogadaLoaded(profile));
 		entity.setComentarioList(new ArrayList<>());
 		entity = super.save(entity, profile);
 
+		//TODO ajuste view para retornar
 		return view;
 	}
 
 	public PostView delete(Profile profile, PostView view) throws ValidationException {
 		Post entity = postService.selectByChave(Post.class, view.getKey());
-		if (!isMyPost(profile, entity)) throw new ValidationException(new Message("error.save", MessageSeverity.ERROR));
+		//if (!isMyPost(profile, entity)) throw new ValidationException(new Message("error.save", MessageSeverity.ERROR));
 
 		super.delete(entity, profile);
 		return view;
@@ -109,7 +109,9 @@ public class PostManager extends TCCBaseManager {
 		if (view == null) throw new ValidationException(new Message("error.save", MessageSeverity.ERROR));
 	}
 
-	private boolean isMyPost(Profile profile, Post entity) throws ValidationException {
+	//TODO verificar metodo
+	private boolean isMyPost(Profile profile, Projeto projeto, Post entity) throws ValidationException {
+		//return !projeto.getOwner().getId().equals(getAccountLogada(profile).getId()) || !entity.getAuthor().getId().equals(super.getAccountLogada(profile).getId());
 		return !entity.getAuthor().getId().equals(super.getAccountLogada(profile).getId());
 	}
 

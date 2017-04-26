@@ -21,11 +21,6 @@ public class PostController extends TCCBaseController {
 	@Autowired
 	private PostManager postManager;
 
-	@RequestMapping(value="/{view.key}", method = RequestMethod.GET)
-	public PostView load(PostView view) throws ValidationException {
-		return postManager.load(getProfile(), view);
-	}
-
 	@RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public PostView save(@RequestBody PostView view) throws ValidationException {
 		return postManager.save(getProfile(), view);

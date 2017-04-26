@@ -25,6 +25,8 @@ public class ContatoView extends BaseView {
 
 	private Long projetoId;
 
+	private String projetoKey;
+
 	public ContatoView() {
 		
 	}
@@ -95,5 +97,13 @@ public class ContatoView extends BaseView {
 
 	public void setProjetoId(Long projetoId) {
 		this.projetoId = projetoId;
+	}
+
+	public String getProjetoKey() {
+		return projetoKey;
+	}
+
+	public void setProjetoKey(String projetoKey) {
+		this.projetoKey = projetoKey;
 	}
 }

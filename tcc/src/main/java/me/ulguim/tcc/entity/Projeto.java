@@ -223,4 +223,15 @@ public class Projeto extends BaseEntity implements Serializable {
 	public boolean deleteMensagemById(Long id) {
 		return this.mensagens.removeIf(l -> l.getId().equals(id));
 	}
+
+	public AccountProjeto getAccountProjetoByAccountId(Long id) {
+		if (this.accountProjetoList == null) {
+			return null;
+		}
+
+		return this.accountProjetoList.stream()
+				.filter(ap -> ap.getAccount().getId().equals(id))
+				.findAny()
+				.orElseGet(null);
+	}
 }

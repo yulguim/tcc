@@ -50,31 +50,20 @@
 		</div>
 		<div class="cover-info">
 			<div class="avatar">
-				<img ng-if="!vm.view.avatar" src="images/people/110/guy-5.jpg" alt="people" />
-				<img ng-if="vm.view.avatar" ng-src="/account/avatar/{{vm.view.avatar}}" alt="people" />
+				<img src="images/project-cover.jpg" alt="people" style="border-radius: 0%" />
 			</div>
 			<div class="name"><a ng-href="/#/projeto/{{vm.view.key}}">{{vm.view.titulo}}</a></div>
 			<ul class="cover-nav">
-				<li ng-if="vm.view.isMyProfile">
-					<a href=""><i class="fa fa-fw fa-check"></i> Meu perfil</a>
+				<li ng-if="!vm.view.meuProjeto && !vm.view.souParticipante && !vm.view.isRequested && vm.view.permiteRequest">
+					<a href="" ng-click="vm.request()"><i class="fa fa-fw fa-check"></i>  Pedir para participar</a>
 				</li>
-				<li ng-if="!vm.view.isMyProfile && !vm.view.isRequestedByMe && !vm.view.isRequestedByUser && !vm.view.isFriend">
-					<a href="" ng-click="vm.requestFriendship()"><i class="fa fa-fw fa-check"></i> Adicionar como contato</a>
+				<li ng-if="vm.view.isRequested">
+					<a href="" ng-click="vm.cancelRequest()"><i class="fa fa-fw fa-check"></i> Cancelar request</a>
 				</li>
-				<li ng-if="!vm.view.isMyProfile && vm.view.isFriend">
-					<a href="" ng-click="vm.removeFriendship()"><i class="fa fa-fw fa-remove"></i> Remover dos contatos</a>
+				<li ng-if="vm.view.souParticipante">
+					<a href="" ng-click="vm.leave()"><i class="fa fa-fw fa-check"></i> Deixar de participar</a>
 				</li>
-				<li ng-if="!vm.view.isMyProfile && vm.view.isRequestedByUser && !vm.view.isFriend">
-					<a href="" ng-click="vm.acceptFriendship()"><i class="fa fa-fw fa-check"></i> Aceitar contato</a>
-				</li>
-				<li ng-if="!vm.view.isMyProfile && vm.view.isRequestedByMe && !vm.view.isFriend">
-					<a href="" ng-click="vm.cancelFriendshipRequest()"><i class="fa fa-fw fa-check"></i> Cancelar request</a>
-				</li>
-				<li ng-if="!vm.view.isMyProfile && vm.view.isRequestedByUser && !vm.view.isFriend">
-					<a href="" ng-click="vm.denyFriendship()"><i class="fa fa-fw fa-remove"></i> Recusar contato</a>
-				</li>
-				<li class="active"><a ng-href="/#/projeto/{{vm.view.key}}"><i class="fa fa-fw icon-user-1"></i> Timeline</a></li>
-				<li><a href=""><i class="fa fa-fw fa-users"></i> Participantes</a></li>
+				<li ng-if="vm.view.meuProjeto || vm.view.souParticipante"><a href=""><i class="fa fa-fw fa-users"></i> Participantes</a></li>
 			</ul>
 		</div>
 	</div>
