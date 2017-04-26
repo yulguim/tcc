@@ -7,10 +7,13 @@ import in.k2s.sdk.web.profile.Profile;
 import in.k2s.sdk.web.validation.ValidationException;
 import me.ulguim.tcc.bean.MensagemBean;
 import me.ulguim.tcc.entity.Account;
+import me.ulguim.tcc.entity.AccountProjeto;
 import me.ulguim.tcc.entity.Perfil;
 import me.ulguim.tcc.entity.Projeto;
+import me.ulguim.tcc.entity.enumeration.AccountProjetoStatus;
 import me.ulguim.tcc.manager.base.TCCBaseManager;
 import me.ulguim.tcc.parser.ContatoParser;
+import me.ulguim.tcc.service.AccountProjetoService;
 import me.ulguim.tcc.service.PerfilService;
 import me.ulguim.tcc.service.ProjetoService;
 import me.ulguim.tcc.view.ContatoView;
@@ -29,6 +32,9 @@ public class ProjetoManager extends TCCBaseManager {
 
 	@Inject
 	private ProjetoService projetoService;
+
+	@Inject
+	private AccountProjetoService accountProjetoService;
 
 	public List<ProjetoSimpleView> list(Profile profile) throws ValidationException {
 		List<Projeto> meusProjetos = projetoService.selectAllByAccountId(getAccountLogada(profile).getId());
@@ -141,17 +147,38 @@ public class ProjetoManager extends TCCBaseManager {
 	public ContatoView request(Profile profile, ContatoView view) throws ValidationException {
 		Projeto projeto = projetoService.selectByChave(Projeto.class, view.getProjetoKey());
 
+		AccountProjeto accountProjeto = new AccountProjeto();
+		accountProjeto.setAccount(getAccountLogada(profile));
+		accountProjeto.setProjeto(projeto);
+		accountProjeto.setStatus(AccountProjetoStatus.REQUESTED);
+		accountProjeto = super.save(accountProjeto, profile);
+
 		return view;
 	}
 
 	public ContatoView acceptRequest(Profile profile, ContatoView view) throws ValidationException {
 		Projeto projeto = projetoService.selectByChave(Projeto.class, view.getProjetoKey());
 
+		//Recuperar accountProjeto
+		AccountProjeto accountProjeto = accountProjetoService.selectByProjetoIdAndAccountId(projeto.getId(), getAccountLogada(profile).getId());
+		if (accountProjeto != null) {
+			//Adiciona como participante ativo
+			accountProjeto.setParticipante(true);
+			accountProjeto.setStatus(AccountProjetoStatus.ACTIVE);
+			accountProjeto = super.update(accountProjeto, profile);
+		}
+
 		return view;
 	}
 
 	public ContatoView deleteParticipante(Profile profile, ContatoView view) throws ValidationException {
 		Projeto projeto = projetoService.selectByChave(Projeto.class, view.getProjetoKey());
+
+		//Deletar accountProjeto
+		AccountProjeto accountProjeto = accountProjetoService.selectByProjetoIdAndAccountId(projeto.getId(), getAccountLogada(profile).getId());
+		if (accountProjeto != null) {
+			super.delete(accountProjeto, profile);
+		}
 
 		return view;
 	}

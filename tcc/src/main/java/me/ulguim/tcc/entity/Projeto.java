@@ -3,6 +3,7 @@ package me.ulguim.tcc.entity;
 import in.k2s.sdk.jpa.entity.BaseEntity;
 import me.ulguim.tcc.bean.*;
 import me.ulguim.tcc.entity.converter.*;
+import me.ulguim.tcc.entity.enumeration.AccountProjetoStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -230,7 +231,7 @@ public class Projeto extends BaseEntity implements Serializable {
 		}
 
 		return this.accountProjetoList.stream()
-				.filter(ap -> ap.getAccount().getId().equals(id))
+				.filter(ap -> ap.getAccount().getId().equals(id) && ap.getParticipante() && ap.getStatus().equals(AccountProjetoStatus.ACTIVE))
 				.findAny()
 				.orElseGet(null);
 	}

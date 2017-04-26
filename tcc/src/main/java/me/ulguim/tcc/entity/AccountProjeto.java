@@ -1,6 +1,7 @@
 package me.ulguim.tcc.entity;
 
 import in.k2s.sdk.jpa.entity.BaseEntity;
+import me.ulguim.tcc.entity.enumeration.AccountProjetoStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,6 +18,13 @@ public class AccountProjeto  extends BaseEntity implements Serializable {
 	private Long id;
 
 	private String chave;
+
+	private Boolean participante = false;
+
+	private Boolean observador = false;
+
+	@Enumerated(EnumType.STRING)
+	private AccountProjetoStatus status;
 
 	@ManyToOne
 	@JoinColumn(name="fk_account")
@@ -104,4 +112,27 @@ public class AccountProjeto  extends BaseEntity implements Serializable {
 		this.updateTime = updateTime;
 	}
 
+	public Boolean getParticipante() {
+		return participante;
+	}
+
+	public void setParticipante(Boolean participante) {
+		this.participante = participante;
+	}
+
+	public Boolean getObservador() {
+		return observador;
+	}
+
+	public void setObservador(Boolean observador) {
+		this.observador = observador;
+	}
+
+	public AccountProjetoStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(AccountProjetoStatus status) {
+		this.status = status;
+	}
 }

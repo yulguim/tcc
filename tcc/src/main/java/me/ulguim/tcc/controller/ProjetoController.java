@@ -39,19 +39,19 @@ public class ProjetoController extends TCCBaseController {
 
 	/** PARTICIPANTES **/
 
-	@RequestMapping(value="/request/{key}", method = RequestMethod.GET)
-	public ContatoView request(@PathVariable("key") String key) throws ValidationException {
-		return projetoManager.request(getProfile(), new ContatoView(key));
+	@RequestMapping(value="/request", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ContatoView request(@RequestBody ContatoView view) throws ValidationException {
+		return projetoManager.request(getProfile(), view);
 	}
 
-	@RequestMapping(value="/accept/{key}", method = RequestMethod.GET)
-	public ContatoView acceptRequest(@PathVariable("key") String key) throws ValidationException {
-		return projetoManager.acceptRequest(getProfile(), new ContatoView(key));
+	@RequestMapping(value="/accept", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ContatoView acceptRequest(@RequestBody ContatoView view) throws ValidationException {
+		return projetoManager.acceptRequest(getProfile(), view);
 	}
 
-	@RequestMapping(value="/delete-participante/{key}", method = RequestMethod.GET)
-	public ContatoView removeRequest(@PathVariable("key") String key) throws ValidationException {
-		return projetoManager.deleteParticipante(getProfile(), new ContatoView(key));
+	@RequestMapping(value="/delete-participante", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ContatoView removeRequest(@RequestBody ContatoView view) throws ValidationException {
+		return projetoManager.deleteParticipante(getProfile(), view);
 	}
 
 	/** MENSAGENS **/
