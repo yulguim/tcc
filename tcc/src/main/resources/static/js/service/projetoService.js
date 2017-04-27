@@ -21,14 +21,22 @@ app.factory('projetoService', ['ajaxService', function(ajaxService) {
         return ajaxService.post(_pageUrl + "/delete-participante", view);
     }
 
+    var _saveMensagemToOwner = function(view) {
+        return ajaxService.post(_pageUrl + "/save-mensagem-to-owner", view);
+	}
 
+    var _saveMensagem = function(view) {
+        return ajaxService.post(_pageUrl + "/save-mensagem", view);
+    }
  	
 	return {
 		load : _load,
 		save : _save,
 		request : _request,
 		accept : _accept,
-		leave : _leave
+		leave : _leave,
+        saveMensagemToOwner : _saveMensagemToOwner,
+		saveMensagem : _saveMensagem
 	}
 	
 }]);

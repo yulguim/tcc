@@ -29,6 +29,8 @@ public class ContatoView extends BaseView {
 
 	private Boolean requested;
 
+	private Boolean participante;
+
 	public ContatoView() {
 		
 	}
@@ -115,5 +117,13 @@ public class ContatoView extends BaseView {
 
 	public void setRequested(Boolean requested) {
 		this.requested = requested;
+	}
+
+	public Boolean getParticipante() {
+		return participante;
+	}
+
+	public void setParticipante(Boolean participante) {
+		this.participante = participante;
 	}
 }

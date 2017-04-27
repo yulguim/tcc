@@ -8,16 +8,12 @@ import in.k2s.sdk.web.profile.Profile;
 import in.k2s.sdk.web.validation.ValidationException;
 import me.ulguim.tcc.bean.MensagemBean;
 import me.ulguim.tcc.bean.NotificationBean;
-import me.ulguim.tcc.entity.Account;
-import me.ulguim.tcc.entity.AccountProjeto;
-import me.ulguim.tcc.entity.Perfil;
-import me.ulguim.tcc.entity.Projeto;
+import me.ulguim.tcc.entity.*;
 import me.ulguim.tcc.entity.enumeration.AccountProjetoStatus;
 import me.ulguim.tcc.manager.base.TCCBaseManager;
+import me.ulguim.tcc.parser.ChatParser;
 import me.ulguim.tcc.parser.ContatoParser;
-import me.ulguim.tcc.service.AccountProjetoService;
-import me.ulguim.tcc.service.PerfilService;
-import me.ulguim.tcc.service.ProjetoService;
+import me.ulguim.tcc.service.*;
 import me.ulguim.tcc.view.*;
 import me.ulguim.tcc.view.other.SearchView;
 import org.springframework.stereotype.Component;
@@ -33,7 +29,13 @@ public class ProjetoManager extends TCCBaseManager {
 	private ProjetoService projetoService;
 
 	@Inject
+	private AccountService accountService;
+
+	@Inject
 	private AccountProjetoService accountProjetoService;
+
+	@Inject
+	private ChatService chatService;
 
 	public List<ProjetoSimpleView> list(Profile profile) throws ValidationException {
 		List<Projeto> meusProjetos = projetoService.selectAllByAccountId(getAccountLogada(profile).getId());
@@ -86,6 +88,15 @@ public class ProjetoManager extends TCCBaseManager {
 		return view;
 	}
 
+	public List<PostView> loadPosts(Profile profile, ProjetoView view) throws ValidationException {
+		Projeto entity = projetoService.selectByChave(Projeto.class, view.getKey());
+
+		List<Post> postList = entity.getPostList();
+		List<PostView> list = new ArrayList<>();
+		//TODO
+		return list;
+	}
+
 	public List<ContatoView> loadParticipantes(Profile profile, ProjetoView view) throws ValidationException {
 		List<ContatoView> list = new ArrayList<>();
 
@@ -100,9 +111,9 @@ public class ProjetoManager extends TCCBaseManager {
 		return list;
 	}
 
-	//TODO
 	public ChatView loadChat(Profile profile, ProjetoView view) throws ValidationException {
-		ChatView chat = new ChatView();
+		Projeto entity = projetoService.selectByChave(Projeto.class, view.getKey());
+		ChatView chat = ChatParser.parseToProjeto(entity.getMensagens());
 
 		return chat;
 	}
@@ -151,7 +162,31 @@ public class ProjetoManager extends TCCBaseManager {
 		MENSAGEM
 	 */
 
-	public MensagemView saveMensagem(Profile profile, MensagemView view) throws ValidationException {
+	public MensagemView saveMensagemToOwner(Profile profile, MensagemView view) throws ValidationException {
+		Projeto projeto = projetoService.selectById(Projeto.class, view.getId());
+
+		Account accountLogada = getAccountLogada(profile);
+		Chat chat = chatService.selectChatByUser1IdUser2Id(accountLogada.getId(), projeto.getOwner().getId());
+		if (chat == null) {
+			chat = new Chat();
+			chat.setUser1(accountLogada.getId());
+			chat.setUser2(projeto.getOwner().getId());
+			chat = super.save(chat, profile);
+		}
+
+		MensagemBean bean = new MensagemBean();
+		bean.setId(SequenceGenerator.generate());
+		bean.setUserId(accountLogada.getId());
+		bean.setData(DataUtil.getTimestamp());
+		bean.setMensagem(view.getMensagem());
+
+		chat.addMensagem(bean);
+		super.update(chat, profile);
+
+		return view;
+	}
+
+	public synchronized MensagemView saveMensagem(Profile profile, MensagemView view) throws ValidationException {
 		Projeto projeto = projetoService.selectById(Projeto.class, view.getId());
 
 		MensagemBean bean = new MensagemBean();
@@ -224,10 +259,18 @@ public class ProjetoManager extends TCCBaseManager {
 	public ContatoView deleteParticipante(Profile profile, ContatoView view) throws ValidationException {
 		Projeto projeto = projetoService.selectByChave(Projeto.class, view.getProjetoKey());
 
-		//Deletar accountProjeto
-		AccountProjeto accountProjeto = accountProjetoService.selectByProjetoIdAndAccountId(projeto.getId(), getAccountLogada(profile).getId());
-		if (accountProjeto != null) {
+		AccountProjeto accountProjeto;
+		//Dono esta excluindo alguem
+		if (view.getKey() != null) {
+			Account account = accountService.selectByChave(Account.class, view.getKey());
+			accountProjeto = accountProjetoService.selectByProjetoIdAndAccountId(projeto.getId(), account.getId());
 			super.delete(accountProjeto, profile);
+		} else {
+			//Eu estou me excluindo
+			accountProjeto = accountProjetoService.selectByProjetoIdAndAccountId(projeto.getId(), getAccountLogada(profile).getId());
+			if (accountProjeto != null) {
+				super.delete(accountProjeto, profile);
+			}
 		}
 
 		return view;

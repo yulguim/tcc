@@ -25,6 +25,7 @@ public class ContatoParser extends BaseParser {
 
 		if (accountProjeto != null) {
 			view.setRequested(accountProjeto.getStatus().equals(AccountProjetoStatus.REQUESTED));
+			view.setParticipante(accountProjeto.getStatus().equals(AccountProjetoStatus.ACTIVE));
 		}
 
 		return view;

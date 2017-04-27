@@ -231,11 +231,81 @@
 	</div>
 
 	<div ng-show="vm.tab === 'participantes'">
-		participantes {{vm.participantes}}
+		<div class="row" data-toggle="isotope" ng-repeat="p in vm.participantes">
+			<div class="col-md-6 col-lg-4 item">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="media">
+							<div class="pull-left">
+								<img ng-if="!p.avatar" src="images/no_avatar.png" width="50" alt="people" class="media-object img-circle" />
+								<img ng-if="p.avatar" ng-src="/account/avatar/{{p.avatar}}" alt="people" class="media-object img-circle" />
+							</div>
+							<div class="media-body">
+								<h4 class="media-heading margin-v-5"><a href="/#/profile/{{p.key}}">{{p.label}}</a></h4>
+								<div class="profile-icons">
+									<span><i class="fa fa-users"></i> 372</span>
+									<span><i class="fa fa-photo"></i> 43</span>
+									<span><i class="fa fa-video-camera"></i> 3</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<a href="" ng-if="p.requested" ng-click="vm.accept(p)" class="btn btn-primary btn-sm">Aceitar <i class="fa fa-check"></i></a>
+						<a href="" ng-if="p.requested" ng-click="vm.leave(p)" class="btn btn-warning btn-sm">Recusar <i class="fa fa-close"></i></a>
+						<a href="" ng-if="p.participante" ng-click="vm.leave(p)" class="btn btn-danger btn-sm">Remover <i class="fa fa-close"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<div ng-show="vm.tab === 'mensagens'">
-		mensagens {{vm.chat}}
+		<div class="media messages-container media-clearfix-xs-min media-grid">
+			<div class="media-body">
+				<div class="panel panel-default share">
+					<div class="input-group">
+						<div class="input-group-btn">
+							<a class="btn btn-primary" href="" ng-click="vm.sendMensagem(mensagem)">
+								<i class="fa fa-envelope"></i> Send
+							</a>
+						</div>
+						<!-- /btn-group -->
+						<input type="text" class="form-control share-text" ng-model="mensagem.mensagem" placeholder="Write message..." />
+					</div>
+					<!-- /input-group -->
+				</div>
+				<div class="media" ng-if="!vm.chat.mensagens || vm.chat.mensagens.length === 0">
+					Nenhuma mensagem
+				</div>
+				<div class="media" ng-repeat="mensagem in vm.chat.mensagens | orderBy:'-'">
+					<div class="media-left" ng-if="vm.usuarioLogado.id === mensagem.userId">
+						<a href="#">
+							<img src="images/people/110/woman-5.jpg" width="60" alt="woman" class="media-object" />
+						</a>
+					</div>
+					<div class="media-body message">
+						<div class="panel panel-default">
+							<div class="panel-heading panel-heading-white">
+								<div class="pull-right">
+									<small class="text-muted">{{mensagem.data}}</small>
+									<span ng-if="vm.usuarioLogado.id === mensagem.userId" class="pull-right" style="margin-left: 10px; margin-right: -10px;">X</span>
+								</div>
+								<a href="#">{{mensagem.userId}}</a>
+							</div>
+							<div class="panel-body">
+								{{mensagem.mensagem}}
+							</div>
+						</div>
+					</div>
+					<div class="media-right" ng-if="vm.usuarioLogado.id !== mensagem.userId">
+						<a href="#">
+							<img src="images/people/110/woman-5.jpg" width="60" alt="woman" class="media-object" />
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 </div>

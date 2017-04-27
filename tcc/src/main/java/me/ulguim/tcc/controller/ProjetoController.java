@@ -34,6 +34,7 @@ public class ProjetoController extends TCCBaseController {
 		ProjetoDTO dto = new ProjetoDTO();
 		dto.projeto = projetoManager.load(getProfile(), view);
 		if (dto.projeto.getMeuProjeto() || dto.projeto.getSouParticipante()) {
+			dto.posts = projetoManager.loadPosts(getProfile(), view);
 			dto.participantes = projetoManager.loadParticipantes(getProfile(), view);
 			dto.chat = projetoManager.loadChat(getProfile(), view);
 		}
@@ -65,6 +66,11 @@ public class ProjetoController extends TCCBaseController {
 
 	/** MENSAGENS **/
 
+	@RequestMapping(value="/save-mensagem-to-owner", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public MensagemView saveToOwner(@RequestBody MensagemView view) throws ValidationException {
+		return projetoManager.saveMensagemToOwner(getProfile(), view);
+	}
+
 	@RequestMapping(value="/save-mensagem", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public MensagemView save(@RequestBody MensagemView view) throws ValidationException {
 		return projetoManager.saveMensagem(getProfile(), view);
@@ -78,6 +84,8 @@ public class ProjetoController extends TCCBaseController {
 	public static class ProjetoDTO {
 
 		public ProjetoView projeto;
+
+		public List<PostView> posts;
 
 		public List<ContatoView> participantes;
 
