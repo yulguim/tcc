@@ -16,6 +16,8 @@ public class ProjetoView extends BaseView {
 
 	private String key;
 
+	private ContatoView owner;
+
 	private String titulo;
 
 	private String descricao;
@@ -28,13 +30,15 @@ public class ProjetoView extends BaseView {
 
 	// Extras
 
-	private Boolean souParticipante;
+	private Integer numeroParticipantes = 0;
 
-	private Boolean permiteRequest;
+	private Boolean souParticipante = false;
 
-	private Boolean meuProjeto;
+	private Boolean permiteRequest = false;
 
-	private Boolean isRequested;
+	private Boolean meuProjeto = false;
+
+	private Boolean isRequested = false;
 
 	public ProjetoView() {
 
@@ -130,5 +134,21 @@ public class ProjetoView extends BaseView {
 
 	public void setRequested(Boolean requested) {
 		isRequested = requested;
+	}
+
+	public ContatoView getOwner() {
+		return owner;
+	}
+
+	public void setOwner(ContatoView owner) {
+		this.owner = owner;
+	}
+
+	public Integer getNumeroParticipantes() {
+		return numeroParticipantes;
+	}
+
+	public void setNumeroParticipantes(Integer numeroParticipantes) {
+		this.numeroParticipantes = numeroParticipantes;
 	}
 }

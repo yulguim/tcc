@@ -27,6 +27,8 @@ public class ContatoView extends BaseView {
 
 	private String projetoKey;
 
+	private Boolean requested;
+
 	public ContatoView() {
 		
 	}
@@ -105,5 +107,13 @@ public class ContatoView extends BaseView {
 
 	public void setProjetoKey(String projetoKey) {
 		this.projetoKey = projetoKey;
+	}
+
+	public Boolean getRequested() {
+		return requested;
+	}
+
+	public void setRequested(Boolean requested) {
+		this.requested = requested;
 	}
 }

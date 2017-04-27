@@ -2,10 +2,12 @@ package me.ulguim.tcc.manager;
 
 import in.k2s.sdk.jpa.sequence.SequenceGenerator;
 import in.k2s.sdk.util.data.DataUtil;
+import in.k2s.sdk.web.message.Message;
 import in.k2s.sdk.web.message.MessageSuccess;
 import in.k2s.sdk.web.profile.Profile;
 import in.k2s.sdk.web.validation.ValidationException;
 import me.ulguim.tcc.bean.MensagemBean;
+import me.ulguim.tcc.bean.NotificationBean;
 import me.ulguim.tcc.entity.Account;
 import me.ulguim.tcc.entity.AccountProjeto;
 import me.ulguim.tcc.entity.Perfil;
@@ -16,10 +18,7 @@ import me.ulguim.tcc.parser.ContatoParser;
 import me.ulguim.tcc.service.AccountProjetoService;
 import me.ulguim.tcc.service.PerfilService;
 import me.ulguim.tcc.service.ProjetoService;
-import me.ulguim.tcc.view.ContatoView;
-import me.ulguim.tcc.view.MensagemView;
-import me.ulguim.tcc.view.ProjetoSimpleView;
-import me.ulguim.tcc.view.ProjetoView;
+import me.ulguim.tcc.view.*;
 import me.ulguim.tcc.view.other.SearchView;
 import org.springframework.stereotype.Component;
 
@@ -51,17 +50,32 @@ public class ProjetoManager extends TCCBaseManager {
 
 	public ProjetoView load(Profile profile, ProjetoView view) throws ValidationException {
 		Projeto entity = projetoService.selectByChave(Projeto.class, view.getKey());
-		//TODO validar se projeto eh meu
-		//TODO na real pode fazer load de qualquer projeto, soh nao pode editar
 
 		view = new ProjetoView();
 		view.setTitulo(entity.getTitulo());
 		view.setDescricao(entity.getDescricao());
 		view.setKey(entity.getChave());
-		if (entity.getOwner().getId().equals(getAccountLogada(profile).getId())) {
+		view.setPermiteRequest(entity.getPermiteRequest());
+
+		Account owner = entity.getOwner();
+		ContatoView ownerView = new ContatoView();
+		ownerView.setAvatar(owner.getAvatar());
+		ownerView.setKey(owner.getChave());
+		ownerView.setLabel(owner.getLabel());
+		view.setOwner(ownerView);
+		view.setNumeroParticipantes(entity.getAccountProjetoList() != null ? entity.getAccountProjetoList().size() : 0);
+
+		if (owner.getId().equals(getAccountLogada(profile).getId())) {
 			view.setMeuProjeto(true);
-		} else if (entity.getAccountProjetoByAccountId(getAccountLogada(profile).getId()) != null) {
-			view.setSouParticipante(true);
+		} else {
+			AccountProjeto accountProjeto = entity.getAccountProjetoByAccountId(getAccountLogada(profile).getId());
+			if (accountProjeto != null) {
+				if (accountProjeto.getParticipante() && accountProjeto.getStatus().equals(AccountProjetoStatus.ACTIVE)) {
+					view.setSouParticipante(true);
+				} else {
+					view.setRequested(true);
+				}
+			}
 		}
 
 		//carregar dados privados do projeto TODO
@@ -70,6 +84,27 @@ public class ProjetoManager extends TCCBaseManager {
 		}
 
 		return view;
+	}
+
+	public List<ContatoView> loadParticipantes(Profile profile, ProjetoView view) throws ValidationException {
+		List<ContatoView> list = new ArrayList<>();
+
+		Projeto entity = projetoService.selectByChave(Projeto.class, view.getKey());
+		if (entity.getAccountProjetoList() != null) {
+			entity.getAccountProjetoList().forEach(ac -> {
+				Account account = ac.getAccount();
+				list.add(ContatoParser.parse(ac, account));
+			});
+		}
+
+		return list;
+	}
+
+	//TODO
+	public ChatView loadChat(Profile profile, ProjetoView view) throws ValidationException {
+		ChatView chat = new ChatView();
+
+		return chat;
 	}
 
 	public ProjetoView save(Profile profile, ProjetoView view) throws ValidationException {
@@ -88,7 +123,7 @@ public class ProjetoManager extends TCCBaseManager {
 			//Update
 			entity = projetoService.selectById(Projeto.class, view.getId());
 			if (!entity.getOwner().getId().equals(getAccountLogada(profile).getId())) {
-				//TODO tentando editar projeto que nao eh meu
+				throw new ValidationException(new Message("warn.save"));
 			}
 			entity.setTitulo(view.getTitulo());
 			entity.setDescricao(view.getDescricao());
@@ -103,7 +138,7 @@ public class ProjetoManager extends TCCBaseManager {
 	public ProjetoView delete(Profile profile, ProjetoView view) throws ValidationException {
 		Projeto entity = projetoService.selectById(Projeto.class, view.getId());
 		if (!entity.getOwner().getId().equals(getAccountLogada(profile).getId())) {
-			//TODO tentando excluir projeto que nao eh meu
+			throw new ValidationException(new Message("warn.delete"));
 		}
 
 		entity.setStatus(Projeto.StatusProjeto.REMOVIDO);
@@ -132,10 +167,14 @@ public class ProjetoManager extends TCCBaseManager {
 	}
 
 	public MensagemView deleteMensagem(Profile profile, MensagemView view) throws ValidationException {
-		Projeto projeto = projetoService.selectById(Projeto.class, view.getId());
-		//TODO checar se sou dono do projeto ou da mensagem
-		projeto.deleteMensagemById(view.getId());
+		Projeto projeto = projetoService.selectByChave(Projeto.class, view.getProjetoKey());
 
+		MensagemBean mensagem = projeto.getMensagemById(view.getId());
+		if (!mensagem.getUserId().equals(getAccountLogada(profile).getId())) {
+			throw new ValidationException(new Message("warn.delete"));
+		}
+
+		projeto.deleteMensagemById(view.getId());
 		projeto = super.update(projeto, profile);
 		return view;
 	}
@@ -147,11 +186,17 @@ public class ProjetoManager extends TCCBaseManager {
 	public ContatoView request(Profile profile, ContatoView view) throws ValidationException {
 		Projeto projeto = projetoService.selectByChave(Projeto.class, view.getProjetoKey());
 
+		Account accountLogada = getAccountLogada(profile);
+
 		AccountProjeto accountProjeto = new AccountProjeto();
-		accountProjeto.setAccount(getAccountLogada(profile));
+		accountProjeto.setAccount(accountLogada);
 		accountProjeto.setProjeto(projeto);
 		accountProjeto.setStatus(AccountProjetoStatus.REQUESTED);
 		accountProjeto = super.save(accountProjeto, profile);
+
+		Account owner = projeto.getOwner();
+		owner.addNotification(NotificationBean.createNotification(NotificationBean.Label.PROJECT_REQUEST, accountLogada.getLabel() + " pediu para participar do projeto " + projeto.getTitulo() + ".", "/#/projeto/" + projeto.getChave()));
+		super.update(owner);
 
 		return view;
 	}
@@ -166,6 +211,11 @@ public class ProjetoManager extends TCCBaseManager {
 			accountProjeto.setParticipante(true);
 			accountProjeto.setStatus(AccountProjetoStatus.ACTIVE);
 			accountProjeto = super.update(accountProjeto, profile);
+
+			Account account = accountProjeto.getAccount();
+			account.addNotification(NotificationBean.createNotification(NotificationBean.Label.PROJECT_ACCEPT, projeto.getOwner().getLabel() + " aceitou você no projeto " + projeto.getTitulo() + ".", "/#/projeto/" + projeto.getChave()));
+			super.update(account);
+
 		}
 
 		return view;

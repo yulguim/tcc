@@ -15,4 +15,12 @@ public class ProjetoService extends BaseService {
 		return super.selectByQuery(QUERY, id);
 	}
 
+	public List<Projeto> selectProjetoBySeach(String search) {
+		search = search.toLowerCase();
+		String QUERY = "SELECT obj FROM Projeto obj WHERE " +
+				"LOWER(obj.titulo) LIKE '%" + search + "%' OR " +
+				"LOWER(obj.descricao) LIKE '%" + search + "%'";
+		return super.selectByQuery(QUERY);
+	}
+
 }

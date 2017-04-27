@@ -52,7 +52,10 @@
 			<div class="avatar">
 				<img src="images/project-cover.jpg" alt="people" style="border-radius: 0%" />
 			</div>
-			<div class="name"><a ng-href="/#/projeto/{{vm.view.key}}">{{vm.view.titulo}}</a></div>
+			<div class="name" style="width: 63%;">
+				<a ng-href="/#/projeto/{{vm.view.key}}">{{vm.view.titulo}}</a>
+				<span class="pull-right" style="color: white; font-size: 10px;">Owner: <a style="font-size: 15px;" ng-href="/#/profile/{{vm.view.owner.key}}">{{vm.view.owner.label}}</a></span>
+			</div>
 			<ul class="cover-nav">
 				<li ng-if="!vm.view.meuProjeto && !vm.view.souParticipante && !vm.view.isRequested && vm.view.permiteRequest">
 					<a href="" ng-click="vm.request()"><i class="fa fa-fw fa-check"></i>  Pedir para participar</a>
@@ -63,167 +66,176 @@
 				<li ng-if="vm.view.souParticipante">
 					<a href="" ng-click="vm.leave()"><i class="fa fa-fw fa-check"></i> Deixar de participar</a>
 				</li>
-				<li ng-if="vm.view.meuProjeto || vm.view.souParticipante"><a href=""><i class="fa fa-fw fa-users"></i> Participantes</a></li>
+				<li ng-if="vm.view.meuProjeto || vm.view.souParticipante" ng-class="{ 'active': vm.tab === 'timeline' }"><a href="" ng-click="vm.tab = 'timeline'"><i class="fa fa-fw fa-home"></i> Home</a></li>
+				<li ng-if="vm.view.meuProjeto || vm.view.souParticipante" ng-class="{ 'active': vm.tab === 'mensagens' }"><a href="" ng-click="vm.tab = 'mensagens'"><i class="fa fa-fw fa-comments"></i> Mensagens</a></li>
+				<li ng-if="vm.view.meuProjeto || vm.view.souParticipante" ng-class="{ 'active': vm.tab === 'participantes' }"><a href="" ng-click="vm.tab = 'participantes'"><i class="fa fa-fw fa-users"></i> Participantes <strong>{{vm.view.numeroParticipantes}}</strong></a></li>
 			</ul>
 		</div>
 	</div>
-	<div class="panel panel-default share">
-		<div class="input-group">
-			<div class="input-group-btn">
-				<a class="btn btn-primary" href="" ng-click="vm.sendMensagem()"><i class="fa fa-envelope"></i>Send</a>
-			</div>
-			<!-- /btn-group -->
-			<input type="text" class="form-control share-text" ng-model="vm.mensagem.mensagem" placeholder="Write message..." />
-		</div>
-		<!-- /input-group -->
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-heading panel-heading-gray">
-					<a href="#" class="btn btn-white btn-xs pull-right"><i class="fa fa-pencil"></i></a>
-					<i class="fa fa-fw fa-info-circle"></i> Descrição
+	<div ng-show="vm.tab === 'timeline'">
+		<div class="panel panel-default share" ng-if="!vm.view.meuProjeto && !vm.view.souParticipante">
+			<div class="input-group">
+				<div class="input-group-btn">
+					<a class="btn btn-primary" href="" ng-click="vm.sendMensagem()"><i class="fa fa-envelope"></i>Send</a>
 				</div>
-				<div class="panel-body">
-					<p>
-						{{vm.view.descricao}}
-					</p>
-				</div>
+				<!-- /btn-group -->
+				<input type="text" class="form-control share-text" ng-model="vm.mensagem.mensagem" placeholder="Write message..." />
 			</div>
+			<!-- /input-group -->
 		</div>
-	</div>
-
-	<div class="timeline row" data-toggle="isotope">
-		<div class="col-md-12 item">
-			<div class="timeline-block">
-				<div class="panel panel-default share clearfix-xs">
-					<div class="panel-heading panel-heading-gray title">
-						What&acute;s new
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading panel-heading-gray">
+						<a href="#" class="btn btn-white btn-xs pull-right"><i class="fa fa-pencil"></i></a>
+						<i class="fa fa-fw fa-info-circle"></i> Descrição
 					</div>
 					<div class="panel-body">
-						<textarea name="status" class="form-control share-text" rows="3" placeholder="Share your status..."></textarea>
-					</div>
-					<div class="panel-footer share-buttons">
-						<a href="#"><i class="fa fa-map-marker"></i></a>
-						<a href="#"><i class="fa fa-photo"></i></a>
-						<a href="#"><i class="fa fa-video-camera"></i></a>
-						<button type="submit" class="btn btn-primary btn-xs pull-right display-none" href="#">Post</button>
+						<p>
+							{{vm.view.descricao}}
+						</p>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="col-xs-12 col-md-6 col-lg-4 item">
-			<div class="timeline-block">
-				<div class="panel panel-default">
-
-					<div class="panel-heading">
-						<div class="media">
-							<div class="media-left">
-								<a href="">
-									<img src="images/people/50/guy-2.jpg" class="media-object">
-								</a>
-							</div>
-							<div class="media-body">
-								<a href="#" class="pull-right text-muted"><i class="icon-reply-all-fill fa fa-2x "></i></a>
-
-								<a href="">Jonathan</a>
-
-								<span>on 15th January, 2014</span>
-							</div>
+		<div class="timeline row" data-toggle="isotope">
+			<div class="col-md-12 item">
+				<div class="timeline-block">
+					<div class="panel panel-default share clearfix-xs">
+						<div class="panel-heading panel-heading-gray title">
+							What&acute;s new
+						</div>
+						<div class="panel-body">
+							<textarea name="status" class="form-control share-text" rows="3" placeholder="Share your status..."></textarea>
+						</div>
+						<div class="panel-footer share-buttons">
+							<a href="#"><i class="fa fa-map-marker"></i></a>
+							<a href="#"><i class="fa fa-photo"></i></a>
+							<a href="#"><i class="fa fa-video-camera"></i></a>
+							<button type="submit" class="btn btn-primary btn-xs pull-right display-none" href="#">Post</button>
 						</div>
 					</div>
+				</div>
+			</div>
 
-					<div class="panel-body">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad blanditiis perspiciatis praesentium quaerat repudiandae soluta? Cum doloribus esse et eum facilis impedit officiis omnis optio, placeat, quia quo reprehenderit sunt velit?
-							Asperiores cumque deserunt eveniet hic reprehenderit sit, ut voluptatum?</p>
+			<div class="col-xs-12 col-md-6 col-lg-4 item">
+				<div class="timeline-block">
+					<div class="panel panel-default">
+
+						<div class="panel-heading">
+							<div class="media">
+								<div class="media-left">
+									<a href="">
+										<img src="images/people/50/guy-2.jpg" class="media-object">
+									</a>
+								</div>
+								<div class="media-body">
+									<a href="#" class="pull-right text-muted"><i class="icon-reply-all-fill fa fa-2x "></i></a>
+
+									<a href="">Jonathan</a>
+
+									<span>on 15th January, 2014</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="panel-body">
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad blanditiis perspiciatis praesentium quaerat repudiandae soluta? Cum doloribus esse et eum facilis impedit officiis omnis optio, placeat, quia quo reprehenderit sunt velit?
+								Asperiores cumque deserunt eveniet hic reprehenderit sit, ut voluptatum?</p>
+						</div>
+						<div class="view-all-comments">
+							<a href="#">
+								<i class="fa fa-comments-o"></i> View all
+							</a>
+							<span>10 comments</span>
+
+						</div>
+						<ul class="comments">
+							<li class="media">
+								<div class="media-left">
+									<a href="">
+										<img src="images/people/50/guy-5.jpg" class="media-object">
+									</a>
+								</div>
+								<div class="media-body">
+									<div class="pull-right dropdown" data-show-hover="li">
+										<a href="#" data-toggle="dropdown" class="toggle-button">
+											<i class="fa fa-pencil"></i>
+										</a>
+										<ul class="dropdown-menu" role="menu">
+											<li><a href="#">Edit</a></li>
+											<li><a href="#">Delete</a></li>
+										</ul>
+									</div>
+									<a href="" class="comment-author pull-left">Bill D.</a>
+									<span>Hi Mary, Nice Party</span>
+									<div class="comment-date">21st September</div>
+								</div>
+							</li>
+							<li class="media">
+								<div class="media-left">
+									<a href="">
+										<img src="images/people/50/woman-5.jpg" class="media-object">
+									</a>
+								</div>
+								<div class="media-body">
+									<div class="pull-right dropdown" data-show-hover="li">
+										<a href="#" data-toggle="dropdown" class="toggle-button">
+											<i class="fa fa-pencil"></i>
+										</a>
+										<ul class="dropdown-menu" role="menu">
+											<li><a href="#">Edit</a></li>
+											<li><a href="#">Delete</a></li>
+										</ul>
+									</div>
+									<a href="" class="comment-author pull-left">Mary</a>
+									<span>Thanks Bill</span>
+									<div class="comment-date">2 days</div>
+								</div>
+							</li>
+							<li class="media">
+								<div class="media-left">
+									<a href="">
+										<img src="images/people/50/guy-5.jpg" class="media-object">
+									</a>
+								</div>
+								<div class="media-body">
+									<div class="pull-right dropdown" data-show-hover="li">
+										<a href="#" data-toggle="dropdown" class="toggle-button">
+											<i class="fa fa-pencil"></i>
+										</a>
+										<ul class="dropdown-menu" role="menu">
+											<li><a href="#">Edit</a></li>
+											<li><a href="#">Delete</a></li>
+										</ul>
+									</div>
+									<a href="" class="comment-author pull-left">Bill D.</a>
+									<span>What time did it finish?</span>
+									<div class="comment-date">14 min</div>
+								</div>
+							</li>
+							<li class="comment-form">
+								<div class="input-group">
+								<span class="input-group-btn">
+								   <a href="" class="btn btn-default"><i class="fa fa-photo"></i></a>
+								</span>
+									<input type="text" class="form-control" />
+								</div>
+							</li>
+						</ul>
 					</div>
-					<div class="view-all-comments">
-						<a href="#">
-							<i class="fa fa-comments-o"></i> View all
-						</a>
-						<span>10 comments</span>
-
-					</div>
-					<ul class="comments">
-						<li class="media">
-							<div class="media-left">
-								<a href="">
-									<img src="images/people/50/guy-5.jpg" class="media-object">
-								</a>
-							</div>
-							<div class="media-body">
-								<div class="pull-right dropdown" data-show-hover="li">
-									<a href="#" data-toggle="dropdown" class="toggle-button">
-										<i class="fa fa-pencil"></i>
-									</a>
-									<ul class="dropdown-menu" role="menu">
-										<li><a href="#">Edit</a></li>
-										<li><a href="#">Delete</a></li>
-									</ul>
-								</div>
-								<a href="" class="comment-author pull-left">Bill D.</a>
-								<span>Hi Mary, Nice Party</span>
-								<div class="comment-date">21st September</div>
-							</div>
-						</li>
-						<li class="media">
-							<div class="media-left">
-								<a href="">
-									<img src="images/people/50/woman-5.jpg" class="media-object">
-								</a>
-							</div>
-							<div class="media-body">
-								<div class="pull-right dropdown" data-show-hover="li">
-									<a href="#" data-toggle="dropdown" class="toggle-button">
-										<i class="fa fa-pencil"></i>
-									</a>
-									<ul class="dropdown-menu" role="menu">
-										<li><a href="#">Edit</a></li>
-										<li><a href="#">Delete</a></li>
-									</ul>
-								</div>
-								<a href="" class="comment-author pull-left">Mary</a>
-								<span>Thanks Bill</span>
-								<div class="comment-date">2 days</div>
-							</div>
-						</li>
-						<li class="media">
-							<div class="media-left">
-								<a href="">
-									<img src="images/people/50/guy-5.jpg" class="media-object">
-								</a>
-							</div>
-							<div class="media-body">
-								<div class="pull-right dropdown" data-show-hover="li">
-									<a href="#" data-toggle="dropdown" class="toggle-button">
-										<i class="fa fa-pencil"></i>
-									</a>
-									<ul class="dropdown-menu" role="menu">
-										<li><a href="#">Edit</a></li>
-										<li><a href="#">Delete</a></li>
-									</ul>
-								</div>
-								<a href="" class="comment-author pull-left">Bill D.</a>
-								<span>What time did it finish?</span>
-								<div class="comment-date">14 min</div>
-							</div>
-						</li>
-						<li class="comment-form">
-							<div class="input-group">
-
-                          <span class="input-group-btn">
-                   <a href="" class="btn btn-default"><i class="fa fa-photo"></i></a>
-                </span>
-
-								<input type="text" class="form-control" />
-
-							</div>
-						</li>
-					</ul>
 				</div>
 			</div>
 		</div>
+	</div>
+
+	<div ng-show="vm.tab === 'participantes'">
+		participantes {{vm.participantes}}
+	</div>
+
+	<div ng-show="vm.tab === 'mensagens'">
+		mensagens {{vm.chat}}
 	</div>
 
 </div>

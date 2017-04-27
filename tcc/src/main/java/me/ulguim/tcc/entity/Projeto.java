@@ -50,8 +50,6 @@ public class Projeto extends BaseEntity implements Serializable {
 	@OneToMany(mappedBy = "projeto", fetch = FetchType.LAZY)
 	private List<Post> postList;
 
-	//private List<Account> participantes;
-
 	@Column(name = "mensagens", columnDefinition="TEXT")
 	@Convert(converter = MensagemConverter.class)
 	private List<MensagemBean> mensagens = new ArrayList<>();
@@ -231,8 +229,8 @@ public class Projeto extends BaseEntity implements Serializable {
 		}
 
 		return this.accountProjetoList.stream()
-				.filter(ap -> ap.getAccount().getId().equals(id) && ap.getParticipante() && ap.getStatus().equals(AccountProjetoStatus.ACTIVE))
+				.filter(ap -> ap.getAccount().getId().equals(id))
 				.findAny()
-				.orElseGet(null);
+				.orElse(null);
 	}
 }

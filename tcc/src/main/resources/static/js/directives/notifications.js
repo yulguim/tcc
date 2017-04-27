@@ -31,7 +31,7 @@ app.directive('notifications', ['$interval', 'notificationsService', function($i
               scope.notificationsCount = 0;
               angular.forEach(scope.notifications, function(obj) {
                   if (!obj.read) {
-                      scope.notificationsCount = scope.notificationsCount++;
+                      scope.notificationsCount += 1;
                   }
               });
           });

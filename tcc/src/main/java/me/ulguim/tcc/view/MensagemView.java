@@ -11,7 +11,7 @@ public class MensagemView extends BaseView {
 
 	private Long chatId;
 
-	private Long projetoId;
+	private String projetoKey;
 
 	private Long userId;
 
@@ -73,11 +73,11 @@ public class MensagemView extends BaseView {
 		this.userKey = userKey;
 	}
 
-	public Long getProjetoId() {
-		return projetoId;
+	public String getProjetoKey() {
+		return projetoKey;
 	}
 
-	public void setProjetoId(Long projetoId) {
-		this.projetoId = projetoId;
+	public void setProjetoKey(String projetoKey) {
+		this.projetoKey = projetoKey;
 	}
 }

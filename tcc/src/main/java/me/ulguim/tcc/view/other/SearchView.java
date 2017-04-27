@@ -4,6 +4,7 @@ import in.k2s.sdk.web.view.BaseView;
 import in.k2s.sdk.web.view.annotation.View;
 import me.ulguim.tcc.view.ContatoView;
 import me.ulguim.tcc.view.PerfilView;
+import me.ulguim.tcc.view.ProjetoView;
 
 import java.util.List;
 
@@ -20,6 +21,8 @@ public class SearchView extends BaseView {
 	private Boolean projetos;
 
 	private List<ContatoView> perfilResults;
+
+	private List<ProjetoView> projetoResults;
 
 	public Boolean getPerfil() {
 		return perfil;
@@ -51,5 +54,13 @@ public class SearchView extends BaseView {
 
 	public void setSearch(String search) {
 		this.search = search;
+	}
+
+	public List<ProjetoView> getProjetoResults() {
+		return projetoResults;
+	}
+
+	public void setProjetoResults(List<ProjetoView> projetoResults) {
+		this.projetoResults = projetoResults;
 	}
 }
