@@ -16,7 +16,7 @@ app.controller("loginCtrl", ['$location', 'loginService', function ($location, l
                 window.location = '/#/profile-edit';
 			} else {
                 //Redirect para home
-                window.location = '/';
+                window.location = '/#/my-projects';
 			}
 		});
 	};

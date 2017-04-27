@@ -42,11 +42,27 @@ public class ProjetoManager extends TCCBaseManager {
 		List<Projeto> meusProjetos = projetoService.selectAllByAccountId(getAccountLogada(profile).getId());
 
 		List<ProjetoSimpleView> list = new ArrayList<>();
-		meusProjetos.forEach(p -> {
-			ProjetoSimpleView view = new ProjetoSimpleView(p.getId(), p.getChave(), p.getTitulo());
-			//TODO
-			list.add(view);
-		});
+
+		if (meusProjetos != null) {
+			meusProjetos.forEach(p -> {
+				ProjetoSimpleView view = new ProjetoSimpleView(p.getId(), p.getChave(), p.getTitulo());
+				list.add(view);
+			});
+		}
+
+		return list;
+	}
+
+	public List<ProjetoSimpleView> listQueEuParticipo(Profile profile) throws ValidationException {
+		List<Projeto> projetos = projetoService.selectAllQueParticipoByAccountId(getAccountLogada(profile).getId());
+
+		List<ProjetoSimpleView> list = new ArrayList<>();
+		if (projetos != null) {
+			projetos.forEach(p -> {
+				ProjetoSimpleView view = new ProjetoSimpleView(p.getId(), p.getChave(), p.getTitulo());
+				list.add(view);
+			});
+		}
 
 		return list;
 	}

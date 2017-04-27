@@ -3,7 +3,65 @@
 		<a class="btn btn-primary" href="/#/new-project">Criar projeto</a>
 	</div>
 	<div class="clearfix">&nbsp;</div>
-	{{vm.view}}
+	<h4>Meus projetos</h4>
+	<div class="row" data-toggle="isotope" ng-if="!vm.myProjects || vm.myProjects.length === 0">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<span>Não criei nenhum projeto. :(</span>
+			</div>
+		</div>
+	</div>
+	<div class="row" data-toggle="isotope" ng-repeat="p in vm.myProjects">
+		<div class="col-md-6 col-lg-4 item">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="media">
+						<div class="pull-left">
+							<img ng-if="!p.avatar" src="images/no_avatar.png" width="50" alt="people" class="media-object img-circle" />
+							<img ng-if="p.avatar" ng-src="/account/avatar/{{p.avatar}}" alt="people" class="media-object img-circle" />
+						</div>
+						<div class="media-body">
+							<h4 class="media-heading margin-v-5"><a href="/#/projeto/{{p.key}}">{{p.titulo}}</a></h4>
+							<div class="profile-icons">
+								<span><i class="fa fa-users"></i> {{vm.participantes != undefined ? vm.participantes : 'Nenhum participante'}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<p class="common-friends">Participantes</p>
+					<div class="user-friend-list">
+						<a href="#">
+							<img src="images/people/50/guy-3.jpg" alt="people" class="img-circle" />
+						</a>
+						<a href="#">
+							<img src="images/people/50/guy-3.jpg" alt="people" class="img-circle" />
+						</a>
+						<a href="#">
+							<img src="images/people/50/woman-3.jpg" alt="people" class="img-circle" />
+						</a>
+						<a href="#">
+							<img src="images/people/50/woman-3.jpg" alt="people" class="img-circle" />
+						</a>
+					</div>
+				</div>
+				<div class="panel-footer">
+					<a href="/#/projeto/{{p.key}}" class="btn btn-default btn-sm">Ir para página do projeto <i class="fa fa-share"></i></a>
+					<a href="/#/edit-project/{{p.key}}" class="btn btn-default btn-sm">Editar <i class="fa fa-edit"></i></a>
+					<a href="/#/projeto/{{p.key}}" class="btn btn-danger btn-sm">Excluir <i class="fa fa-remove"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix">&nbsp;</div>
+	<h4>Projetos que participo</h4>
+	<div class="row" data-toggle="isotope" ng-if="!vm.projects || vm.projects.length === 0">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<span>Não participo de nenhum projeto. :(</span>
+			</div>
+		</div>
+	</div>
 	<div class="row" data-toggle="isotope" ng-repeat="p in vm.projects">
 		<div class="col-md-6 col-lg-4 item">
 			<div class="panel panel-default">

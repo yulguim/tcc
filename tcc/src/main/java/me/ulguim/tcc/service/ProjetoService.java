@@ -15,6 +15,11 @@ public class ProjetoService extends BaseService {
 		return super.selectByQuery(QUERY, id);
 	}
 
+	public List<Projeto> selectAllQueParticipoByAccountId(Long id) {
+		String QUERY = "SELECT obj.projeto FROM AccountProjeto obj WHERE obj.account.id = ?1";
+		return super.selectByQuery(QUERY, id);
+	}
+
 	public List<Projeto> selectProjetoBySeach(String search) {
 		search = search.toLowerCase();
 		String QUERY = "SELECT obj FROM Projeto obj WHERE " +

@@ -22,8 +22,12 @@ public class ProjetoController extends TCCBaseController {
 	private ProjetoManager projetoManager;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<ProjetoSimpleView> listMyProjects() throws ValidationException {
-		return projetoManager.list(getProfile());
+	public MeusProjetosDTO listMyProjects() throws ValidationException {
+		MeusProjetosDTO dto = new MeusProjetosDTO();
+		dto.meusProjetos = projetoManager.list(getProfile());
+		dto.projetos = projetoManager.listQueEuParticipo(getProfile());
+
+		return dto;
 	}
 
 	@RequestMapping(value="/{key}", method = RequestMethod.GET)
@@ -79,6 +83,14 @@ public class ProjetoController extends TCCBaseController {
 	@RequestMapping(value="/delete-mensagem", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public MensagemView deleteMensagem(@RequestBody MensagemView view) throws ValidationException {
 		return projetoManager.deleteMensagem(getProfile(), view);
+	}
+
+	public static class MeusProjetosDTO {
+
+		public List<ProjetoSimpleView> meusProjetos;
+
+		public List<ProjetoSimpleView> projetos;
+
 	}
 
 	public static class ProjetoDTO {
