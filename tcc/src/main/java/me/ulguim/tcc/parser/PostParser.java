@@ -17,6 +17,8 @@ public class PostParser extends BaseParser {
 		view.setKey(entity.getChave());
 		view.setPost(entity.getPost());
 		view.setAuthorId(entity.getAuthor().getId());
+		view.setAuthorKey(entity.getAuthor().getChave());
+		view.setAuthorAvatar(entity.getAuthor().getAvatar());
 		view.setAuthorLabel(entity.getAuthor().getLabel());
 		view.setInsertTime(DataUtil.format(entity.getInsertTime(), "dd/MM/yyyy HH:mm:ss"));
 		if (!entity.getComentarioList().isEmpty()) {

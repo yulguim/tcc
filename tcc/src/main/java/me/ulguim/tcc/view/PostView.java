@@ -18,6 +18,10 @@ public class PostView extends BaseView {
 
 	private Long authorId;
 
+	private String authorKey;
+
+	private String authorAvatar;
+
 	private String authorLabel;
 
 	private String insertTime;
@@ -82,5 +86,21 @@ public class PostView extends BaseView {
 
 	public void setCommentList(List<ComentarioView> commentList) {
 		this.commentList = commentList;
+	}
+
+	public String getAuthorAvatar() {
+		return authorAvatar;
+	}
+
+	public void setAuthorAvatar(String authorAvatar) {
+		this.authorAvatar = authorAvatar;
+	}
+
+	public String getAuthorKey() {
+		return authorKey;
+	}
+
+	public void setAuthorKey(String authorKey) {
+		this.authorKey = authorKey;
 	}
 }

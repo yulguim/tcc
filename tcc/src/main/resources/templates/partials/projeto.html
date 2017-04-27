@@ -1,58 +1,15 @@
 <div class="container">
 	<div class="cover profile">
 		<div class="wrapper">
-			<div class="image">
+			<div class="image" style="padding-right: 0px;">
 				<img src="images/project-cover.jpg" alt="people" />
 			</div>
-			<ul class="friends">
-				<li>
-					<a href="#">
-						<img src="images/people/110/guy-6.jpg" alt="people" class="img-responsive">
-					</a>
-				</li>
-				<li>
-					<a href="#">
-						<img src="images/people/110/woman-3.jpg" alt="people" class="img-responsive">
-					</a>
-				</li>
-				<li>
-					<a href="#">
-						<img src="images/people/110/guy-2.jpg" alt="people" class="img-responsive">
-					</a>
-				</li>
-				<li>
-					<a href="#">
-						<img src="images/people/110/guy-9.jpg" alt="people" class="img-responsive">
-					</a>
-				</li>
-				<li>
-					<a href="#">
-						<img src="images/people/110/woman-9.jpg" alt="people" class="img-responsive">
-					</a>
-				</li>
-				<li>
-					<a href="#">
-						<img src="images/people/110/guy-4.jpg" alt="people" class="img-responsive">
-					</a>
-				</li>
-				<li>
-					<a href="#">
-						<img src="images/people/110/guy-1.jpg" alt="people" class="img-responsive">
-					</a>
-				</li>
-				<li>
-					<a href="#">
-						<img src="images/people/110/woman-4.jpg" alt="people" class="img-responsive">
-					</a>
-				</li>
-				<li><a href="#" class="group"><i class="fa fa-group"></i></a></li>
-			</ul>
 		</div>
 		<div class="cover-info">
 			<div class="avatar">
 				<img src="images/project-cover.jpg" alt="people" style="border-radius: 0%" />
 			</div>
-			<div class="name" style="width: 63%;">
+			<div class="name" style="width: 85%;">
 				<a ng-href="/#/projeto/{{vm.view.key}}">{{vm.view.titulo}}</a>
 				<span class="pull-right" style="color: white; font-size: 10px;">Owner: <a style="font-size: 15px;" ng-href="/#/profile/{{vm.view.owner.key}}">{{vm.view.owner.label}}</a></span>
 			</div>
@@ -104,22 +61,25 @@
 				<div class="timeline-block">
 					<div class="panel panel-default share clearfix-xs">
 						<div class="panel-heading panel-heading-gray title">
-							What&acute;s new
+							Compartilhe algo
 						</div>
 						<div class="panel-body">
-							<textarea name="status" class="form-control share-text" rows="3" placeholder="Share your status..."></textarea>
+							<textarea name="status" class="form-control share-text" rows="3" placeholder="Isso será visualizado por todos os participantes do grupo..." ng-model="vm.post.post"></textarea>
 						</div>
 						<div class="panel-footer share-buttons">
-							<a href="#"><i class="fa fa-map-marker"></i></a>
 							<a href="#"><i class="fa fa-photo"></i></a>
-							<a href="#"><i class="fa fa-video-camera"></i></a>
-							<button type="submit" class="btn btn-primary btn-xs pull-right display-none" href="#">Post</button>
+							<button type="submit" class="btn btn-primary btn-xs pull-right" href="" ng-click="vm.savePost()">Post</button>
 						</div>
 					</div>
 				</div>
 			</div>
 
-			<div class="col-xs-12 col-md-6 col-lg-4 item">
+			<div class="col-xs-12 col-md-12 col-lg-12 item" ng-if="!vm.posts || vm.posts.length === 0">
+				<h4>Nenhum post</h4>
+				<div class="clearfix">&nbsp;</div>
+			</div>
+			<div class="clearfix">&nbsp;</div>
+			<div class="col-xs-12 col-md-6 col-lg-4 item" ng-repeat="post in vm.posts">
 				<div class="timeline-block">
 					<div class="panel panel-default">
 
@@ -127,32 +87,30 @@
 							<div class="media">
 								<div class="media-left">
 									<a href="">
-										<img src="images/people/50/guy-2.jpg" class="media-object">
+										<img ng-if="!post.authorAvatar" src="images/no_avatar.png" alt="Bill" class="media-object" width="48" />
+										<img ng-if="post.authorAvatar" ng-src="/account/avatar/{{post.authorAvatar}}" alt="Bill" class="media-object" width="48" />
 									</a>
 								</div>
 								<div class="media-body">
-									<a href="#" class="pull-right text-muted"><i class="icon-reply-all-fill fa fa-2x "></i></a>
+									<a ng-href="/#/profile/{{post.authorKey}}">{{post.authorLabel}}</a>
 
-									<a href="">Jonathan</a>
-
-									<span>on 15th January, 2014</span>
+									<span>{{post.insertTime}}</span>
 								</div>
 							</div>
 						</div>
 
 						<div class="panel-body">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad blanditiis perspiciatis praesentium quaerat repudiandae soluta? Cum doloribus esse et eum facilis impedit officiis omnis optio, placeat, quia quo reprehenderit sunt velit?
-								Asperiores cumque deserunt eveniet hic reprehenderit sit, ut voluptatum?</p>
+							<p>{{post.post}}</p>
 						</div>
 						<div class="view-all-comments">
-							<a href="#">
-								<i class="fa fa-comments-o"></i> View all
-							</a>
-							<span>10 comments</span>
+							<!--<a href="#">-->
+								<!--<i class="fa fa-comments-o"></i> View all-->
+							<!--</a>-->
+							<span>{{post.commentList.length}} comments</span>
 
 						</div>
 						<ul class="comments">
-							<li class="media">
+							<li class="media" ng-repeat="co in post.commentList">
 								<div class="media-left">
 									<a href="">
 										<img src="images/people/50/guy-5.jpg" class="media-object">
@@ -161,66 +119,20 @@
 								<div class="media-body">
 									<div class="pull-right dropdown" data-show-hover="li">
 										<a href="#" data-toggle="dropdown" class="toggle-button">
-											<i class="fa fa-pencil"></i>
+											<i class="fa fa-close"></i>
 										</a>
-										<ul class="dropdown-menu" role="menu">
-											<li><a href="#">Edit</a></li>
-											<li><a href="#">Delete</a></li>
-										</ul>
 									</div>
-									<a href="" class="comment-author pull-left">Bill D.</a>
-									<span>Hi Mary, Nice Party</span>
-									<div class="comment-date">21st September</div>
-								</div>
-							</li>
-							<li class="media">
-								<div class="media-left">
-									<a href="">
-										<img src="images/people/50/woman-5.jpg" class="media-object">
-									</a>
-								</div>
-								<div class="media-body">
-									<div class="pull-right dropdown" data-show-hover="li">
-										<a href="#" data-toggle="dropdown" class="toggle-button">
-											<i class="fa fa-pencil"></i>
-										</a>
-										<ul class="dropdown-menu" role="menu">
-											<li><a href="#">Edit</a></li>
-											<li><a href="#">Delete</a></li>
-										</ul>
-									</div>
-									<a href="" class="comment-author pull-left">Mary</a>
-									<span>Thanks Bill</span>
-									<div class="comment-date">2 days</div>
-								</div>
-							</li>
-							<li class="media">
-								<div class="media-left">
-									<a href="">
-										<img src="images/people/50/guy-5.jpg" class="media-object">
-									</a>
-								</div>
-								<div class="media-body">
-									<div class="pull-right dropdown" data-show-hover="li">
-										<a href="#" data-toggle="dropdown" class="toggle-button">
-											<i class="fa fa-pencil"></i>
-										</a>
-										<ul class="dropdown-menu" role="menu">
-											<li><a href="#">Edit</a></li>
-											<li><a href="#">Delete</a></li>
-										</ul>
-									</div>
-									<a href="" class="comment-author pull-left">Bill D.</a>
-									<span>What time did it finish?</span>
-									<div class="comment-date">14 min</div>
+									<a href="" class="comment-author pull-left">{{co.authorLabel}}</a>
+									<span>{{co.comentario}}</span>
+									<div class="comment-date">{{co.insertTime}}</div>
 								</div>
 							</li>
 							<li class="comment-form">
 								<div class="input-group">
 								<span class="input-group-btn">
-								   <a href="" class="btn btn-default"><i class="fa fa-photo"></i></a>
+								   <a href="" ng-click="vm.saveComentarioPost(post)" class="btn btn-default"><i class="fa fa-paper-plane"></i></a>
 								</span>
-									<input type="text" class="form-control" />
+									<input type="text" class="form-control" ng-model="post.comment" />
 								</div>
 							</li>
 						</ul>

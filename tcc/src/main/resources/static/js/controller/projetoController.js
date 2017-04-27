@@ -3,6 +3,7 @@ app.controller("projetoCtrl", ['$routeParams', "projetoService", "postService", 
 	vm.tab = 'timeline';
 
 	vm.view = {};
+	vm.posts = [];
 	vm.post = {};
     vm.participantes = null;
     vm.chat = null;
@@ -78,23 +79,24 @@ app.controller("projetoCtrl", ['$routeParams', "projetoService", "postService", 
 	}
 
 	function savePost() {
-        postService.save(vm.post).success(function() {
+		vm.post.projetoKey = $routeParams.key;
+        postService.save(vm.post).success(function(view) {
         	vm.post = {};
-        	//Add na lista TODO
+        	vm.posts.push(view);
 		});
 	}
 
 	function deletePost(post) {
-		var index = vm.view
+		var index = vm.posts.indexOf(post);
         postService.remove().success(function() {
-            //delete da lista TODO
+            vm.posts.splice(index, 1);
         });
 	}
 
 	function saveComentarioPost(post) {
 		var comment = {};
-		comment.postId = post.id;
-		comment.comment = post.comment;
+		comment.postKey = post.key;
+		comment.comentario = post.comment;
 		postService.saveComment(comment).success(function(view) {
 			post.commentList.push(view);
 			delete comment;
@@ -115,6 +117,7 @@ app.controller("projetoCtrl", ['$routeParams', "projetoService", "postService", 
         var key = $routeParams.key;
         projetoService.load(key).success(function(data) {
 			vm.view = data.projeto;
+			vm.posts = data.posts;
 			vm.participantes = data.participantes;
 			vm.chat = data.chat;
 		});

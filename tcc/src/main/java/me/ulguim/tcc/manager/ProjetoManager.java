@@ -13,6 +13,7 @@ import me.ulguim.tcc.entity.enumeration.AccountProjetoStatus;
 import me.ulguim.tcc.manager.base.TCCBaseManager;
 import me.ulguim.tcc.parser.ChatParser;
 import me.ulguim.tcc.parser.ContatoParser;
+import me.ulguim.tcc.parser.PostParser;
 import me.ulguim.tcc.service.*;
 import me.ulguim.tcc.view.*;
 import me.ulguim.tcc.view.other.SearchView;
@@ -93,7 +94,11 @@ public class ProjetoManager extends TCCBaseManager {
 
 		List<Post> postList = entity.getPostList();
 		List<PostView> list = new ArrayList<>();
-		//TODO
+
+		postList.forEach(p -> {
+			list.add(PostParser.parse(p));
+		});
+
 		return list;
 	}
 
