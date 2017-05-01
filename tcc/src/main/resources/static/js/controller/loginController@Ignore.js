@@ -24,14 +24,32 @@ app.controller("loginCtrl", ['$location', 'loginService', function ($location, l
 	function googleLogin() {
 		console.log("Google!");
 	};
-	
-	function facebookLogin() {
-		console.log("Facebook!");
-	};
-	
-	function linkedinLogin() {
+
+    function facebookLogin() {
+        FB.login(function (response) {
+            if (response.status === 'connected') {
+				var view = {facebookToken: response.authResponse.accessToken};
+				loginService.facebookLogin(view).success(function() {
+                    if (view.hasNoProfile) {
+                        window.location = '/#/profile-edit';
+                    } else {
+                        //Redirect para home
+                        window.location = '/#/my-projects';
+                    }
+				});
+            }
+        }, {
+            scope: 'public_profile, email, user_about_me, user_location, user_website, user_work_history'
+        });
+    }
+
+    function linkedinLogin() {
 		console.log("LinkedIn!");
-	};
+        IN.User.authorize(function(response) {
+        	console.log(response);
+        	console.log("ok!");
+		}, null);
+    };
 
 	function cadastrar(view) {
 		loginService.cadastrar(view).success(function(view) {

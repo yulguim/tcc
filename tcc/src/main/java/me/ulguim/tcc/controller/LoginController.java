@@ -47,11 +47,28 @@ public class LoginController extends TCCBaseController {
 	}
 	
 	@RequestMapping(value="/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public @ResponseBody
-	PerfilView login(@RequestBody LoginView view, HttpServletResponse response) throws ValidationException {
+	public @ResponseBody PerfilView login(@RequestBody LoginView view, HttpServletResponse response) throws ValidationException {
 		Profile profile = loginManager.login(view);
 		response.addCookie(createCookie(profile));
 		
+		Account account = profile.getUsuario();
+		PerfilView perfilView = new PerfilView();
+		perfilView.setAvatar(account.getAvatar());
+		perfilView.setUsername(account.getUsername());
+		perfilView.setName(account.getName());
+		if (account.getProfile() == null) {
+			perfilView.setHasNoProfile(true);
+		}
+
+		profileSingleton.add(profile);
+		return perfilView;
+	}
+
+	@RequestMapping(value="/facebook-login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public @ResponseBody PerfilView facebookLogin(@RequestBody LoginView view, HttpServletResponse response) throws ValidationException {
+		Profile profile = loginManager.facebookLogin(view.getFacebookToken());
+		response.addCookie(createCookie(profile));
+
 		Account account = profile.getUsuario();
 		PerfilView perfilView = new PerfilView();
 		perfilView.setAvatar(account.getAvatar());

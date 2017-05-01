@@ -11,9 +11,32 @@
   <link href="/vendor/themekit40/css/vendor/all@Ignore.css" rel="stylesheet">
   <link href="/vendor/themekit40/css/app/app@Ignore.css" rel="stylesheet">
   <link type="text/css" rel="stylesheet" href="/vendor/toastr/toastr.min.css">
+
+  <script type="text/javascript" src="//platform.linkedin.com/in.js">
+      api_key:   78sgej2cnyras9
+  </script>
 </head>
 
 <body class="login" ng-controller="loginCtrl as vm">
+  <script>
+      window.fbAsyncInit = function() {
+          FB.init({
+              appId      : '1492103047481591',
+              cookie     : true,
+              xfbml      : true,
+              version    : 'v2.8'
+          });
+          FB.AppEvents.logPageView();
+      };
+
+      (function(d, s, id){
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) {return;}
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/sdk.js";
+          fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+  </script>
 
   <div id="content">
     <div class="container-fluid">
@@ -34,6 +57,8 @@
             <div ng-show="!showCadastro">
               <a href="" class="btn btn-primary" ng-click="showCadastro=!showCadastro">Cadastre-se!</a>
               <a href="" class="btn btn-primary" ng-click="vm.doLogin(vm.view)">Login <i class="fa fa-fw fa-unlock-alt"></i></a>
+              <a href="" class="btn btn-primary" ng-click="vm.facebookLogin()" style="background-color: #3C5A96; border-color: #3C5A96">Facebook <i class="fa fa-fw fa-facebook"></i></a>
+              <a href="" class="btn btn-primary" ng-click="vm.linkedinLogin()" style="background-color: #1178B3; border-color: #1178B3">LinkedIn <i class="fa fa-fw fa-linkedin"></i></a>
               <a href="" class="forgot-password">Forgot password?</a>
             </div>
             <div ng-show="showCadastro">

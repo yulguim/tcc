@@ -6,10 +6,12 @@ import in.k2s.sdk.web.message.Message;
 import in.k2s.sdk.web.message.MessageSuccess;
 import in.k2s.sdk.web.profile.Profile;
 import in.k2s.sdk.web.validation.ValidationException;
+import me.ulguim.tcc.bean.ArquivoBean;
 import me.ulguim.tcc.bean.MensagemBean;
 import me.ulguim.tcc.bean.NotificationBean;
 import me.ulguim.tcc.entity.*;
 import me.ulguim.tcc.entity.enumeration.AccountProjetoStatus;
+import me.ulguim.tcc.entity.other.Arquivo;
 import me.ulguim.tcc.manager.base.TCCBaseManager;
 import me.ulguim.tcc.parser.ChatParser;
 import me.ulguim.tcc.parser.ContatoParser;
@@ -20,6 +22,7 @@ import me.ulguim.tcc.view.other.SearchView;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -295,6 +298,32 @@ public class ProjetoManager extends TCCBaseManager {
 		}
 
 		return view;
+	}
+
+	/*
+		UPLOAD
+	 */
+
+	public ArquivoBean saveAvatar(Profile profile, ArquivoBean avatar) {
+		Account accountLogadaLoaded = getAccountLogadaLoaded(profile);
+
+		Arquivo arquivo = new Arquivo();
+		arquivo.setCaminho("/");
+		arquivo.setContentType(avatar.getContentType());
+		arquivo.setNome(avatar.getNome());
+		arquivo.setTamanho(avatar.getTamanho());
+		arquivo.setTemporario(false);
+		arquivo = super.save(arquivo, profile);
+
+		//saveArquivoNoDisco(new File(avatarFolder + "/" + arquivo.getNome()), avatar.getArquivo(), false);
+
+		accountLogadaLoaded.setAvatar(arquivo.getChave());
+		accountLogadaLoaded = super.update(accountLogadaLoaded, profile);
+
+		profile.setUsuario(accountLogadaLoaded);
+		super.getProfileSingleton().add(profile);
+
+		return avatar;
 	}
 
 	/*

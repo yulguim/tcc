@@ -13,6 +13,8 @@ public class LoginView extends BaseView {
 	
 	private String password;
 
+	private String facebookToken;
+
 	public LoginView() {
 		
 	}
@@ -39,5 +41,13 @@ public class LoginView extends BaseView {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getFacebookToken() {
+		return facebookToken;
+	}
+
+	public void setFacebookToken(String facebookToken) {
+		this.facebookToken = facebookToken;
 	}
 }

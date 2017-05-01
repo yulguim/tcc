@@ -1,11 +1,15 @@
 package me.ulguim.tcc.manager;
 
+import com.restfb.DefaultFacebookClient;
+import com.restfb.FacebookClient;
+import com.restfb.Parameter;
+import com.restfb.Version;
+import com.restfb.exception.FacebookOAuthException;
+import com.restfb.types.NamedFacebookType;
+import com.restfb.types.User;
 import in.k2s.sdk.springboot.singleton.ProfileSingleton;
 import in.k2s.sdk.util.string.StringUtil;
-import in.k2s.sdk.web.message.Message;
-import in.k2s.sdk.web.message.MessageSeverity;
-import in.k2s.sdk.web.message.MessageSuccess;
-import in.k2s.sdk.web.message.MessageWarning;
+import in.k2s.sdk.web.message.*;
 import in.k2s.sdk.web.profile.Profile;
 import in.k2s.sdk.web.validation.ValidationException;
 import me.ulguim.tcc.bean.HabilidadeBean;
@@ -23,6 +27,7 @@ import me.ulguim.tcc.service.PerfilService;
 import me.ulguim.tcc.view.LocalizacaoView;
 import me.ulguim.tcc.view.OcupacaoView;
 import me.ulguim.tcc.view.PerfilView;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import sun.misc.Perf;
 
@@ -32,6 +37,9 @@ import java.util.List;
 
 @Component
 public class PerfilManager extends TCCBaseManager {
+
+	@Value(value="${facebook.app.secret}")
+	private String facebookSecret;
 
 	@Inject
 	private PerfilService perfilService;
@@ -68,9 +76,13 @@ public class PerfilManager extends TCCBaseManager {
 		view.setName(getAccountLogadaLoaded(profile).getName());
 		view.setLastname(getAccountLogada(profile).getLastname());
 
-		Perfil perfil = getAccountLogadaLoaded(profile).getProfile();
+		Account account = getAccountLogada(profile);
+		Perfil perfil = account.getProfile();
 		if (perfil == null) {
 			view.setHasNoProfile(true);
+
+			//Ver se tem facebook e carregar infos basicas para completar perfil
+			view = checkForFacebookInfo(account, view);
 		} else {
 			view.setAbout(perfil.getAbout());
 			view.setHabilidades(perfil.getHabilidadeList());
@@ -150,6 +162,26 @@ public class PerfilManager extends TCCBaseManager {
 		view.setLocalizacaoNome(view.getLocalizacao().getLabel());
 		view.setOcupacaoNome(view.getOcupacao().getLabel());
 		view.addMessage(new Message("success.save", MessageSeverity.SUCCESS));
+		return view;
+	}
+
+	private PerfilView checkForFacebookInfo(Account account, PerfilView view) {
+		FacebookClient facebookClient = new DefaultFacebookClient(account.getFacebookToken(), facebookSecret, Version.VERSION_2_8);
+		User fbUser = null;
+		try {
+			fbUser = facebookClient.fetchObject("me",
+					User.class, Parameter.with("fields","name,id,email,about,location,work"));
+		} catch (FacebookOAuthException e) {
+			e.printStackTrace();
+		} catch (Throwable t) {
+			t.printStackTrace();
+		}
+
+		view.setAbout("Sobre mim!");
+		NamedFacebookType location = fbUser.getLocation();
+		String locationName = location.getName();
+		view.setLocalizacaoNome(locationName);
+
 		return view;
 	}
 

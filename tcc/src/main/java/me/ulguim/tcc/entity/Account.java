@@ -38,6 +38,12 @@ public class Account extends BaseEntity implements Serializable {
 	
 	private String password;
 
+	@Column(name = "facebook_id")
+	private String facebookId;
+
+	@Column(name = "facebook_token")
+	private String facebookToken;
+
 	@Column(name = "notifications", columnDefinition="TEXT")
 	@Convert(converter = NotificationsConverter.class)
 	private List<NotificationBean> notifications = new ArrayList<>();
@@ -235,6 +241,22 @@ public class Account extends BaseEntity implements Serializable {
 
 	public void addContact(Long id) {
 		this.contactsIdList.add(id);
+	}
+
+	public String getFacebookId() {
+		return facebookId;
+	}
+
+	public void setFacebookId(String facebookId) {
+		this.facebookId = facebookId;
+	}
+
+	public String getFacebookToken() {
+		return facebookToken;
+	}
+
+	public void setFacebookToken(String facebookToken) {
+		this.facebookToken = facebookToken;
 	}
 
 	public boolean contactExists(Long id) {

@@ -13,4 +13,9 @@ public class LoginService extends BaseService {
 		return super.selectFirstByQuery(QUERY, email.toLowerCase(), password);
 	}
 
+	public Account selectByFacebookId(String id) {
+		String QUERY = "SELECT obj FROM Account obj WHERE obj.facebookId = ?1";
+		return super.selectFirstByQuery(QUERY, id);
+	}
+
 }

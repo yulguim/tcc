@@ -147,22 +147,4 @@ public class AccountManager extends TCCBaseManager {
 		if (ex.haveMessages()) throw ex;
 	}
 
-	private File saveArquivoNoDisco(File file, InputStream inputStream, boolean image) {
-		if (image) {
-			//inputStream = imageResizeAndCompress(inputStream, this.maxWidth); // Resize and compress image.
-		}
-		OutputStream outputStream = null;
-		try { //FileNotFoundException
-			file.createNewFile();
-			outputStream = new FileOutputStream(file);
-			IOUtils.copy(inputStream, outputStream);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			IOUtils.closeQuietly(outputStream);
-			IOUtils.closeQuietly(inputStream);
-		}
-		return file;
-	}
-
 }

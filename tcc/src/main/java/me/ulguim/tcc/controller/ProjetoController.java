@@ -2,6 +2,7 @@ package me.ulguim.tcc.controller;
 
 import in.k2s.sdk.springboot.controller.annotation.ControllerSecurity;
 import in.k2s.sdk.web.validation.ValidationException;
+import me.ulguim.tcc.bean.ArquivoBean;
 import me.ulguim.tcc.controller.base.TCCBaseController;
 import me.ulguim.tcc.entity.Projeto;
 import me.ulguim.tcc.manager.PerfilManager;
@@ -10,7 +11,9 @@ import me.ulguim.tcc.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -83,6 +86,21 @@ public class ProjetoController extends TCCBaseController {
 	@RequestMapping(value="/delete-mensagem", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public MensagemView deleteMensagem(@RequestBody MensagemView view) throws ValidationException {
 		return projetoManager.deleteMensagem(getProfile(), view);
+	}
+
+	/** ARQUIVOS **/
+
+	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+	public ArquivoBean uploadFile(@RequestParam(value="file", required=true) MultipartFile file) throws ValidationException, IOException {
+		ArquivoBean bean = new ArquivoBean();
+		bean.setNome(file.getOriginalFilename());
+		bean.setContentType(file.getContentType());
+		bean.setArquivo(file.getInputStream());
+		bean.setTamanho(file.getSize());
+
+
+
+		return bean;
 	}
 
 	public static class MeusProjetosDTO {
