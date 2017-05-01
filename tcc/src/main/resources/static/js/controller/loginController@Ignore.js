@@ -44,10 +44,15 @@ app.controller("loginCtrl", ['$location', 'loginService', function ($location, l
     }
 
     function linkedinLogin() {
-		console.log("LinkedIn!");
         IN.User.authorize(function(response) {
         	console.log(response);
-        	console.log("ok!");
+            IN.API.Raw("/people/~").result(function(data) {
+            	console.log("deu bom!!!");
+            	console.log(data);
+			}).error(function(error) {
+				console.log("deu ruim!!!");
+				console.log(error);
+			});
 		}, null);
     };
 
