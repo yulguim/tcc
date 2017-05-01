@@ -147,4 +147,58 @@ public class LoginManager extends TCCBaseManager {
 		return profile;
 	}
 
+	public Profile linkedinLogin(LoginView view) throws ValidationException {
+		Account account = loginService.selectByLinkedinId(view.getLinkedinId());
+
+		//Nao existe conta vinculada com id
+		if (account == null) {
+			account = accountService.selectByEmail(view.getEmail());
+			if (account != null) {
+				//Existe conta com email do linkedin, soh vincula
+				account.setLinkedinId(view.getLinkedinId());
+				account = super.update(account);
+			} else {
+				//Criar conta nova
+				account = new Account();
+				account.setEmail(view.getEmail());
+				account.setPassword(SequenceGenerator.generateUUID());
+				account.setName(view.getFirstName());
+				account.setLastname(view.getLastName());
+				account.setLinkedinId(view.getLinkedinId());
+				account.setExtraParams(new ExtraParamsBean());
+				account = super.save(account);
+			}
+		}
+
+		if (view.getPictureUrl() != null) {
+			try {
+				HttpClient client = HttpClients.custom().build();
+				HttpGet httpget = new HttpGet(view.getPictureUrl());
+				HttpResponse response = client.execute(httpget);
+				InputStream inputStream = response.getEntity().getContent();
+
+				Arquivo arquivo = new Arquivo();
+				arquivo.setCaminho("/");
+				arquivo.setContentType(null);
+				arquivo.setNome(SequenceGenerator.generateUUID());
+				arquivo.setTamanho(new Long(inputStream.available()));
+				arquivo.setTemporario(false);
+				arquivo = super.save(arquivo);
+
+				saveArquivoNoDisco(new File(avatarFolder + "/" + arquivo.getNome()), inputStream, false);
+
+				account.setAvatar(arquivo.getChave());
+				account = super.update(account);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		Profile profile = new ProfileBean();
+		profile.setUsuario(account);
+		profile.addParam("cookie", CookieHelper.generateCookie(String.valueOf(account.getChave())));
+
+		return profile;
+	}
+
 }

@@ -15,6 +15,16 @@ public class LoginView extends BaseView {
 
 	private String facebookToken;
 
+	//Linkedin "id", "firstName", "lastName", "email-address", "location", "summary", "specialties", "picture-url"
+
+	private String linkedinId;
+
+	private String firstName;
+
+	private String lastName;
+
+	private String pictureUrl;
+
 	public LoginView() {
 		
 	}
@@ -49,5 +59,37 @@ public class LoginView extends BaseView {
 
 	public void setFacebookToken(String facebookToken) {
 		this.facebookToken = facebookToken;
+	}
+
+	public String getLinkedinId() {
+		return linkedinId;
+	}
+
+	public void setLinkedinId(String linkedinId) {
+		this.linkedinId = linkedinId;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getPictureUrl() {
+		return pictureUrl;
+	}
+
+	public void setPictureUrl(String pictureUrl) {
+		this.pictureUrl = pictureUrl;
 	}
 }

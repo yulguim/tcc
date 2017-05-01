@@ -9,6 +9,10 @@ app.factory('loginService', ['ajaxService', function(ajaxService) {
         return ajaxService.post(_pageUrl+"/facebook-login", view);
     }
 
+    var _linkedinLogin = function(view) {
+        return ajaxService.post(_pageUrl+"/linkedin-login", view);
+    }
+
 	var _cadastrar = function(view) {
 		return ajaxService.post(_pageUrl+"/signin", view);
 	}
@@ -16,6 +20,7 @@ app.factory('loginService', ['ajaxService', function(ajaxService) {
 	return {
 		doLogin: _doLogin,
 		facebookLogin: _facebookLogin,
+        linkedinLogin : _linkedinLogin,
 		cadastrar: _cadastrar
 	}
 	

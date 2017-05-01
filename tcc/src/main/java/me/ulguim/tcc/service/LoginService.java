@@ -18,4 +18,9 @@ public class LoginService extends BaseService {
 		return super.selectFirstByQuery(QUERY, id);
 	}
 
+	public Account selectByLinkedinId(String id) {
+		String QUERY = "SELECT obj FROM Account obj WHERE obj.linkedinId = ?1";
+		return super.selectFirstByQuery(QUERY, id);
+	}
+
 }

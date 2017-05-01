@@ -82,7 +82,9 @@ public class PerfilManager extends TCCBaseManager {
 			view.setHasNoProfile(true);
 
 			//Ver se tem facebook e carregar infos basicas para completar perfil
-			view = checkForFacebookInfo(account, view);
+			if (account.getFacebookId() != null) {
+				view = checkForFacebookInfo(account, view);
+			}
 		} else {
 			view.setAbout(perfil.getAbout());
 			view.setHabilidades(perfil.getHabilidadeList());

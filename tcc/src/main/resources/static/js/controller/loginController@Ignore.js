@@ -44,15 +44,27 @@ app.controller("loginCtrl", ['$location', 'loginService', function ($location, l
     }
 
     function linkedinLogin() {
-        IN.User.authorize(function(response) {
-        	console.log(response);
-            IN.API.Raw("/people/~").result(function(data) {
-            	console.log("deu bom!!!");
-            	console.log(data);
-			}).error(function(error) {
-				console.log("deu ruim!!!");
-				console.log(error);
-			});
+        IN.User.authorize(function() {
+            IN.API.Profile("me")
+                .fields("id", "firstName", "lastName", "email-address", "location", "summary", "specialties", "picture-url")
+                .result(function(data) {
+                	var data = data.values[0];
+                	var loginView = {
+						linkedinId: data.id,
+                        email: data.emailAddress,
+                        firstName: data.firstName,
+                        lastName: data.lastName,
+                        pictureUrl: data.pictureUrl
+					};
+                	loginService.linkedinLogin(loginView).success(function(view) {
+                        if (view.hasNoProfile) {
+                            window.location = '/#/profile-edit';
+                        } else {
+                            //Redirect para home
+                            window.location = '/#/my-projects';
+                        }
+					});
+				});
 		}, null);
     };
 

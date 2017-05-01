@@ -82,6 +82,24 @@ public class LoginController extends TCCBaseController {
 		return perfilView;
 	}
 
+	@RequestMapping(value="/linkedin-login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public @ResponseBody PerfilView linkedInLogin(@RequestBody LoginView view, HttpServletResponse response) throws ValidationException {
+		Profile profile = loginManager.linkedinLogin(view);
+		response.addCookie(createCookie(profile));
+
+		Account account = profile.getUsuario();
+		PerfilView perfilView = new PerfilView();
+		perfilView.setAvatar(account.getAvatar());
+		perfilView.setUsername(account.getUsername());
+		perfilView.setName(account.getName());
+		if (account.getProfile() == null) {
+			perfilView.setHasNoProfile(true);
+		}
+
+		profileSingleton.add(profile);
+		return perfilView;
+	}
+
 	@RequestMapping(value="/logoff", method = RequestMethod.GET)
 	public String logoff(HttpServletRequest request, HttpServletResponse response) throws ValidationException {
 		Cookie[] cookies = request.getCookies();

@@ -44,6 +44,9 @@ public class Account extends BaseEntity implements Serializable {
 	@Column(name = "facebook_token")
 	private String facebookToken;
 
+	@Column(name = "linkedin_id")
+	private String linkedinId;
+
 	@Column(name = "notifications", columnDefinition="TEXT")
 	@Convert(converter = NotificationsConverter.class)
 	private List<NotificationBean> notifications = new ArrayList<>();
@@ -257,6 +260,14 @@ public class Account extends BaseEntity implements Serializable {
 
 	public void setFacebookToken(String facebookToken) {
 		this.facebookToken = facebookToken;
+	}
+
+	public String getLinkedinId() {
+		return linkedinId;
+	}
+
+	public void setLinkedinId(String linkedinId) {
+		this.linkedinId = linkedinId;
 	}
 
 	public boolean contactExists(Long id) {
