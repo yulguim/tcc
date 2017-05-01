@@ -22,7 +22,6 @@ public class PerfilController extends TCCBaseController {
 
 	@RequestMapping(value="/{key}", method = RequestMethod.GET)
 	public PerfilView load(@PathVariable("key") String key) throws ValidationException {
-		System.out.println("key = " + key);
 		PerfilView view = new PerfilView();
 		view.setKey(key);
 		return perfilManager.load(getProfile(), view);

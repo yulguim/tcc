@@ -5,6 +5,9 @@ import in.k2s.sdk.web.view.parse.BaseParser;
 import me.ulguim.tcc.entity.Account;
 import me.ulguim.tcc.entity.Perfil;
 import me.ulguim.tcc.entity.Post;
+import me.ulguim.tcc.entity.location.Cidade;
+import me.ulguim.tcc.view.LocalizacaoView;
+import me.ulguim.tcc.view.OcupacaoView;
 import me.ulguim.tcc.view.PerfilView;
 import me.ulguim.tcc.view.PostView;
 
@@ -19,6 +22,18 @@ public class PerfilParser extends BaseParser {
 		view.setLabel(entity.getLabel());
 		if (account != null) {
 			view.setAvatar(account.getAvatar());
+		}
+		view.setAbout(entity.getAbout());
+		view.setHabilidades(entity.getHabilidadeList());
+		view.setLinks(entity.getSocialNetworkList());
+		if (entity.getOcupacao() != null) {
+			view.setOcupacao(new OcupacaoView(entity.getOcupacao().getId(), entity.getOcupacao().getLabel()));
+			view.setOcupacaoNome(entity.getOcupacao().getLabel());
+		}
+		if (entity.getCidade() != null) {
+			Cidade c = entity.getCidade();
+			view.setLocalizacao(new LocalizacaoView(c.getId(), c.getNome() + ", " + c.getEstado().getSigla()));
+			view.setLocalizacaoNome(c.getNome() + ", " + c.getEstado().getSigla());
 		}
 
 		return view;

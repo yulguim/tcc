@@ -24,6 +24,7 @@ public class Perfil extends BaseEntity implements Serializable {
 	@Id
 	private Long id;
 
+	@Column(columnDefinition="TEXT")
 	private String about;
 
 	@OneToOne
