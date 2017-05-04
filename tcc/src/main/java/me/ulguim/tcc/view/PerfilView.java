@@ -35,6 +35,8 @@ public class PerfilView extends BaseView {
 
 	private List<SocialNetworkBean> links;
 
+	private List<ProjetoSimpleView> projetos;
+
 	//Extras
 
 	private String key;
@@ -195,5 +197,13 @@ public class PerfilView extends BaseView {
 
 	public void setOcupacaoNome(String ocupacaoNome) {
 		this.ocupacaoNome = ocupacaoNome;
+	}
+
+	public List<ProjetoSimpleView> getProjetos() {
+		return projetos;
+	}
+
+	public void setProjetos(List<ProjetoSimpleView> projetos) {
+		this.projetos = projetos;
 	}
 }

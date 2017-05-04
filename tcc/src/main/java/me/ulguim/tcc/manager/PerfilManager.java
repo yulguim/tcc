@@ -8,6 +8,7 @@ import com.restfb.exception.FacebookOAuthException;
 import com.restfb.types.NamedFacebookType;
 import com.restfb.types.User;
 import in.k2s.sdk.springboot.singleton.ProfileSingleton;
+import in.k2s.sdk.util.data.DataUtil;
 import in.k2s.sdk.util.string.StringUtil;
 import in.k2s.sdk.web.message.*;
 import in.k2s.sdk.web.profile.Profile;
@@ -16,17 +17,16 @@ import me.ulguim.tcc.bean.HabilidadeBean;
 import me.ulguim.tcc.entity.Account;
 import me.ulguim.tcc.entity.Ocupacao;
 import me.ulguim.tcc.entity.Perfil;
+import me.ulguim.tcc.entity.Projeto;
 import me.ulguim.tcc.entity.location.Cidade;
 import me.ulguim.tcc.entity.other.Habilidade;
 import me.ulguim.tcc.manager.base.TCCBaseManager;
 import me.ulguim.tcc.parser.PerfilParser;
-import me.ulguim.tcc.service.AccountService;
-import me.ulguim.tcc.service.HabilidadeService;
-import me.ulguim.tcc.service.OcupacaoService;
-import me.ulguim.tcc.service.PerfilService;
+import me.ulguim.tcc.service.*;
 import me.ulguim.tcc.view.LocalizacaoView;
 import me.ulguim.tcc.view.OcupacaoView;
 import me.ulguim.tcc.view.PerfilView;
+import me.ulguim.tcc.view.ProjetoSimpleView;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import sun.misc.Perf;
@@ -52,6 +52,9 @@ public class PerfilManager extends TCCBaseManager {
 
 	@Inject
 	private OcupacaoService ocupacaoService;
+
+	@Inject
+	private ProjetoService projetoService;
 
 	public List<HabilidadeBean> listHabilidades(Profile profile) {
 		List<Habilidade> habilidadeList = habilidadeService.selectAll();
@@ -122,6 +125,31 @@ public class PerfilManager extends TCCBaseManager {
 		} else if (accountLogadaLoaded.getExtraParams().existsRequest(account.getId())) { //Ver se tem request do user para mim
 			view.setRequestedByUser(true);
 		}
+
+		//Projetos
+		List<ProjetoSimpleView> projetos = new ArrayList<>();
+
+		List<Projeto> meusProjetos = projetoService.selectAllByAccountId(account.getId());
+		if (meusProjetos != null && !meusProjetos.isEmpty()) {
+			meusProjetos.forEach(p -> {
+				ProjetoSimpleView pView = new ProjetoSimpleView(p.getId(), p.getChave(), p.getTitulo());
+				pView.setDescricao(p.getDescricao().length() < 50 ? p.getDescricao() : p.getDescricao().substring(0, 50) + "...");
+				pView.setInsertTime(DataUtil.format(p.getInsertTime(), "dd/MM/yyyy"));
+				projetos.add(pView);
+			});
+		}
+
+		List<Projeto> projetosQueParticipo = projetoService.selectAllQueParticipoByAccountId(account.getId());
+		if (projetosQueParticipo != null && !projetosQueParticipo.isEmpty()) {
+			projetosQueParticipo.forEach(p -> {
+				ProjetoSimpleView pView = new ProjetoSimpleView(p.getId(), p.getChave(), p.getTitulo());
+				pView.setDescricao(p.getDescricao().length() < 50 ? p.getDescricao() : p.getDescricao().substring(0, 50) + "...");
+				pView.setInsertTime(DataUtil.format(p.getInsertTime(), "dd/MM/yyyy"));
+				projetos.add(pView);
+			});
+		}
+
+		view.setProjetos(projetos);
 
 		return view;
 	}

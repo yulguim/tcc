@@ -26,6 +26,12 @@ public class ProjetoSimpleView extends BaseView {
 
 	private String ownerAvatar;
 
+	//Extras
+
+	private String descricao;
+
+	private String insertTime;
+
 	public ProjetoSimpleView() {
 
 	}
@@ -90,5 +96,21 @@ public class ProjetoSimpleView extends BaseView {
 
 	public void setOwnerAvatar(String ownerAvatar) {
 		this.ownerAvatar = ownerAvatar;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getInsertTime() {
+		return insertTime;
+	}
+
+	public void setInsertTime(String insertTime) {
+		this.insertTime = insertTime;
 	}
 }

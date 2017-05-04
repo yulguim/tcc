@@ -38,7 +38,7 @@ public class SocialNetworkBean extends BaseBean {
 	}
 
 	public enum Label {
-		FACEBOOK("Facebook"), LINKED_IN("LinkedIn"), TWITTER("Twitter");
+		FACEBOOK("Facebook"), LINKED_IN("LinkedIn"), TWITTER("Twitter"), OTHER("Other");
 
 		private final String name;
 
