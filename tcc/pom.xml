@@ -5,7 +5,7 @@
 
 	<groupId>me.ulguim</groupId>
 	<artifactId>tcc</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>v1</version>
 	<packaging>jar</packaging>
 
 	<name>TCC</name>
