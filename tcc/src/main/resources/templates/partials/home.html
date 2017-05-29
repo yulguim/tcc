@@ -1,9 +1,46 @@
 <div class="container">
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2" style="margin-top: 5px;">
-			<post-editor></post-editor>
-			<div class="clearfix">&nbsp;</div>
-			<timeline posts="'aqui vai os posts'"></timeline>
+	<div class="jumbotron bg-transparent text-center margin-none">
+		<h1 style="font-size: 32px;">Projetos</h1>
+		<p>Aqui são exibidos projetos de acordo com o seu perfil. Mas fique à vontade para utilizar a busca e encontrar projetos de todo os tipos. </p>
+	</div>
+	<div class="row" data-toggle="isotope">
+		<div class="col-md-6 col-lg-4 item" ng-repeat="p in vm.projects" style="margin-bottom: 5px;">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="media">
+						<div class="pull-left">
+							<img ng-if="!p.avatar" src="images/no_avatar.png" width="50" alt="people" class="media-object img-circle" />
+							<img ng-if="p.avatar" ng-src="/account/avatar/{{p.avatar}}" alt="people" class="media-object img-circle" />
+						</div>
+						<div class="media-body">
+							<h4 class="media-heading margin-v-5"><a href="/#/projeto/{{p.key}}">{{p.titulo}}</a></h4>
+							<div class="profile-icons">
+								<span><i class="fa fa-users"></i> {{vm.participantes != undefined ? vm.participantes : 'Nenhum participante'}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<p class="common-friends">Participantes</p>
+					<div class="user-friend-list">
+						<a href="#">
+							<img src="images/people/50/guy-3.jpg" alt="people" class="img-circle" />
+						</a>
+						<a href="#">
+							<img src="images/people/50/guy-4.jpg" alt="people" class="img-circle" />
+						</a>
+						<a href="#">
+							<img src="images/people/50/woman-3.jpg" alt="people" class="img-circle" />
+						</a>
+						<a href="#">
+							<img src="images/people/50/woman-4.jpg" alt="people" class="img-circle" />
+						</a>
+					</div>
+				</div>
+				<div class="panel-footer">
+					<a href="/#/projeto/{{p.key}}" class="btn btn-default btn-sm">Ir para página do projeto <i class="fa fa-share"></i></a>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

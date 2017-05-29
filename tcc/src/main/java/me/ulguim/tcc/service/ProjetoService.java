@@ -10,6 +10,11 @@ import java.util.List;
 @Service
 public class ProjetoService extends BaseService {
 
+	public List<Projeto> selectAll() {
+		String QUERY = "SELECT obj FROM Projeto obj ORDER BY obj.titulo ASC";
+		return super.selectByQuery(QUERY);
+	}
+
 	public List<Projeto> selectAllByAccountId(Long id) {
 		String QUERY = "SELECT obj FROM Projeto obj WHERE obj.owner.id = ?1";
 		return super.selectByQuery(QUERY, id);
