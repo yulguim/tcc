@@ -1,7 +1,8 @@
 app.controller("loginCtrl", ['$location', 'loginService', function ($location, loginService) {
 	var vm = this;
 
-	vm.view = {email: 'yulguim@gmail.com', password: '123mudar'};
+	vm.view = {};
+	//vm.view = {email: 'yulguim@gmail.com', password: '123mudar'};
 
 	//functions
 	vm.doLogin = doLogin;
