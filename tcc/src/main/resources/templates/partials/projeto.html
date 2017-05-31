@@ -56,6 +56,22 @@
 			</div>
 		</div>
 
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading panel-heading-gray">
+						<a href="#" class="btn btn-white btn-xs pull-right"><i class="fa fa-pencil"></i></a>
+						<i class="fa fa-fw fa-info-circle"></i> Links Externos
+					</div>
+					<div class="panel-body">
+						<p ng-repeat="link in vm.view.links">
+							{{link.description}} - <a ng-href="{{link.url}}" target="_blank">{{link.url}}</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div class="timeline row" data-toggle="isotope">
 			<div class="col-md-12 item">
 				<div class="timeline-block">

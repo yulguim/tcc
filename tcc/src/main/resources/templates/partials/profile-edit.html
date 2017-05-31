@@ -2,7 +2,7 @@
     <div class="jumbotron bg-transparent text-center margin-none">
         <h1 ng-if="vm.view.hasNoProfile" style="font-size: 32px;">{{'COMPLETE.SEU.PERFIL' | translate}}</h1>
         <h1 ng-if="!vm.view.hasNoProfile" style="font-size: 32px;">{{'EDITAR.PERFIL' | translate}}</h1>
-        <p>ThemeKit includes all the form controls shipped with Bootstrap, as well as custom form components that cover various usage scenarios, all themed for modern websites.</p>
+        <p>Edite as informações que vão aparecer no seu perfil público.</p>
     </div>
 
     <div class="page-section">
@@ -11,7 +11,7 @@
 
                 <form name="myForm">
                     <button ngf-select ng-model="picFile" accept="image/*">Select Picture</button>
-                    <div ngf-drop ng-model="picFile" ngf-pattern="image/*" class="cropArea">
+                    <div ngf-drop ng-model="picFile" ngf-pattern="image/*" class="cropArea" style="width: 700px;">
                         <img-crop image="picFile | ngfDataUrl" result-image="croppedDataUrl" ng-init="croppedDataUrl=''">
                         </img-crop>
                     </div>
@@ -26,7 +26,7 @@
                     <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
                 </form>
 
-                <h4 class="page-section-heading">Basic example</h4>
+                <h4 class="page-section-heading">Seu perfil</h4>
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <form>

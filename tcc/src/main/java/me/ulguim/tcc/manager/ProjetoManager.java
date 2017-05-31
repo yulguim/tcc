@@ -100,9 +100,9 @@ public class ProjetoManager extends TCCBaseManager {
 			}
 		}
 
-		//carregar dados privados do projeto TODO
+		//carregar dados privados do projeto
 		if (view.getMeuProjeto() || view.getSouParticipante()) {
-
+			view.setLinks(entity.getLinksExternos());
 		}
 
 		return view;

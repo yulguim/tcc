@@ -32,13 +32,13 @@
 				</li>
 				<li class="active"><a ng-href="/#/profile/{{vm.view.key}}"><i class="fa fa-fw icon-user-1"></i> About</a></li>
 				<li><a href=""><i class="fa fa-fw fa-users"></i> Friends</a></li>
-				<li><a href=""><i class="fa fa-fw fa-file"></i> Projects</a></li>
+				<!--<li><a href=""><i class="fa fa-fw fa-file"></i> Projects</a></li>-->
 			</ul>
 		</div>
 	</div>
-	<div class="panel panel-default share">
-		{{vm.view}}
-	</div>
+	<!--<div class="panel panel-default share">-->
+		<!--{{vm.view}}-->
+	<!--</div>-->
 	<div class="panel panel-default share" ng-if="!vm.view.isMyProfile">
 		<div class="input-group">
 			<div class="input-group-btn">
@@ -91,12 +91,6 @@
 								<div class="col-sm-8">{{vm.view.localizacao.label}}</div>
 							</div>
 						</li>
-						<li class="padding-v-5">
-							<div class="row">
-								<div class="col-sm-4"><span class="text-muted">Credits</span></div>
-								<div class="col-sm-8">249</div>
-							</div>
-						</li>
 					</ul>
 				</div>
 			</div>
@@ -120,7 +114,7 @@
 									</span>
 								</div>
 								<div class="col-sm-10">
-									<span><a href="" ng-href="{{link.url}}">{{link.url}}</a></span>
+									<span><a href="" ng-href="{{link.url}}" target="_blank">{{link.url}}</a></span>
 								</div>
 							</div>
 						</li>
@@ -145,14 +139,14 @@
 								<small><i class="fa fa-calendar"></i> {{projeto.insertTime}}</small>
 							</div>
 						</div>
-						<a href="#">
-							<img src="images/place1-full.jpg" alt="image" class="img-responsive" />
-						</a>
+						<!--<a href="#">-->
+							<!--<img src="images/place1-full.jpg" alt="image" class="img-responsive" />-->
+						<!--</a>-->
 						<div class="panel-body">
 							<p>{{projeto.descricao}}</p>
 							<div>
 								<div class="pull-right">
-									<a href="" ng-href="/#/projeto/{{projeto.key}}" class="btn btn-primary btn-xs">página do projeto</a>
+									<a href="" ng-href="/#/projeto/{{projeto.key}}" class="btn btn-primary btn-xs">see project page</a>
 								</div>
 
 								<a href="" class="text-muted"> <i class="fa fa-users"></i> {{projeto.participantes != null ? projeto.participantes : 0}}</a>
